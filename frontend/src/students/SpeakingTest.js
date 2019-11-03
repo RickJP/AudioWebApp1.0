@@ -18,7 +18,7 @@ const useAudio = url => {
 };
 
 const SpeakingTest = () => {
-  const url = 'http://localhost:8000/api/playAudio';
+  const url = 'http://english4all.live/api/playAudio';
   const [playing, toggle] = useAudio(url);
 
   return (

@@ -62,7 +62,7 @@ class Recorder extends Component {
     data.append('soundBlob', audio, 'test' + '.wav');
     // http.request('POST', 'http://localhost:8000/api/upload', true);
     // http.send(fd);
-    const url = 'http://localhost:8000/api/upload';
+    const url = 'https://english4all.live/api/upload';
     let config = {
       header : {
         'Content-Type' : 'multipart/form-data'
