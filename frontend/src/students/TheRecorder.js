@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import RecorderJS from 'recorder-js';
 import axios from 'axios';
-
+import { isAuthenticated } from "../auth";
 import {getAudioStream, exportBuffer} from './audio';
+import moment from 'moment';
+import slugify from 'slugify';
 
 class Recorder extends Component {
   constructor(props) {
@@ -55,14 +57,24 @@ class Recorder extends Component {
     const {buffer} = await recorder.stop();
     const audio = exportBuffer(buffer[0]);
 
+    const {
+      user: { name , _id}
+    } = isAuthenticated();
+    let nameSlug = slugify(name, {
+      replacement: '-',    // replace spaces with replacement
+      remove: null,        // regex to remove characters
+      lower: true,         // result in lower case
+    });
+    let dateTimeStamp = moment().format("YYYY_MM_ddd_hh-mm-ss-a");
+    console.log(`${_id}_${nameSlug}`);
+    console.log(dateTimeStamp);
+
     // Process the audio here.
     console.log(audio);
 
     let data = new FormData();
-    data.append('soundBlob', audio, 'test' + '.wav');
-    // http.request('POST', 'http://localhost:8000/api/upload', true);
-    // http.send(fd);
-    const url = 'https://english4all.live/api/upload';
+    data.append('soundBlob', audio);
+    const url = `https://english4all.live/api/upload/${nameSlug}/${dateTimeStamp}`;
     let config = {
       header : {
         'Content-Type' : 'multipart/form-data'
@@ -101,3 +113,4 @@ class Recorder extends Component {
 }
 
 export default Recorder;
+

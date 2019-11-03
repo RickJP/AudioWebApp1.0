@@ -3,6 +3,7 @@ import Layout from '../core/Layout';
 import './styles/style.css';
 
 import Recorder from './TheRecorder';
+import { isAuthenticated } from "../auth";
 
 const useAudio = url => {
   const [audio] = useState(new Audio(url));
@@ -18,7 +19,13 @@ const useAudio = url => {
 };
 
 const SpeakingTest = () => {
-  const url = 'http://english4all.live/api/playAudio';
+
+  const {
+    user: { name }
+  } = isAuthenticated();
+  const audioFile = 'intro.mp3'
+
+  const url = `http://localhost:8000/api/playAudio/${audioFile}`;
   const [playing, toggle] = useAudio(url);
 
   return (
@@ -32,9 +39,11 @@ const SpeakingTest = () => {
       <button id="play" onClick={toggle}>{playing ? 'Pause' : 'Play'}</button>
       <br/>
       <Recorder />
+      
 
     </Layout>
   );
 };
 
 export default SpeakingTest;
+
