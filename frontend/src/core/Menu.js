@@ -98,14 +98,14 @@ const Menu = ({history}) => (
           <li className="nav-item">
             <Link
               className="nav-link"
-              style={isActive(history, '/playAudio')}
-              to="/playAudio"
+              style={isActive(history, '/speakingTest')}
+              to="/speakingTest"
             >
-              Play Audio
+              AUDIO
             </Link>
           </li>
 
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link
               className="nav-link"
               style={isActive(history, '/recordAudio')}
@@ -113,17 +113,7 @@ const Menu = ({history}) => (
             >
               Record Audio
             </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              style={isActive(history, '/rec')}
-              to="/rec"
-            >
-              REC
-            </Link>
-          </li>
+          </li> */}
 
           <li className="nav-item">
             <span

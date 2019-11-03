@@ -44,14 +44,34 @@ button {
   padding-left: 0 20px 0 20px;
 }
 
+#play {
+  background-color: rgb(15, 146, 54);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px #999;
+}
 
+#play:active {
+  background-color: #3e8e41;
+  box-shadow: 0 4px #666;
+  transform: translateY(3px);
+}
+
+#play:hover {
+  background-color: rgb(11, 105, 39);
+  height: 3.1rem;
+}
+
+
+
+/* 
 #uploadButton {
   background-color: green;
   border: 0.8rem solid;
   padding: 2.5rem;
   align-items: center;
   margin-left: 6rem;
-}
+} */
 
 button:hover, button:focus {
   outline: none;

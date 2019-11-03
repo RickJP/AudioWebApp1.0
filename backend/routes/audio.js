@@ -4,8 +4,9 @@ const multer = require('multer');
 const upload = multer();
 
 //const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
-const { saveAudio } = require('../controllers/audio');
+const { playAudio, saveAudio } = require('../controllers/audio');
 
 router.post('/upload', upload.single('soundBlob'), saveAudio)
+router.get('/playAudio', playAudio);
 
 module.exports = router;

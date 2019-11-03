@@ -3,19 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "braintree-web": "^3.45.0",
-    "braintree-web-drop-in-react": "^1.0.7",
+    "axios": "^0.19.0",
+    "http": "0.0.0",
     "moment": "^2.24.0",
     "query-string": "^6.5.0",
     "react": "^16.8.6",
-    "react-audio-recorder": "^2.2.0",
     "react-dom": "^16.8.6",
-    "react-mic": "^12.4.1",
-    "react-mp3-recorder": "^1.1.2",
-    "react-raw-recorder": "^2.0.0",
-    "react-recorder": "^1.0.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "recorder-js": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
