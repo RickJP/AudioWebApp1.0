@@ -21,7 +21,7 @@ const app = express();
 
 // db
 mongoose
-    .connect(process.env.MONGO_DB, {
+    .connect(process.env.DATABASE, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true

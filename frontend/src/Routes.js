@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Signup from "./user/Signup";
 import Signin from "./user/Signin";
-import SpeakingTest from "./students/SpeakingTest";
+import SpeakingTest from "./studentTests/SpeakingTest";
 
 import Home from "./core/Home";
 import PrivateRoute from "./auth/PrivateRoute";
@@ -24,14 +24,12 @@ const Routes = () => {
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/shop" exact component={Shop} />
+                {/* <Route path="/shop" exact component={Shop} /> */}
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />
                
-                {/* <PrivateRoute path="/playAudio" exact component={PlayAudio} /> */}
-                {/* <PrivateRoute path="/recordAudio" exact component={RecordAudio} /> */}
                 <PrivateRoute path="/speakingTest" exact component={SpeakingTest} />
-                {/* <PrivateRoute path="/rec" exact component={Rec} /> */}
+               
                 <PrivateRoute
                     path="/user/dashboard"
                     exact
@@ -51,9 +49,9 @@ const Routes = () => {
                     path="/create/product"
                     exact
                     component={AddProduct}
-                /> */}
+                /> 
                 <Route path="/product/:productId" exact component={Product} />
-                <Route path="/cart" exact component={Cart} />
+                {/* <Route path="/cart" exact component={Cart} /> */}
                 <AdminRoute path="/admin/orders" exact component={Orders} />
                 <PrivateRoute
                     path="/profile/:userId"
@@ -73,6 +71,6 @@ const Routes = () => {
             </Switch>
         </BrowserRouter>
     );
-};
+}
 
 export default Routes;

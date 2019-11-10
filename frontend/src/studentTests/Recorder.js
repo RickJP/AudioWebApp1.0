@@ -30,9 +30,12 @@ class Recorder extends Component {
     }
 
     this.setState({stream});
+
+
   }
 
   startRecord() {
+    console.log('RECORDING....');
     const {stream} = this.state;
 
     const audioContext = new (window.AudioContext ||
@@ -51,30 +54,34 @@ class Recorder extends Component {
     );
   }
 
-  async stopRecord() {
-    const {recorder} = this.state;
-
-    const {buffer} = await recorder.stop();
-    const audio = exportBuffer(buffer[0]);
-
+  createUserSlug = () => {
     const {
-      user: { name , _id}
+      user: { name}
     } = isAuthenticated();
-    let nameSlug = slugify(name, {
+    return slugify(name, {
       replacement: '-',    // replace spaces with replacement
       remove: null,        // regex to remove characters
       lower: true,         // result in lower case
     });
-    let dateTimeStamp = moment().format("YYYY_MM_ddd_hh-mm-ss-a");
-    console.log(`${_id}_${nameSlug}`);
-    console.log(dateTimeStamp);
+  }
 
-    // Process the audio here.
-    console.log(audio);
+  createDateTimeStamp = () => {
+    return moment().format("YYYY_MM_ddd_hh-mm-ss-a");
+  }
+
+
+  async stopRecord() {
+    const {recorder} = this.state;
+    const {buffer} = await recorder.stop();
+    const audio = exportBuffer(buffer[0]);
+
+    const userSlug = this.createUserSlug();
+    const dtStamp = this.createDateTimeStamp();
 
     let data = new FormData();
     data.append('soundBlob', audio);
-    const url = `https://english4all.live/api/upload/${nameSlug}/${dateTimeStamp}`;
+    // const url = `https://english4all.live/api/upload/${nameSlug}/${dateTimeStamp}`;
+    const url = `http://localhost:8000/api/upload/${userSlug}/${dtStamp}`;
     let config = {
       header : {
         'Content-Type' : 'multipart/form-data'
@@ -101,15 +108,17 @@ class Recorder extends Component {
     }
 
     return (
+     
       <button
         onClick={() => {
           recording ? this.stopRecord() : this.startRecord();
+          console.log('RECORDING....')
         }}
       >
-        {recording ? 'Stop' : 'Start'}
+        {recording ? 'Stop' : 'Rec'}
       </button>
-    );
-  }
+    )
+    }
 }
 
 export default Recorder;
