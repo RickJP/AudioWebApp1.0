@@ -75,9 +75,9 @@
  */
 
 .jumbotron {
-    height: 180px;
+    height: 140px;
     color: #fff;
-    background: linear-gradient(-45deg, #3632fa, #12b4ff, #23a6d5, #1427cf);
+    background: linear-gradient(-45deg, #181829, #1c272c, #1f333a, #1e1f2e);
     background-size: 400% 400%;
     -webkit-animation: Gradient 15s ease infinite;
     -moz-animation: Gradient 15s ease infinite;
@@ -119,3 +119,14 @@
         background-position: 0% 50%;
     }
 }
+
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+  }

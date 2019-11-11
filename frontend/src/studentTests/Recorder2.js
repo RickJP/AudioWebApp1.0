@@ -6,13 +6,15 @@ import {getAudioStream, exportBuffer} from './audio';
 import moment from 'moment';
 import slugify from 'slugify';
 
-class Recorder extends Component {
+
+class Recorder2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       stream: null,
       recording: false,
-      recorder: null
+      recorder: null,
+      test: false
     };
     this.startRecord = this.startRecord.bind(this);
     this.stopRecord = this.stopRecord.bind(this);
@@ -31,12 +33,12 @@ class Recorder extends Component {
 
     this.setState({stream});
 
-
+    //this.startRecord();
   }
 
   startRecord() {
     console.log('RECORDING....');
-    const { test } = this.state;
+    const {test} = this.state;
     console.log(test);
     const {stream} = this.state;
 
@@ -110,17 +112,18 @@ class Recorder extends Component {
     }
 
     return (
-     
-      <button
-        onClick={() => {
-          recording ? this.stopRecord() : this.startRecord();
-        }}
-      >
-        {recording ? 'Stop' : 'Rec'}
-      </button>
+      <div></div>
+      // <button
+      //   onClick={() => {
+      //     recording ? this.stopRecord() : this.startRecord();
+      //     console.log('RECORDING....')
+      //   }}
+      // >
+      //   {recording ? 'Stop' : 'Rec'}
+      // </button>
     )
     }
 }
 
-export default Recorder;
+export default Recorder2;
 
