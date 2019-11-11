@@ -32,6 +32,7 @@ const SpeakingTest = () => {
   const [filesPlayed] = useState([0,0,0]);
   const [nextTrack, setNextTrack] = useState(false);
   const [hidePlayer, setHidePlayer] = useState(false);
+  const [text, setText] = useState(['Task One', 'Task Two', 'Task Three'])
 
   const incTrack = () => {
     console.log(filesPlayed);
@@ -68,6 +69,13 @@ const SpeakingTest = () => {
   const url = `http://localhost:8000/api/playAudio/${audioFile}.wav`;
   // const [playing, toggle] = useAudio(url);
 
+  const showText = (trackNo) => {
+    return (
+      <div>
+        {text[trackNo]}
+      </div>
+    )
+  }
 
   return (
     <Layout
@@ -79,7 +87,7 @@ const SpeakingTest = () => {
     >
      
       {/* <button id="play" onClick={toggle}>{playing ? 'Pause' : 'Play'}</button> */}
-
+      {showText(trackNo)}
       <Recorder2 test={true}/>
      
     

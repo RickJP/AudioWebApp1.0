@@ -8,6 +8,8 @@ import slugify from 'slugify';
 
 
 class Recorder2 extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +24,7 @@ class Recorder2 extends Component {
   async componentWillUnmount() {
     console.log('UNMOUNTED');
     this.stopRecord();
+
   }
 
   async componentDidMount() {
@@ -104,18 +107,18 @@ class Recorder2 extends Component {
       console.log('error', error)
     })
 
-    this.setState({
-      recording: false,
-    });
+    // this.setState({
+    //   recording: false,
+    // });
   }
 
   render() {
-    const {recording, stream} = this.state;
+    // const {recording, stream} = this.state;
 
-    // Don't show record button if their browser doesn't support it.
-    if (!stream) {
-      return null;
-    }
+    // // Don't show record button if their browser doesn't support it.
+    // if (!stream) {
+    //   return null;
+    // }
 
     return (
       <div></div>
