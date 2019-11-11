@@ -10,18 +10,18 @@ import Recorder2 from './Recorder2';
 import AudioPlayer from "react-h5-audio-player";
 import { isAuthenticated } from "../auth";
 
-const useAudio = url => {
-  const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
+// const useAudio = url => {
+//   const [audio] = useState(new Audio(url));
+//   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlaying(!playing);
+//   const toggle = () => setPlaying(!playing);
 
-  useEffect(() => {
-    playing ? audio.play() : audio.pause();
-  }, [playing]);
+//   useEffect(() => {
+//     playing ? audio.play() : audio.pause();
+//   }, [playing]);
 
-  return [playing, toggle];
-};
+//   return [playing, toggle];
+// };
 
 
 
@@ -38,7 +38,7 @@ const SpeakingTest = () => {
     if (trackNo  < audioFiles.length && nextTrack) {
       setTrackNo(trackNo + 1);
     }
-    if (trackNo === audioFiles.length) {
+    if (trackNo + 1 === audioFiles.length) {
       console.log('FINISHED TEST');
     }
   };

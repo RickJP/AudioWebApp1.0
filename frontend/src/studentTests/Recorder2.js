@@ -14,10 +14,14 @@ class Recorder2 extends Component {
       stream: null,
       recording: false,
       recorder: null,
-      test: false
     };
     this.startRecord = this.startRecord.bind(this);
     this.stopRecord = this.stopRecord.bind(this);
+  }
+
+  async componentWillUnmount() {
+    console.log('UNMOUNTED');
+    this.stopRecord();
   }
 
   async componentDidMount() {
@@ -33,13 +37,14 @@ class Recorder2 extends Component {
 
     this.setState({stream});
 
-    //this.startRecord();
+    console.log('MOUNTED');
+    this.startRecord();
   }
 
+  
+
   startRecord() {
-    console.log('RECORDING....');
-    const {test} = this.state;
-    console.log(test);
+    console.log('STARTED RECORDING....');
     const {stream} = this.state;
 
     const audioContext = new (window.AudioContext ||
@@ -75,6 +80,7 @@ class Recorder2 extends Component {
 
 
   async stopRecord() {
+    console.log('...STOPPED RECORDING');
     const {recorder} = this.state;
     const {buffer} = await recorder.stop();
     const audio = exportBuffer(buffer[0]);
