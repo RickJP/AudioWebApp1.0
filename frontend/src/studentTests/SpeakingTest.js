@@ -66,7 +66,8 @@ const SpeakingTest = () => {
   //   user: { name }
   // } = isAuthenticated();
   const audioFile = audioFiles[trackNo];
-  const url = `http://localhost:8000/api/playAudio/${audioFile}.wav`;
+  //const url = `http://localhost:8000/api/playAudio/${audioFile}.wav`;
+  const url = `https://english4all.live/api/playAudio/${audioFile}.wav`;
   // const [playing, toggle] = useAudio(url);
 
   const showText = (trackNo) => {

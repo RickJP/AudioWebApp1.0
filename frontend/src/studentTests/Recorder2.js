@@ -93,8 +93,8 @@ class Recorder2 extends Component {
 
     let data = new FormData();
     data.append('soundBlob', audio);
-    // const url = `https://english4all.live/api/upload/${nameSlug}/${dateTimeStamp}`;
-    const url = `http://localhost:8000/api/upload/${userSlug}/${dtStamp}`;
+    const url = `https://english4all.live/api/upload/${userSlug}/${dtStamp}`;
+    //const url = `http://localhost:8000/api/upload/${userSlug}/${dtStamp}`;
     let config = {
       header : {
         'Content-Type' : 'multipart/form-data'
