@@ -1,58 +1,61 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Layout from '../core/Layout';
 import './styles/style.css';
-
 import Recorder from './Recorder';
-import Recorder2 from './Recorder2';
-// import { Player } from './Player';
-// import { Player2 } from './Player2';
-
-import AudioPlayer from "react-h5-audio-player";
-import { isAuthenticated } from "../auth";
-
-// const useAudio = url => {
-//   const [audio] = useState(new Audio(url));
-//   const [playing, setPlaying] = useState(false);
-
-//   const toggle = () => setPlaying(!playing);
-
-//   useEffect(() => {
-//     playing ? audio.play() : audio.pause();
-//   }, [playing]);
-
-//   return [playing, toggle];
-// };
-
-
+import AudioPlayer from 'react-h5-audio-player';
 
 const SpeakingTest = () => {
-
   const [trackNo, setTrackNo] = useState(0);
-  const [audioFiles] = useState(['Instructions', 'Set1', 'Set2', 'Set3', 'Set4', 'Set5', 'Set6', 'Set7', 'Set8', 'Set9', 'Set10' ]);
-  const [filesPlayed] = useState([0,0,0]);
-  const [nextTrack, setNextTrack] = useState(false);
+  const [audioFiles] = useState([
+    'Instructions',
+    'Set1',
+    'Set2',
+    'Set3',
+    'Set4',
+    'Set5',
+    'Set6',
+    'Set7',
+    'Set8',
+    'Set9',
+    'Set10'
+  ]);
   const [hidePlayer, setHidePlayer] = useState(false);
-  const [text, setText] = useState(['Task One', 'Task Two', 'Task Three'])
+  const [tasks] = useState([
+    `このタスクでは、関係のない10組の日本語の言葉を聞きます。（２語の組を２回、３語の組を２回、４語の組を２回、５語の組を２回、６語の組を２回聞きます。）各組の語を覚えて、聞いた順番どおりにそれらの語を使って、各語につき１文ずつ、作ってください。各組の語を聞いた後に文を作るように、音源でも指示が出ます。できるだけ素早く文法的にも意味的にも正しい文をそれぞれの語につき１文作ってください。10秒しかありません。また、毎回異なる動詞や文法を使うようにしてください。各組の各語につき１文です。タスクでの発話は録音されます。ご参加いただきありがとうございます。
+  `,
+    `Tセット１ (２語)`,
+    `Tセット2 (２語)`,
+    `Tセット3 (２語)`,
+    `Tセット4 (２語)`,
+    `Tセット5 (２語)`,
+    `Tセット6 (２語)`,
+    `Tセット7 (２語)`,
+    `Tセット8 (２語)`,
+    `Tセット9 (２語)`,
+    `Tセット10 (２語)`,
+  ]);
+  const [showComponent, setShowComponent] = useState(false);
+  const [completionMsg, setCompletionMsg] = useState('');
+  const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
 
   const incTrack = () => {
-    console.log(filesPlayed);
-    if (trackNo  < audioFiles.length && nextTrack) {
+    if (trackNo < audioFiles.length) {
       setTrackNo(trackNo + 1);
     }
-    if (trackNo + 1 === audioFiles.length) {
-      console.log('FINISHED TEST');
+    if (trackNo === audioFiles.length - 1) {
+      setShowComponent(false);
+      setCompletionMsg('You have now completed this test. Thank you for participating.');
     }
+    console.log('incTrack trackNo = ' + trackNo)
   };
 
-  const setTrackHidePlayer = () => {
-    setNextTrack(true);
+  const manageComponents = () => {
     setHidePlayer(true);
-  }
+    setShowComponent(true);
+    setNextBtnDisabled(false);
+  };
 
-  useEffect(() => {
-  }, []);
-
-  const showTracks = (audioFiles, trackNo) => {
+  const showTracks = () => {
     return (
       <div>
         {/* {audioFiles.map((item, idx) => (
@@ -60,52 +63,53 @@ const SpeakingTest = () => {
         ))} */}
         Current track: <em id={trackNo}>{trackNo}</em>
       </div>
-  );
-  }
-  // const {
-  //   user: { name }
-  // } = isAuthenticated();
-  const audioFile = audioFiles[trackNo];
-  const url = `http://localhost:8000/api/playAudio/${audioFile}.wav`;
-  // const [playing, toggle] = useAudio(url);
+    );
+  };
 
-  const showText = (trackNo) => {
-    return (
-      <div>
-        {text[trackNo]}
-      </div>
-    )
+  const audioFile = audioFiles[trackNo];
+  const fileExt = '.wav'
+  //const url = `http://localhost:8000/api/playAudio/${audioFile}${fileExt}`;
+  const url = `https://english4all.live/api/playAudio/${audioFile}${fileExt}`;
+
+  const showTasks = trackNo => {
+    return <div>{tasks[trackNo]}</div>;
+  };
+
+  let player;
+  if (trackNo !== 11) {
+    player = <AudioPlayer
+        src={url}
+        onPlay={e => {setNextBtnDisabled(true)}}
+        onEnded={e => (trackNo === 0 ? manageComponents() : setNextBtnDisabled(false))}
+        hidePlayer={hidePlayer}
+      />
+  } else {
+    player = '';
   }
 
   return (
     <Layout
-      
       children
       title="Listening Test"
       description=""
       className="container-fluid noselect"
     >
-     
-      {/* <button id="play" onClick={toggle}>{playing ? 'Pause' : 'Play'}</button> */}
-      {showText(trackNo)}
-      <Recorder2 test={true}/>
-     
-    
+
+      {showTasks(trackNo)}
+      {completionMsg}
+      <Recorder trackNo={trackNo} />
+      <br /> <br />
+      {player}
       <br />
-      {/* <Player2  url={url} finished /> */}
-      <br/>
-      <AudioPlayer
-        src={url}
-        onPlay={e => filesPlayed[trackNo] = 1}
-        onEnded={e => setTrackHidePlayer()}
-        hidePlayer={hidePlayer}
-      /> 
-      {showTracks(audioFiles, trackNo)}
-      {/* <button id="inc-btn" onClick={incTrack}>Inc</button> */}
-      <button onClick={incTrack} disabled={false}>Next</button>
+      <button
+        style={showComponent ? {} : {display: 'none'}}
+        onClick={trackNo < audioFiles.length ? incTrack : null}
+        disabled={nextBtnDisabled}
+      >
+        {trackNo === 0 ? 'Start' : 'Next'}
+      </button>
     </Layout>
   );
 };
 
 export default SpeakingTest;
-

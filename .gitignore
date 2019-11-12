@@ -24,3 +24,4 @@ node_modules
 /frontend/yarn-error.log*
 
 
+/backend/data/uploads
