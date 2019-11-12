@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState } from 'react';
 import RecorderJS from 'recorder-js';
 import axios from 'axios';
 import { isAuthenticated } from "../auth";
@@ -17,14 +17,27 @@ class Recorder2 extends Component {
       recording: false,
       recorder: null,
     };
+    this.rec = props.recNow
     this.startRecord = this.startRecord.bind(this);
     this.stopRecord = this.stopRecord.bind(this);
+
+
+  }
+
+  
+  componentDidUpdate() {
+    console.log('this.rec =   ' + this.rec);
+    // if (this.rec === '1') {
+    //   console.log('STARTED RECORDING....');
+    //   this.startRecord();
+    // } {
+    //   console.log('Not Started Yet!');
+    // }
+     
   }
 
   async componentWillUnmount() {
-    console.log('UNMOUNTED');
     this.stopRecord();
-
   }
 
   async componentDidMount() {
@@ -39,15 +52,22 @@ class Recorder2 extends Component {
     }
 
     this.setState({stream});
-
-    console.log('MOUNTED');
     this.startRecord();
   }
+
+  // rec = () => {
+    
+  //   const [shouldRec, setShouldRec] = useState(false);
+  //   setShouldRec(true);
+  //   console.log(shouldRec);
+  //   useEffect(() => {
+  //   }, []);
+  // }
 
   
 
   startRecord() {
-    console.log('STARTED RECORDING....');
+    
     const {stream} = this.state;
 
     const audioContext = new (window.AudioContext ||
@@ -121,7 +141,9 @@ class Recorder2 extends Component {
     // }
 
     return (
-      <div></div>
+      <div>
+        {this.rec}
+      </div>
       // <button
       //   onClick={() => {
       //     recording ? this.stopRecord() : this.startRecord();
