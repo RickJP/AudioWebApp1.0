@@ -25,14 +25,14 @@ const SpeakingTest = () => {
   `,
     `Tセット１ (２語)`,
     `Tセット2 (２語)`,
-    `Tセット3 (２語)`,
-    `Tセット4 (２語)`,
-    `Tセット5 (２語)`,
-    `Tセット6 (２語)`,
-    `Tセット7 (２語)`,
-    `Tセット8 (２語)`,
-    `Tセット9 (２語)`,
-    `Tセット10 (２語)`,
+    `Tセット3 (3 語)`,
+    `Tセット4 (3 語)`,
+    `Tセット5 (4 語)`,
+    `Tセット6 (4 語)`,
+    `Tセット7 (5 語)`,
+    `Tセット8 (5 語)`,
+    `Tセット9 (6 語)`,
+    `Tセット10 (6 語)`,
   ]);
   const [showComponent, setShowComponent] = useState(false);
   const [completionMsg, setCompletionMsg] = useState('');
