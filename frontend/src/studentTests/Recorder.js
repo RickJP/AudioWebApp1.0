@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState } from 'react';
 import RecorderJS from 'recorder-js';
 import axios from 'axios';
 import { isAuthenticated } from "../auth";
@@ -7,15 +7,35 @@ import moment from 'moment';
 import slugify from 'slugify';
 
 class Recorder extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       stream: null,
       recording: false,
-      recorder: null
+      recorder: null,
     };
     this.startRecord = this.startRecord.bind(this);
     this.stopRecord = this.stopRecord.bind(this);
+  }
+
+  async componentDidUpdate() {    
+  }
+
+  async componentWillReceiveProps({ trackNo }) {
+    const {recording} = this.state;
+
+    if ( !recording && trackNo === 1) {
+      console.log('STARTED RECORDING....');
+      this.startRecord();
+    } 
+    if (recording && trackNo === 11) {
+      console.log('...STOPPED!');
+      this.stopRecord();  
+    } 
+  }
+
+  async componentWillUnmount() {
   }
 
   async componentDidMount() {
@@ -30,14 +50,10 @@ class Recorder extends Component {
     }
 
     this.setState({stream});
-
-
-  }
+  }  
 
   startRecord() {
-    console.log('RECORDING....');
-    const { test } = this.state;
-    console.log(test);
+    
     const {stream} = this.state;
 
     const audioContext = new (window.AudioContext ||
@@ -82,8 +98,8 @@ class Recorder extends Component {
 
     let data = new FormData();
     data.append('soundBlob', audio);
-    // const url = `https://english4all.live/api/upload/${nameSlug}/${dateTimeStamp}`;
-    const url = `http://localhost:8000/api/upload/${userSlug}/${dtStamp}`;
+    const url = `https://english4all.live/api/upload/${nameSlug}/${dateTimeStamp}`;
+    //const url = `http://localhost:8000/api/upload/${userSlug}/${dtStamp}`;
     let config = {
       header : {
         'Content-Type' : 'multipart/form-data'
@@ -96,28 +112,18 @@ class Recorder extends Component {
       console.log('error', error)
     })
 
-    this.setState({
-      recording: false,
-    });
+    
   }
 
   render() {
     const {recording, stream} = this.state;
 
-    // Don't show record button if their browser doesn't support it.
     if (!stream) {
       return null;
     }
 
     return (
-     
-      <button
-        onClick={() => {
-          recording ? this.stopRecord() : this.startRecord();
-        }}
-      >
-        {recording ? 'Stop' : 'Rec'}
-      </button>
+      <div></div>
     )
     }
 }
