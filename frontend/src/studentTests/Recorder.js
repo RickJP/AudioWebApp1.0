@@ -1,10 +1,11 @@
-import React, {Component, useEffect, useState } from 'react';
+import React, {Component } from 'react';
 import RecorderJS from 'recorder-js';
 import axios from 'axios';
 import { isAuthenticated } from "../auth";
 import {getAudioStream, exportBuffer} from './audio';
 import moment from 'moment';
 import slugify from 'slugify';
+import server from '../helper/currentServer.js';
 
 class Recorder extends Component {
 
@@ -16,7 +17,7 @@ class Recorder extends Component {
       recorder: null,
     };
     this.startRecord = this.startRecord.bind(this);
-    this.stopRecord = this.stopRecord.bind(this);
+    this.stopRecord = this.stopRecord.bind(this);  
   }
 
   async componentDidUpdate() {    
@@ -55,9 +56,7 @@ class Recorder extends Component {
   startRecord() {
     
     const {stream} = this.state;
-
-    const audioContext = new (window.AudioContext ||
-      window.webkitAudioContext)();
+    const audioContext = new (window.AudioContext)();
     const recorder = new RecorderJS(audioContext);
     recorder.init(stream);
 
@@ -85,7 +84,7 @@ class Recorder extends Component {
 
   createDateTimeStamp = () => {
     return moment().format("YYYY_MM_ddd_hh-mm-ss-a");
-  }
+  };
 
 
   async stopRecord() {
@@ -98,32 +97,32 @@ class Recorder extends Component {
 
     let data = new FormData();
     data.append('soundBlob', audio);
-    const url = `https://english4all.live/api/upload/${userSlug}/${dtStamp}`;
-    //const url = `http://localhost:8000/api/upload/${userSlug}/${dtStamp}`;
+   
     let config = {
       header : {
         'Content-Type' : 'multipart/form-data'
       }
-    }
+    };
 
-    axios.post(url, data, config).then(response => {
-      console.log('response', response)
-    }).catch(error => {
-      console.log('error', error)
-    })
-
+    const url = `${server()}/api/upload/${userSlug}/${dtStamp}`; 
     
+    axios.post(url, data, config).then(response => {
+      console.log('response', response);
+    }).catch(error => {
+      console.log('error', error);
+    });
   }
 
   render() {
-    const {recording, stream} = this.state;
+    const { stream} = this.state;
 
     if (!stream) {
       return null;
     }
 
     return (
-      <div></div>
+      <div>
+      </div>
     )
     }
 }

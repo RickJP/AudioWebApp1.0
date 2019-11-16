@@ -3,6 +3,7 @@ import Layout from '../core/Layout';
 import './styles/style.css';
 import Recorder from './Recorder';
 import AudioPlayer from 'react-h5-audio-player';
+import server from '../helper/currentServer.js';
 
 const SpeakingTest = () => {
   const [trackNo, setTrackNo] = useState(0);
@@ -68,9 +69,8 @@ const SpeakingTest = () => {
 
   const audioFile = audioFiles[trackNo];
   const fileExt = '.wav'
-  //const url = `http://localhost:8000/api/playAudio/${audioFile}${fileExt}`;
-  const url = `https://english4all.live/api/playAudio/${audioFile}${fileExt}`;
-
+  const url = `${server()}/api/playAudio/${audioFile}${fileExt}`;
+ 
   const showTasks = trackNo => {
     return <div>{tasks[trackNo]}</div>;
   };
@@ -94,7 +94,6 @@ const SpeakingTest = () => {
       description=""
       className="container-fluid noselect"
     >
-
       {showTasks(trackNo)}
       {completionMsg}
       <Recorder trackNo={trackNo} />
