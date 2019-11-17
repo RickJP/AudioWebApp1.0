@@ -16,6 +16,19 @@ const userSchema = new mongoose.Schema(
             required: true,
             unique: true
         },
+        studentNo: {
+            type: Number,
+            trim: true,
+            min: [1, 'Too few'],
+            max: [50, 'Too many']
+        },
+        classNo: {
+            type: Number,
+            trim: true,
+            min: [1, 'Too few'],
+            max: [16, 'Too many']
+        },
+
         hashed_password: {
             type: String,
             required: true

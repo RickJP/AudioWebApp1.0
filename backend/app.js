@@ -36,7 +36,7 @@ app.use(helmet());
 // routes middleware
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
-app.use("/api", audioRoutes);
+app.use("/api/audio", audioRoutes);
 
 
 const port = process.env.PORT || 8000;

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import Layout from "../core/Layout";
 import { signin, authenticate, isAuthenticated } from "../auth";
+import './styles/styles.css';
 
 const Signin = () => {
     const [values, setValues] = useState({
-        email: "a@gmail.com",
-        password: "123456",
+        email: "",
+        password: "",
         error: "",
         loading: false,
         redirectToReferrer: false
@@ -38,12 +39,12 @@ const Signin = () => {
 
     const signUpForm = () => (
         <form>
-            <div className="form-group">
+            <div className="">
                 <label className="text-muted">Email</label>
                 <input
                     onChange={handleChange("email")}
                     type="email"
-                    className="form-control"
+                    className="form-control col-sm-10"
                     value={email}
                 />
             </div>
@@ -53,12 +54,12 @@ const Signin = () => {
                 <input
                     onChange={handleChange("password")}
                     type="password"
-                    className="form-control"
+                    className="form-control  col-sm-10"
                     value={password}
                 />
             </div>
-            <button onClick={clickSubmit} className="btn btn-primary">
-                Submit
+            <button onClick={clickSubmit} className="signin-btn">
+                Sign In
             </button>
         </form>
     );
@@ -95,7 +96,7 @@ const Signin = () => {
     return (
         <Layout
             title="Let's Get Started"
-            description="Sign in to take the tests"
+            description=""
             className="container col-md-8 offset-md-2"
         >
             {showLoading()}

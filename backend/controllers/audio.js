@@ -8,12 +8,12 @@ exports.saveAudio = (req, res) => {
   const tPath = path.join(__dirname, '../data/') + 'uploads/' + dir + '/';
   const fullPathandFile = tPath + file + '.wav';
 
-  fs.existsSync(tPath) || fs.mkdirSync(tPath)
+  fs.existsSync(tPath) || fs.mkdirSync(tPath);
   fs.writeFileSync(fullPathandFile, Buffer.from(new Uint8Array(req.file.buffer)));
 
   saveMP3Audio(tPath, file);
   res.sendStatus(200);
-}
+};
 
   // path.parse(pathToCheck).base/name/ext 
   saveMP3Audio = (targetPath, file) => {
@@ -32,16 +32,16 @@ exports.saveAudio = (req, res) => {
       }
     }, err => {
       console.log('Error:  ' + err);
-    })
+    });
   });
-}
+};
 
   removeWavFile = (path) => {
   fs.unlink(path, (err) => {
     if (err) return console.log(err);
     console.log('File successfully deleted');
-  })
-}
+  });
+};
 
 
 exports.playAudio = (req, res) => {
@@ -50,10 +50,22 @@ exports.playAudio = (req, res) => {
     if (fs.existsSync(tFile)) {
       
       console.log(`PATH ${tFile} EXISTS`);
-      res.download(tFile)
+      res.download(tFile);
     }
   } catch(err) {
-    console.error(err)
+    console.error(err);
   }
-  
-}
+};
+
+const walk = (curDirPath, cb) => {
+  fs.readdir(curDirPath, (err, files) => {
+    if (err) {throw new Error(err); }
+    files.forEach(file => {
+      console.log(file);
+    }); 
+  });
+};
+
+exports.getFileLists = (req, res) => {
+  res.send(walk());
+};

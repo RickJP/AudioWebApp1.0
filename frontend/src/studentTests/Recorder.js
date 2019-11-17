@@ -104,7 +104,7 @@ class Recorder extends Component {
       }
     };
 
-    const url = `${server()}/api/upload/${userSlug}/${dtStamp}`; 
+    const url = `${server()}/api/audio/upload/${userSlug}/${dtStamp}`; 
     
     axios.post(url, data, config).then(response => {
       console.log('response', response);

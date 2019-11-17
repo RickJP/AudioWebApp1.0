@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
-import './styles/style.css';
+import './styles/styles.css';
 import Recorder from './Recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
@@ -56,22 +56,37 @@ const SpeakingTest = () => {
     setNextBtnDisabled(false);
   };
 
- 
+  // function insertBefore(el, referenceNode) {
+  //   referenceNode.parentNode.insertBefore(el, referenceNode);
+  // }
+
+  const displayUserMsg = (msg, el) => {
+    const ref = document.querySelector(el);
+    // const newEl = document.createElement('p');
+    ref.innerText = msg;
+    // ref.parentNode.insertBefore(newEl, ref);
+  };
+
+  const replaceUserMsg = () => {
+    const msg = document.querySelector('.user-msg');
+    if (msg) {
+      msg.innerText = 'Speak now';
+    }
+  };
 
   const audioFile = audioFiles[trackNo];
   const fileExt = '.wav'
-  const url = `${server()}/api/playAudio/${audioFile}${fileExt}`;
+  const url = `${server()}/api/audio/playAudio/${audioFile}${fileExt}`;
  
-  const showTasks = trackNo => {
-    return <div>{tasks[trackNo]}</div>;
-  };
+  const showTasks = trackNo => <div>{tasks[trackNo]}</div>;
+  
 
   let player;
   if (trackNo !== 11) {
     player = <AudioPlayer
         src={url}
-        onPlay={e => {setNextBtnDisabled(true)}}
-        onEnded={e => (trackNo === 0 ? manageComponents() : setNextBtnDisabled(false))}
+        onPlay={e => {setNextBtnDisabled(true);  displayUserMsg('Please Listen', '.user-msg')}}
+        onEnded={e => (trackNo === 0 ? manageComponents() :  setNextBtnDisabled(false) & replaceUserMsg())}
         hidePlayer={hidePlayer}
       />
   } else {
@@ -91,12 +106,14 @@ const SpeakingTest = () => {
       <br /> <br />
       {player}
       <br />
+      <p className="user-msg"></p>
       <button
+        className="next-task-btn"
         style={showComponent ? {} : {display: 'none'}}
         onClick={trackNo < audioFiles.length ? incTrack : null}
         disabled={nextBtnDisabled}
       >
-        {trackNo === 0 ? 'Start' : 'Next'}
+        {trackNo === 0 ? 'スタート' : '次へ'}
       </button>
     </Layout>
   );
