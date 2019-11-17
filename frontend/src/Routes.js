@@ -8,13 +8,14 @@ import Dashboard from "./user/UserDashboard";
 import AdminRoute from "./auth/AdminRoute";
 import AdminDashboard from "./user/AdminDashboard";
 import Profile from "./user/Profile";
+import Home from './core/Home';
 
 
 const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={SpeakingTest} />
+                <Route path="/" exact component={Home} />
                 
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />
@@ -25,6 +26,7 @@ const Routes = () => {
                     exact
                     component={Dashboard}
                 />
+                 <PrivateRoute path="/user/test" exact component={SpeakingTest} />
                 <AdminRoute
                     path="/admin/dashboard"
                     exact
