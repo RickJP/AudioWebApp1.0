@@ -56,16 +56,7 @@ const SpeakingTest = () => {
     setNextBtnDisabled(false);
   };
 
-  const showTracks = () => {
-    return (
-      <div>
-        {/* {audioFiles.map((item, idx) => (
-          <li key={idx}>{idx} - {item}</li>
-        ))} */}
-        Current track: <em id={trackNo}>{trackNo}</em>
-      </div>
-    );
-  };
+ 
 
   const audioFile = audioFiles[trackNo];
   const fileExt = '.wav'
