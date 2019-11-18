@@ -20,14 +20,14 @@ const SpeakingTest = () => {
     'Instructions',
     'Set1',
     'Set2',
-    'Set3',
-    'Set4',
-    'Set5',
-    'Set6',
-    'Set7',
-    'Set8',
-    'Set9',
-    'Set10'
+    // 'Set3',
+    // 'Set4',
+    // 'Set5',
+    // 'Set6',
+    // 'Set7',
+    // 'Set8',
+    // 'Set9',
+    // 'Set10'
   ]);
   // Initialize the text to be displayed for each task
   const [tasks] = useState([
@@ -123,7 +123,7 @@ const SpeakingTest = () => {
     >
       {showTasks(trackNo)}
       {completionMsg}
-      <Recorder trackNo={trackNo} userId={userId}/>
+      <Recorder trackNo={trackNo} userId={userId} audioFiles={audioFiles}/>
       <br /> <br />
       {player}
       <br />

@@ -25,7 +25,7 @@ class Recorder extends Component {
     console.log('didUpdate');
   }
 
-  async componentWillReceiveProps({ trackNo }) {
+  async componentWillReceiveProps({ trackNo, audioFiles }) {
     let {recording} = this.state;
 
     if ( !recording && trackNo === 1) {
@@ -33,7 +33,7 @@ class Recorder extends Component {
       console.log('STARTED RECORDING....'+ recording);
       this.startRecord();
     } 
-    if (recording && trackNo === 11) {
+    if (recording && trackNo === audioFiles.length) {
       console.log('...STOPPED! Recording ' + recording);
       this.setState({ recording: false });
       this.stopRecord();  

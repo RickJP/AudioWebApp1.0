@@ -1,12 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('ffmpeg');
-const Recordings = require("../models/recordings");
+
 
 exports.saveAudio = (req, res) => {
   const userId = req.params.userId;
-
-  
   const dir = req.params.dir;
   const file = req.params.file;
   const tPath = path.join(__dirname, '../data/') + 'uploads/' + dir + '/';
@@ -17,6 +15,7 @@ exports.saveAudio = (req, res) => {
 
   saveMP3Audio(tPath, file);
   res.sendStatus(200);
+  
 };
 
   // path.parse(pathToCheck).base/name/ext 
@@ -45,6 +44,7 @@ exports.saveAudio = (req, res) => {
     if (err) return console.log(err);
     console.log('File successfully deleted');
   });
+  
 };
 
 
@@ -74,6 +74,8 @@ exports.getFileLists = (req, res) => {
   res.send(walk());
 };
 
-exports.saveRecordingsList = (req, res) => {
-
+exports.saveRecordingsList = (req, res, next) => {
+    // res.json('RECORDED LIST #########');
+    
+    next();
 };

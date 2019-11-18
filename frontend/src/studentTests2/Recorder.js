@@ -1,14 +1,14 @@
-import React, {Component } from 'react';
+import React, {Component} from 'react';
 import RecorderJS from 'recorder-js';
 import axios from 'axios';
-import { isAuthenticated } from "../auth";
-import { getAudioStream, exportBuffer } from './audio';
+import {isAuthenticated} from '../auth';
+import {getAudioStream, exportBuffer} from './audio';
 import moment from 'moment';
 import slugify from 'slugify';
 import server from '../helper/currentServer.js';
+import lamejs from 'lamejs';
 
 class Recorder extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -17,27 +17,27 @@ class Recorder extends Component {
       recorder: null,
     };
     this.startRecord = this.startRecord.bind(this);
-    this.stopRecord = this.stopRecord.bind(this);  
+    this.stopRecord = this.stopRecord.bind(this);
     this.userId = props.userId;
   }
 
-  async componentDidUpdate() {  
+  async componentDidUpdate() {
     console.log('didUpdate');
   }
 
-  async componentWillReceiveProps({ trackNo }) {
+  async componentWillReceiveProps({trackNo, audioFiles}) {
     let {recording} = this.state;
 
-    if ( !recording && trackNo === 1) {
-      this.setState({ recording: true });
-      console.log('STARTED RECORDING....');
+    if (!recording && trackNo === 1) {
+      this.setState({recording: true});
+      console.log('STARTED RECORDING....' + recording);
       this.startRecord();
-    } 
-    if (recording && trackNo === 11) {
-      console.log('...STOPPED! Recording');
-      this.setState({ recording: false });
-      this.stopRecord();  
-    } 
+    }
+    if (recording && trackNo === audioFiles.length) {
+      console.log('...STOPPED! Recording ' + recording);
+      this.setState({recording: false});
+      this.stopRecord();
+    }
   }
 
   async componentWillUnmount() {
@@ -56,11 +56,11 @@ class Recorder extends Component {
     }
 
     this.setState({stream});
-  }  
+  }
 
   startRecord() {
     const {stream} = this.state;
-    const audioContext = new (window.AudioContext)();
+    const audioContext = new window.AudioContext();
     const recorder = new RecorderJS(audioContext);
     recorder.init(stream);
 
@@ -77,19 +77,24 @@ class Recorder extends Component {
 
   createUserSlug() {
     const {
-      user: { name }
+      user: {name},
     } = isAuthenticated();
     return slugify(name, {
-      replacement: '-',    // replace spaces with replacement
-      remove: null,        // regex to remove characters
-      lower: true,         // result in lower case
+      replacement: '-', // replace spaces with replacement
+      remove: null, // regex to remove characters
+      lower: true, // result in lower case
     });
   }
 
   createDateTimeStamp() {
-    return moment().format("YYYY_MM_ddd_hh-mm-ss-a");
+    return moment().format('YYYY_MM_ddd_hh-mm-ss-a');
   }
 
+  encodeToMp4(audioFileBuffer) {
+   
+  }
+
+  encodeToMp3(samples) {}
 
   async stopRecord() {
     const {recorder} = this.state;
@@ -99,34 +104,38 @@ class Recorder extends Component {
     const userSlug = this.createUserSlug();
     const dtStamp = this.createDateTimeStamp();
 
-    
+
     let data = new FormData();
     data.append('soundBlob', audio);
-   
+
     let config = {
-      header : {
-        'Content-Type' : 'multipart/form-data'
-      }
+      header: {
+        'Content-Type': 'multipart/form-data',
+      },
     };
-    
+
     const user_Id = this.userId;
 
-    const url = `${server()}/api/audio/upload/${user_Id}/${userSlug}/${dtStamp}`; 
-    
-    axios.post(url, data, config).then(response => {
-      console.log('response', response);
-    }).catch(error => {
-      console.log('error', error);
-    });
+    const url = `${server()}/api/audio/upload/${user_Id}/${userSlug}/${dtStamp}`;
+
+    axios
+      .post(url, data, config)
+      .then(response => {
+        console.log('response', response);
+      })
+      .catch(error => {
+        console.log('error', error);
+      });
   }
 
   render() {
-    const { stream} = this.state;
+    const {stream} = this.state;
 
-    if (!stream) {return null; }
-    return ( <div>  </div>)
+    if (!stream) {
+      return null;
     }
+    return <div> </div>;
+  }
 }
 
 export default Recorder;
-

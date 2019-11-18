@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
 import './styles/styles.css';
-import Recorder from './Recorder';
+import Recorder from '../studentTests2/Recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
 import { useCookies } from 'react-cookie';
@@ -15,19 +15,20 @@ const SpeakingTest2 = () => {
   const [userId, setUserId] = useState(user_Id);
   //const [cookies, setCookie, removeCookie] = useCookies(['t']);
 
+
   // Setup audio file name references
   const [audioFiles] = useState([
     'Instructions',
     'Set1',
     'Set2',
-    'Set3',
-    'Set4',
-    'Set5',
-    'Set6',
-    'Set7',
-    'Set8',
-    'Set9',
-    'Set10'
+    // 'Set3',
+    // 'Set4',
+    // 'Set5',
+    // 'Set6',
+    // 'Set7',
+    // 'Set8',
+    // 'Set9',
+    // 'Set10'
   ]);
   // Initialize the text to be displayed for each task
   const [tasks] = useState([
@@ -48,8 +49,6 @@ const SpeakingTest2 = () => {
   const [showComponent, setShowComponent] = useState(false);
   const [completionMsg, setCompletionMsg] = useState('');
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
-  const [showFinishBtn, setShowFinishBtn] = useState(false);
-  
 
   // Increments the track number & checks for test completion
   const incTrack = () => {
@@ -82,7 +81,9 @@ const SpeakingTest2 = () => {
     ref.innerText = msg;
   };
 
-
+  const insertAfter = (el, referenceNode) => {
+    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+  };
 
 
   const audioFile = audioFiles[trackNo];
@@ -106,27 +107,29 @@ const SpeakingTest2 = () => {
     player = '';
     console.log('FINISHED');
     displayUserMsg();
-    setShowFinishBtn(true);
+  
+    const btnHook = document.querySelector('.user-msg');
+    const finishBtn = document.createElement('button');
+    finishBtn.innerText = 'Press to Finish';
+    insertAfter(finishBtn, btnHook);
+
   }
 
   return (
     <Layout
       children
-      title="Listening Test"
+      title="Listening Test 2"
       description=""
       className="container-fluid noselect"
     >
       {showTasks(trackNo)}
       {completionMsg}
-      
-      
-      <Recorder trackNo={trackNo} userId={userId}/>
-
-
+      <Recorder trackNo={trackNo} userId={userId} audioFiles={audioFiles}/>
       <br /> <br />
       {player}
       <br />
       <p className="user-msg"></p>
+
       <button
         className="next-task-btn"
         style={showComponent ? {} : {display: 'none'}}
@@ -135,7 +138,6 @@ const SpeakingTest2 = () => {
       >
         {trackNo === 0 ? 'スタート' : '次へ'}
       </button>
-      {showFinishBtn ? '<button>Finished<button>' : ''}
     </Layout>
   );
 };
