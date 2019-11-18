@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
 import './styles/styles.css';
-import Recorder from '../studentTests2/Recorder';
+import Recorder from './Recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
 import { useCookies } from 'react-cookie';
 
-const SpeakingTest = () => {
+const SpeakingTest2 = () => {
   // Get userId from localStorage
   const retreivedItem = localStorage.getItem("jwt");
   const user_Id = JSON.parse(retreivedItem).user._id;
@@ -48,6 +48,8 @@ const SpeakingTest = () => {
   const [showComponent, setShowComponent] = useState(false);
   const [completionMsg, setCompletionMsg] = useState('');
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
+  const [showFinishBtn, setShowFinishBtn] = useState(false);
+  
 
   // Increments the track number & checks for test completion
   const incTrack = () => {
@@ -80,9 +82,7 @@ const SpeakingTest = () => {
     ref.innerText = msg;
   };
 
-  const insertAfter = (el, referenceNode) => {
-    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-  };
+
 
 
   const audioFile = audioFiles[trackNo];
@@ -106,12 +106,7 @@ const SpeakingTest = () => {
     player = '';
     console.log('FINISHED');
     displayUserMsg();
-  
-    const btnHook = document.querySelector('.user-msg');
-    const finishBtn = document.createElement('button');
-    finishBtn.innerText = 'Press to Finish';
-    insertAfter(finishBtn, btnHook);
-
+    setShowFinishBtn(true);
   }
 
   return (
@@ -123,7 +118,11 @@ const SpeakingTest = () => {
     >
       {showTasks(trackNo)}
       {completionMsg}
+      
+      
       <Recorder trackNo={trackNo} userId={userId}/>
+
+
       <br /> <br />
       {player}
       <br />
@@ -136,9 +135,10 @@ const SpeakingTest = () => {
       >
         {trackNo === 0 ? 'スタート' : '次へ'}
       </button>
+      {showFinishBtn ? '<button>Finished<button>' : ''}
     </Layout>
   );
 };
 
-export default SpeakingTest;
+export default SpeakingTest2;
 

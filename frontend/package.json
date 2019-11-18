@@ -18,6 +18,7 @@
     "moment": "^2.24.0",
     "query-string": "^6.5.0",
     "react": "^16.8.6",
+    "react-cookie": "^4.0.1",
     "react-dom": "^16.8.6",
     "react-fontawesome": "^1.7.1",
     "react-h5-audio-player": "^1.2.1",

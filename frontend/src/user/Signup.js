@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Redirect, withRouter} from 'react-router-dom';
 import Layout from '../core/Layout';
 import {signup} from '../auth';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
- import './styles/styles.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import './styles/styles.css';
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -22,6 +22,8 @@ const Signup = () => {
     setValues({...values, error: false, [name]: event.target.value});
   };
 
+
+
   const clickSubmit = event => {
     event.preventDefault();
     setValues({...values, error: false});
@@ -38,18 +40,18 @@ const Signup = () => {
           password: '',
           error: '',
           success: true,
+          test: true,
         });
+        
       }
     });
   };
-
-
 
   const signUpForm = () => (
     // <form class="form-horizontal">
     //   <div className="form-group">
     //   <FontAwesomeIcon icon="user" size="2x" fixedWidth />
-      
+
     //     <label className="text-muted">&nbsp;&nbsp;&nbsp;Name</label>
     //     <input
     //       onChange={handleChange('name')}
@@ -102,59 +104,77 @@ const Signup = () => {
     //     Sign Up
     //   </button>
     // </form>
-    
-  <div className="contain">
 
-  <div className="wrapper">
-    <div className="form">
-      <form action="">
-        <p className="full-width">
-          <label className="text-muted" htmlFor="">Name</label>
-          <input type="text" 
-          className="form-control"
-          value={name}
-          onChange={handleChange('name')}/>
-        </p>
-        <p className="full-width">
-          <label className="text-muted" htmlFor="">Email</label>
-          <input type="email" 
-          className="form-control"
-          value={email}
-          onChange={handleChange('email')}/>
-        </p>
-        <p  className="full-width">
-          <label className="text-muted" htmlFor="">Password</label>
-          <input type="password" 
-          className="form-control"
-          value={password}
-          onChange={handleChange('password')}/>
-        </p>
-        <p>
-          <label className="text-muted" htmlFor="">Class No.</label>
-          <input  type="text" 
-          className="form-control"
-          value={classNo}
-          onChange={handleChange('classNo')}/>
-        </p>
-        <p>
-          <label className="text-muted"htmlFor="">Student No.</label>
-          <input type="text" 
-          className="form-control"
-          value={studentNo}
-          onChange={handleChange('studentNo')}/>
-        </p>
-        
-        <p className="full-width ">
-          <button className="signup-btn" onClick={clickSubmit} >Send</button>
-        </p>
-      </form>
+    <div className="contain">
+      <div className="wrapper">
+        <div className="form">
+          <form action="">
+            <p className="full-width">
+              <label className="text-muted" htmlFor="">
+                Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                value={name}
+                onChange={handleChange('name')}
+              />
+            </p>
+            <p className="full-width">
+              <label className="text-muted" htmlFor="">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                value={email}
+                onChange={handleChange('email')}
+              />
+            </p>
+            <p className="full-width">
+              <label className="text-muted" htmlFor="">
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={handleChange('password')}
+              />
+            </p>
+            <p>
+              <label className="text-muted" htmlFor="">
+                Class No.
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                value={classNo}
+                onChange={handleChange('classNo')}
+              />
+            </p>
+            <p>
+              <label className="text-muted" htmlFor="">
+                Student No.
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                value={studentNo}
+                onChange={handleChange('studentNo')}
+              />
+            </p>
+
+            <p className="full-width ">
+              <button className="signup-btn" onClick={clickSubmit}>
+                Send
+              </button>
+            </p>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-      
   );
-
-  
 
   const showError = () => (
     <div className="alert alert-danger" style={{display: error ? '' : 'none'}}>
@@ -168,13 +188,19 @@ const Signup = () => {
     </div>
   );
 
-    // const showSuccess = () => {
-    //   // <div className="alert alert-info" style={{display: success ? '' : 'none'}}> </div>
-    //    if (success) {
-    //      setValues({success: false});
-    //      return <Redirect to="/signin" /> 
-    //   }
-    //   }
+  const redirectToSigninPage = () => {
+    if (success) {
+      return <Redirect to="/signin" />
+    }
+  }
+
+  // const showSuccess = () => {
+  //   // <div className="alert alert-info" style={{display: success ? '' : 'none'}}> </div>
+  //    if (success) {
+  //      setValues({success: false});
+  //      return <Redirect to="/signin" />
+  //   }
+  //   }
 
   return (
     <Layout
@@ -185,6 +211,7 @@ const Signup = () => {
       {showSuccess()}
       {showError()}
       {signUpForm()}
+      {redirectToSigninPage()}
     </Layout>
   );
 };

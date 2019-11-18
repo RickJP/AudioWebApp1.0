@@ -1,8 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('ffmpeg');
+const Recordings = require("../models/recordings");
 
 exports.saveAudio = (req, res) => {
+  const userId = req.params.userId;
+
+  
   const dir = req.params.dir;
   const file = req.params.file;
   const tPath = path.join(__dirname, '../data/') + 'uploads/' + dir + '/';
@@ -68,4 +72,8 @@ const walk = (curDirPath, cb) => {
 
 exports.getFileLists = (req, res) => {
   res.send(walk());
+};
+
+exports.saveRecordingsList = (req, res) => {
+
 };

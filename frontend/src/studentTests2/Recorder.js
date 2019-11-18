@@ -30,11 +30,11 @@ class Recorder extends Component {
 
     if ( !recording && trackNo === 1) {
       this.setState({ recording: true });
-      console.log('STARTED RECORDING....'+ recording);
+      console.log('STARTED RECORDING....');
       this.startRecord();
     } 
     if (recording && trackNo === 11) {
-      console.log('...STOPPED! Recording ' + recording);
+      console.log('...STOPPED! Recording');
       this.setState({ recording: false });
       this.stopRecord();  
     } 
