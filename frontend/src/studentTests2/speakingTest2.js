@@ -5,6 +5,8 @@ import Recorder from './recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
 import {useCookies} from 'react-cookie';
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const SpeakingTest2 = () => {
   // Get userId from localStorage
@@ -53,6 +55,9 @@ const SpeakingTest2 = () => {
   const [showComponent, setShowComponent] = useState(false);
   const [completionMsg, setCompletionMsg] = useState('');
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
+  const [FAIcon, setFAIcon] = useState('');
+  const [FAIconSize, setFAIconSize] = useState('4x');
+
 
   // Increments the track number & checks for test completion
   const incTrack = () => {
@@ -78,15 +83,13 @@ const SpeakingTest2 = () => {
   // Displays user message 'Please Listen'
   const displayUserMsg = (msg = '') => {
     if (!nextBtnDisabled && trackNo !== 0 && trackNo !== audioFiles.length) {
-      msg = 'Listen';
+      setFAIcon("headset");
     } else if (trackNo !== 0 && trackNo !== audioFiles.length) {
-      msg = 'Speak Now';
+      setFAIcon("comment");
       setTimeout(() => {
         setNextBtnDisabled(false);
       }, 3000);
     }
-    const ref = document.querySelector('.user-msg');
-    ref.innerText = msg;
   };
 
   const insertAfter = (el, referenceNode) => {
@@ -117,6 +120,7 @@ const SpeakingTest2 = () => {
     console.log('FINISHED');
     displayUserMsg();
 
+    setFAIcon("");
     const btnHook = document.querySelector('.user-msg');
     const finishBtn = document.createElement('button');
     finishBtn.innerText = 'Press to Finish';
@@ -125,7 +129,6 @@ const SpeakingTest2 = () => {
 
   return (
     <Layout
-      children
       title="Speaking Test 2"
       description=""
       className="container-fluid noselect"
@@ -141,7 +144,9 @@ const SpeakingTest2 = () => {
       <br /> <br />
       {player}
       <br />
+      <FontAwesomeIcon icon={FAIcon} size={FAIconSize} style={{color: 'green'}}/>
       <p className="user-msg"></p>
+      
       <button
         className="next-task-btn"
         style={showComponent ? {} : {display: 'none'}}
