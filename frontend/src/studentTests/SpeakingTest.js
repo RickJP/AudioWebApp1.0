@@ -1,20 +1,25 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
 import './styles/styles.css';
-import Recorder from '../studentTests2/Recorder';
+import Recorder from './Recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
-import { useCookies } from 'react-cookie';
+import {useCookies} from 'react-cookie';
 
 const SpeakingTest = () => {
   // Get userId from localStorage
-  const retreivedItem = localStorage.getItem("jwt");
+  const retreivedItem = localStorage.getItem('jwt');
   const user_Id = JSON.parse(retreivedItem).user._id;
 
   const [trackNo, setTrackNo] = useState(0);
   const [userId, setUserId] = useState(user_Id);
   //const [cookies, setCookie, removeCookie] = useCookies(['t']);
 
+  const [test] = useState({
+    audioFiles: ['Instructions', 'Set1', 'Set2'],
+    tasks: [`Tセット１ (２語)`, `Tセット2 (２語)`, `Tセット3 (3 語)`],
+  });
+  console.log(test.audioFiles[0]);
   // Setup audio file name references
   const [audioFiles] = useState([
     'Instructions',
@@ -56,7 +61,9 @@ const SpeakingTest = () => {
     }
     if (trackNo === audioFiles.length - 1) {
       setShowComponent(false);
-      setCompletionMsg('You have now completed this test. Thank you for participating.');
+      setCompletionMsg(
+        'You have now completed this test. Thank you for participating.'
+      );
     }
   };
 
@@ -70,11 +77,13 @@ const SpeakingTest = () => {
 
   // Displays user message 'Please Listen'
   const displayUserMsg = (msg = '') => {
-
-    if (!nextBtnDisabled  && trackNo !== 0 && trackNo !== audioFiles.length) {
+    if (!nextBtnDisabled && trackNo !== 0 && trackNo !== audioFiles.length) {
       msg = 'Listen';
-    } else if (trackNo !== 0 && trackNo !== audioFiles.length){
+    } else if (trackNo !== 0 && trackNo !== audioFiles.length) {
       msg = 'Speak Now';
+      setTimeout(() => {
+        setNextBtnDisabled(false);
+      }, 3000);
     }
     const ref = document.querySelector('.user-msg');
     ref.innerText = msg;
@@ -84,46 +93,51 @@ const SpeakingTest = () => {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
   };
 
-
   const audioFile = audioFiles[trackNo];
   const fileExt = '.wav';
   const url = `${server()}/api/audio/playAudio/${audioFile}${fileExt}`;
- 
-  const showTasks = trackNo => (
-    <div>{tasks[trackNo]}</div>
-  );
 
+  const showTasks = trackNo => <div>{tasks[trackNo]}</div>;
 
   let player;
   if (trackNo !== audioFiles.length) {
-    player = <AudioPlayer
+    player = (
+      <AudioPlayer
         src={url}
-        onPlay={e => {setNextBtnDisabled(true);  displayUserMsg()}}
-        onEnded={e => (trackNo === 0 ? manageComponents() :  setNextBtnDisabled(false) & displayUserMsg())}
+        onPlay={e => {
+          setNextBtnDisabled(true);
+          displayUserMsg();
+        }}
+        onEnded={e => (trackNo === 0 ? manageComponents() : displayUserMsg())}
         hidePlayer={hidePlayer}
       />
+    );
   } else {
     player = '';
     console.log('FINISHED');
     displayUserMsg();
-  
+
     const btnHook = document.querySelector('.user-msg');
     const finishBtn = document.createElement('button');
     finishBtn.innerText = 'Press to Finish';
     insertAfter(finishBtn, btnHook);
-
   }
 
   return (
     <Layout
       children
-      title="Listening Test"
+      title="Speaking Test"
       description=""
       className="container-fluid noselect"
     >
       {showTasks(trackNo)}
       {completionMsg}
-      <Recorder trackNo={trackNo} userId={userId} audioFiles={audioFiles}/>
+
+
+      <Recorder trackNo={trackNo} userId={userId} audioFiles={audioFiles} />
+
+
+
       <br /> <br />
       {player}
       <br />
@@ -141,4 +155,3 @@ const SpeakingTest = () => {
 };
 
 export default SpeakingTest;
-

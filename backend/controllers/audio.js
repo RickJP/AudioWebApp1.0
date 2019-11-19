@@ -2,18 +2,17 @@ const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('ffmpeg');
 
-
 exports.saveAudio = (req, res) => {
   const userId = req.params.userId;
   const dir = req.params.dir;
   const file = req.params.file;
   const tPath = path.join(__dirname, '../data/') + 'uploads/' + dir + '/';
-  const fullPathandFile = tPath + file + '.wav';
+  const fullPathandFile = tPath + file + '.mp3';
 
   fs.existsSync(tPath) || fs.mkdirSync(tPath);
   fs.writeFileSync(fullPathandFile, Buffer.from(new Uint8Array(req.file.buffer)));
 
-  saveMP3Audio(tPath, file);
+  //saveMP3Audio(tPath, file);
   res.sendStatus(200);
   
 };
