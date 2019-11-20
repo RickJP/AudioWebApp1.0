@@ -1,10 +1,13 @@
+/* eslint-disable no-undef */
 import React, {useState} from 'react';
+import {Redirect} from 'react-router-dom';
 import Layout from '../core/Layout';
 import './styles/styles.css';
-import Recorder from './Recorder';
+import Recorder from './recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
-import {useCookies} from 'react-cookie';
+import {testMaterials} from './testMaterials';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 const SpeakingTest = () => {
   // Get userId from localStorage
@@ -12,54 +15,31 @@ const SpeakingTest = () => {
   const user_Id = JSON.parse(retreivedItem).user._id;
 
   const [trackNo, setTrackNo] = useState(0);
-  const [userId, setUserId] = useState(user_Id);
-  //const [cookies, setCookie, removeCookie] = useCookies(['t']);
-
-  const [test] = useState({
-    audioFiles: ['Instructions', 'Set1', 'Set2'],
-    tasks: [`Tセット１ (２語)`, `Tセット2 (２語)`, `Tセット3 (3 語)`],
-  });
-  console.log(test.audioFiles[0]);
-  // Setup audio file name references
-  const [audioFiles] = useState([
-    'Instructions',
-    'Set1',
-    'Set2',
-    // 'Set3',
-    // 'Set4',
-    // 'Set5',
-    // 'Set6',
-    // 'Set7',
-    // 'Set8',
-    // 'Set9',
-    // 'Set10'
-  ]);
-  // Initialize the text to be displayed for each task
-  const [tasks] = useState([
-    `このタスクでは、関係のない10組の日本語の言葉を聞きます。（２語の組を２回、３語の組を２回、４語の組を２回、５語の組を２回、６語の組を２回聞きます。）各組の語を覚えて、聞いた順番どおりにそれらの語を使って、各語につき１文ずつ、作ってください。各組の語を聞いた後に文を作るように、音源でも指示が出ます。できるだけ素早く文法的にも意味的にも正しい文をそれぞれの語につき１文作ってください。10秒しかありません。また、毎回異なる動詞や文法を使うようにしてください。各組の各語につき１文です。タスクでの発話は録音されます。ご参加いただきありがとうございます。
-  `,
-    `Tセット１ (２語)`,
-    `Tセット2 (２語)`,
-    `Tセット3 (3 語)`,
-    `Tセット4 (3 語)`,
-    `Tセット5 (4 語)`,
-    `Tセット6 (4 語)`,
-    `Tセット7 (5 語)`,
-    `Tセット8 (5 語)`,
-    `Tセット9 (6 語)`,
-    `Tセット10 (6 語)`,
-  ]);
+  const [userId] = useState(user_Id);
+  
   const [hidePlayer, setHidePlayer] = useState(false);
   const [showComponent, setShowComponent] = useState(false);
   const [completionMsg, setCompletionMsg] = useState('');
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
+  const [FAIcon, setFAIcon] = useState('check');
+  const [FAIconSize] = useState('4x');
+
+  const testLength = testMaterials.audioFiles.length;
+  const testAudio = testMaterials.audioFiles;
+  const testTasks = testMaterials.tasks;
+
+  const [completedTest, setCompletedTest] = useState(false);
+  const [clickedToFinish, setClickedToFinish] = useState(false);
+
+  const listenIcon = 'headphones';
+  const speakIcon = 'comment';
 
   // Increments the track number & checks for test completion
   const incTrack = () => {
-    if (trackNo < audioFiles.length) {
+    if (trackNo < testLength) {
       setTrackNo(trackNo + 1);
     }
-    if (trackNo === audioFiles.length - 1) {
+    if (trackNo === testLength - 1) {
       setShowComponent(false);
       setCompletionMsg(
         'You have now completed this test. Thank you for participating.'
@@ -69,87 +49,102 @@ const SpeakingTest = () => {
 
   // Hides the audio player & displays the 'next button' component
   // Also disables the button initially while playing
-  const manageComponents = () => {
+  const setupTestStart = () => {
     setHidePlayer(true);
     setShowComponent(true);
     setNextBtnDisabled(false);
   };
 
   // Displays user message 'Please Listen'
-  const displayUserMsg = (msg = '') => {
-    if (!nextBtnDisabled && trackNo !== 0 && trackNo !== audioFiles.length) {
-      msg = 'Listen';
-    } else if (trackNo !== 0 && trackNo !== audioFiles.length) {
-      msg = 'Speak Now';
+  const displayUserMsg = () => {
+    if (!nextBtnDisabled && trackNo !== 0 && trackNo !== testLength) {
+      setFAIcon(listenIcon);
+    } else if (trackNo !== 0 && trackNo !== testLength) {
+      setFAIcon(speakIcon);
       setTimeout(() => {
         setNextBtnDisabled(false);
       }, 3000);
     }
-    const ref = document.querySelector('.user-msg');
-    ref.innerText = msg;
   };
 
   const insertAfter = (el, referenceNode) => {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
   };
 
-  const audioFile = audioFiles[trackNo];
+  const audioFile = testMaterials.audioFiles[trackNo];
   const fileExt = '.wav';
   const url = `${server()}/api/audio/playAudio/${audioFile}${fileExt}`;
 
-  const showTasks = trackNo => <div>{tasks[trackNo]}</div>;
+  const showTasks = trackNo => (<div>{testTasks[trackNo]}</div>);
+
+  const addButtonAfter = (hook, msg= '') => {
+    const btnHook = document.querySelector(hook);
+    const newBtn = document.createElement('button');
+    newBtn.innerText = msg;
+    newBtn.addEventListener('click', () => {setClickedToFinish(true)});
+    insertAfter(newBtn, btnHook);
+  }
+
+  const clearIcon = (icon) => {
+    // uses the check icon (could be any other) to set a blank icon
+    // the check icon is set to transparent in css
+    if (FAIcon !== 'check') setFAIcon(icon);
+  }
 
   let player;
-  if (trackNo !== audioFiles.length) {
+  
+  if (trackNo !== testLength) {
     player = (
       <AudioPlayer
         src={url}
-        onPlay={e => {
+        onPlay={() => {
           setNextBtnDisabled(true);
           displayUserMsg();
         }}
-        onEnded={e => (trackNo === 0 ? manageComponents() : displayUserMsg())}
+        onEnded={() => (trackNo === 0 ? setupTestStart() : displayUserMsg())}
         hidePlayer={hidePlayer}
       />
     );
-  } else {
-    player = '';
-    console.log('FINISHED');
+  } else if (!completedTest){
     displayUserMsg();
+    clearIcon('check');
+    addButtonAfter('.user-msg', 'Click to Finish');
+    setCompletedTest(true);
+  }
 
-    const btnHook = document.querySelector('.user-msg');
-    const finishBtn = document.createElement('button');
-    finishBtn.innerText = 'Press to Finish';
-    insertAfter(finishBtn, btnHook);
+  const redirectTo = (route) => {
+    if (clickedToFinish) {
+      return <Redirect to={route} />
+    }
   }
 
   return (
     <Layout
-      children
-      title="Speaking Test"
+      title="Speaking Test 2"
       description=""
       className="container-fluid noselect"
     >
       {showTasks(trackNo)}
       {completionMsg}
-
-
-      <Recorder trackNo={trackNo} userId={userId} audioFiles={audioFiles} />
-
-
-
+      <Recorder trackNo={trackNo} userId={userId} audioFiles={testAudio} />
       <br /> <br />
       {player}
       <br />
+      <FontAwesomeIcon
+        icon={FAIcon}
+        size={FAIconSize}
+        style={{color: 'green'}}
+      />
       <p className="user-msg"></p>
       <button
         className="next-task-btn"
         style={showComponent ? {} : {display: 'none'}}
-        onClick={trackNo < audioFiles.length ? incTrack : null}
+        onClick={trackNo < testLength ? incTrack : null}
         disabled={nextBtnDisabled}
       >
         {trackNo === 0 ? 'スタート' : '次へ'}
       </button>
+      {redirectTo('/')}
     </Layout>
   );
 };

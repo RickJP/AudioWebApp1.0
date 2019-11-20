@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Link, Redirect, withRouter} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Layout from '../core/Layout';
 import {signup} from '../auth';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import './styles/styles.css';
 
 const Signup = () => {
@@ -21,8 +21,6 @@ const Signup = () => {
   const handleChange = name => event => {
     setValues({...values, error: false, [name]: event.target.value});
   };
-
-
 
   const clickSubmit = event => {
     event.preventDefault();
@@ -188,19 +186,11 @@ const Signup = () => {
     </div>
   );
 
-  const redirectToSigninPage = () => {
+  const redirectTo = (route) => {
     if (success) {
-      return <Redirect to="/signin" />
+      return <Redirect to={route} />
     }
   }
-
-  // const showSuccess = () => {
-  //   // <div className="alert alert-info" style={{display: success ? '' : 'none'}}> </div>
-  //    if (success) {
-  //      setValues({success: false});
-  //      return <Redirect to="/signin" />
-  //   }
-  //   }
 
   return (
     <Layout
@@ -211,7 +201,7 @@ const Signup = () => {
       {showSuccess()}
       {showError()}
       {signUpForm()}
-      {redirectToSigninPage()}
+      {redirectTo('/signin')}
     </Layout>
   );
 };

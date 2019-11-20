@@ -3,7 +3,6 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 import SpeakingTest from "./studentTests/speakingTest";
-import SpeakingTest2 from "./studentTests2/speakingTest2";
 import PrivateRoute from "./auth/PrivateRoute";
 import Dashboard from "./user/UserDashboard";
 import AdminRoute from "./auth/AdminRoute";
@@ -28,7 +27,7 @@ const Routes = () => {
                     component={Dashboard}
                 />
                 <PrivateRoute path="/user/test" exact component={SpeakingTest} />
-                <PrivateRoute path="/user/test2" exact component={SpeakingTest2} />
+        
                 <AdminRoute
                     path="/admin/dashboard"
                     exact
