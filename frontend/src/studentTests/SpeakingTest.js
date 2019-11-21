@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom';
 import Layout from '../core/Layout';
 import './styles/styles.css';
-import Recorder from './recorder';
+import Recorder from './Recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
 import {testMaterials} from './testMaterials';
