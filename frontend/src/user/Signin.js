@@ -16,7 +16,7 @@ const Signin = () => {
 
   useEffect(() => {
     checkForStoredName();
-  }, []);
+  });
 
   const {
     name,

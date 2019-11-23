@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 const Dashboard = () => {
   const {
-    user: {name, email },
+    user: {name },
   } = isAuthenticated();
 //   const userLinks = () => {
 //     return (

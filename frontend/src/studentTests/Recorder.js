@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MicRecorder from 'mic-recorder-to-mp3';
 import {createUserSlug, createDateTimeStamp} from './prepareAudio';
 import server from '../helper/currentServer.js';
@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const Mp3Recorder = new MicRecorder({bitRate: 128});
 
-class Recorder extends React.Component {
+class Recorder extends Component {
   constructor(props) {
     super(props);
     this.state = {

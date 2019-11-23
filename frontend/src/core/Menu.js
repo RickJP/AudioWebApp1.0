@@ -113,6 +113,16 @@ const Menu = ({history}) => (
       {isAuthenticated() && (
         <Fragment>
           <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/testing')}
+              to="/testing"
+            >
+              Testing...
+            </Link>
+          </li>
+
+          <li className="nav-item">
             <span
               className="nav-link"
               style={{cursor: 'pointer', color: '#ffffff'}}

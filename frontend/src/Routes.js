@@ -2,13 +2,15 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Signup from "./user/Signup";
 import Signin from "./user/Signin";
+import Testing from "./testing";
+
 import SpeakingTest from "./studentTests/SpeakingTest";
 import PrivateRoute from "./auth/PrivateRoute";
 import Dashboard from "./user/UserDashboard";
 import AdminRoute from "./auth/AdminRoute";
 import AdminDashboard from "./user/AdminDashboard";
 import ListOfStudents from "./admin/ListOfStudents";
-import GetRecordings from "./admin/getRecordings";
+import GetRecordings from "./admin/GetRecordings";
 
 
 import Profile from "./user/Profile";
@@ -23,7 +25,7 @@ const Routes = () => {
                 
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />
-    
+                <Route path="/testing" exact component={Testing} />
                
                 <PrivateRoute
                     path="/user/dashboard"
