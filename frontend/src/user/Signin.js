@@ -6,14 +6,14 @@ import './styles/styles.css';
 
 const Signin = () => {
   const [values, setValues] = useState({
-    email: '',
+    name: '',
     password: '',
     error: '',
     loading: false,
     redirectToReferrer: false,
   });
 
-  const {email, password, loading, error, redirectToReferrer} = values;
+  const {name, password, loading, error, redirectToReferrer} = values;
   const {user} = isAuthenticated();
 
   const handleChange = name => event => {
@@ -23,7 +23,7 @@ const Signin = () => {
   const clickSubmit = event => {
     event.preventDefault();
     setValues({...values, error: false, loading: true});
-    signin({email, password}).then(data => {
+    signin({name, password}).then(data => {
       if (data.error) {
         setValues({...values, error: data.error, loading: false});
       } else {
@@ -42,12 +42,12 @@ const Signin = () => {
       <div className="wrapper">
         <form>
           <div className="">
-            <label className="text-muted">Email</label>
+            <label className="text-muted">Name</label>
             <input
-              onChange={handleChange('email')}
-              type="email"
+              onChange={handleChange('emanamel')}
+              type="text"
               className="form-control col-sm-10"
-              value={email}
+              value={name}
             />
           </div>
 

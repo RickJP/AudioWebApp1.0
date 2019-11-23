@@ -8,7 +8,6 @@ import './styles/styles.css';
 const Signup = () => {
   const [values, setValues] = useState({
     name: '',
-    email: '',
     studentNo: '',
     classNo: '',
     password: '',
@@ -16,7 +15,7 @@ const Signup = () => {
     success: false,
   });
 
-  const {name, email, studentNo, classNo, password, success, error} = values;
+  const {name,  studentNo, classNo, password, success, error} = values;
 
   const handleChange = name => event => {
     setValues({...values, error: false, [name]: event.target.value});
@@ -25,14 +24,13 @@ const Signup = () => {
   const clickSubmit = event => {
     event.preventDefault();
     setValues({...values, error: false});
-    signup({name, email, studentNo, classNo, password}).then(data => {
+    signup({name, studentNo, classNo, password}).then(data => {
       if (data.error) {
         setValues({...values, error: data.error, success: false});
       } else {
         setValues({
           ...values,
           name: '',
-          email: '',
           studentNo: '',
           classNo: '',
           password: '',
@@ -118,17 +116,7 @@ const Signup = () => {
                 onChange={handleChange('name')}
               />
             </p>
-            <p className="full-width">
-              <label className="text-muted" htmlFor="">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                value={email}
-                onChange={handleChange('email')}
-              />
-            </p>
+        
             <p className="full-width">
               <label className="text-muted" htmlFor="">
                 Password

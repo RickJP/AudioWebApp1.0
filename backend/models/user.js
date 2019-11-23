@@ -10,12 +10,6 @@ const userSchema = new mongoose.Schema(
             required: true,
             maxlength: 32
         },
-        email: {
-            type: String,
-            trim: true,
-            required: true,
-            unique: true
-        },
         studentNo: {
             type: Number,
             trim: true,
