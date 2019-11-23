@@ -51,10 +51,10 @@ const Signin = () => {
   };
 
   const signInForm = () => (
-    <div className="card">
+    <div className="container  w-60">
       <div className="wrapper">
         <form>
-          <div className="">
+          <div className="form-group">
             <label className="text-muted">Name</label>
             <input
               onChange={handleChange('name')}
@@ -73,12 +73,13 @@ const Signin = () => {
               value={password}
             />
           </div>
-          <button onClick={clickSubmit} className="signin-btn">
+          <button className="m-0" onClick={clickSubmit} className="signin-btn">
             Sign In
           </button>
         </form>
       </div>
     </div>
+    
   );
 
   const showError = () => (
@@ -121,7 +122,7 @@ const Signin = () => {
     <Layout
       title="Let's Get Started"
       description=""
-      className="container-fluid col-md-8 offset-md-2"
+      className="container-fluid  pt-4"
     >
       {showLoading()}
       {showError()}

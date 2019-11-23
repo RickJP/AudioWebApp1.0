@@ -101,7 +101,7 @@ const Signup = () => {
     //   </button>
     // </form>
 
-    <div className="contain">
+    <div className="container  w-60">
       <div className="wrapper">
         <div className="form">
           <form action="">
@@ -184,7 +184,7 @@ const Signup = () => {
     <Layout
       title="Signup"
       description=""
-      className="container-fluid  col-md-8 offset-md-2"
+      className="container-fluid p-5"
     >
       {/* {showSuccess()} */}
       {showError()}
