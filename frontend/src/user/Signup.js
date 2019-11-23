@@ -196,7 +196,7 @@ const Signup = () => {
     <Layout
       title="Signup"
       description=""
-      className="container col-md-8 offset-md-2"
+      className="container-fluid  col-md-8 offset-md-2"
     >
       {showSuccess()}
       {showError()}

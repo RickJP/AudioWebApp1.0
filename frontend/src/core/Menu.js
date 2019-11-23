@@ -19,6 +19,8 @@ const Menu = ({history}) => (
         </Link>
       </li>
 
+      {/* FOR TEST TAKERS - TEST & DASHBOARD ROUTE */}
+
       {isAuthenticated() && isAuthenticated().user.role === 0 && (
         <Fragment>
           <li className="nav-item">
@@ -30,8 +32,6 @@ const Menu = ({history}) => (
               Test
             </Link>
           </li>
-
-         
 
           <li className="nav-item">
             <Link
@@ -45,17 +45,33 @@ const Menu = ({history}) => (
         </Fragment>
       )}
 
+      {/* ADMIN DASHBOARD ROUTE */}
+
       {isAuthenticated() && isAuthenticated().user.role === 1 && (
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            style={isActive(history, '/admin/dashboard')}
-            to="/admin/dashboard"
-          >
-            Dashboard
-          </Link>
-        </li>
+        <Fragment>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/admin/dashboard')}
+              to="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/admin/listOfStudents')}
+              to="/admin/listOfStudents"
+            >
+              List of Students
+            </Link>
+          </li>
+        </Fragment>
       )}
+
+      {/* SIGNIN & SIGNUP */}
 
       {!isAuthenticated() && (
         <Fragment>
@@ -80,6 +96,8 @@ const Menu = ({history}) => (
           </li>
         </Fragment>
       )}
+
+      {/* SIGNOUT */}
 
       {isAuthenticated() && (
         <Fragment>

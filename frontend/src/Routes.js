@@ -7,6 +7,9 @@ import PrivateRoute from "./auth/PrivateRoute";
 import Dashboard from "./user/UserDashboard";
 import AdminRoute from "./auth/AdminRoute";
 import AdminDashboard from "./user/AdminDashboard";
+import ListOfStudents from "./user/ListOfStudents";
+
+
 import Profile from "./user/Profile";
 import Home from './core/Home';
 
@@ -32,6 +35,11 @@ const Routes = () => {
                     path="/admin/dashboard"
                     exact
                     component={AdminDashboard}
+                />
+                <AdminRoute
+                    path="/admin/listOfStudents"
+                    exact
+                    component={ListOfStudents}
                 />
                 <PrivateRoute
                     path="/profile/:userId"

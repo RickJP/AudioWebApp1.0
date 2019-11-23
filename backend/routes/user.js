@@ -4,10 +4,13 @@ const router = express.Router();
 const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
 
 const {
+    getAllUsers,
     userById,
     read,
     update
 } = require("../controllers/user");
+
+router.get('/users', getAllUsers);
 
 router.get("/secret/:userId", requireSignin, isAuth, isAdmin, (req, res) => {
     res.json({

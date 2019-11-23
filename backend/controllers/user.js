@@ -1,5 +1,21 @@
 const User = require("../models/user");
 
+exports.getAllUsers = (req, res) => {
+    const query = { role: {$ne: 1 }};
+    const includedFields = 'name email studentNo classNo createdAt updateAt recordings';
+
+    User.find(query, includedFields).exec((err, users) => {
+        // let theUsers = {};
+
+        // users.forEach((user, idx) => {
+        //     theUsers[idx] = user;
+        // });
+        res.send(users);
+    });
+};
+
+
+
 exports.userById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
         if (err || !user) {

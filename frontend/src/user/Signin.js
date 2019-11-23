@@ -38,7 +38,7 @@ const Signin = () => {
   };
 
   const signUpForm = () => (
-    <div className="contain">
+    <div className="card">
       <div className="wrapper">
         <form>
           <div className="">
@@ -98,7 +98,7 @@ const Signin = () => {
     <Layout
       title="Let's Get Started"
       description=""
-      className="container col-md-8 offset-md-2"
+      className="container-fluid col-md-8 offset-md-2"
     >
       {showLoading()}
       {showError()}

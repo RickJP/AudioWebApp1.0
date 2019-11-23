@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const Mp3Recorder = new MicRecorder({bitRate: 128});
 
-class App extends React.Component {
+class Recorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,10 +72,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
-
-
-
     navigator.mediaDevices.getUserMedia(
       {audio: true},
       () => {
@@ -109,4 +105,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Recorder;

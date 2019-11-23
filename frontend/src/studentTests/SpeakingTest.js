@@ -34,6 +34,10 @@ const SpeakingTest = () => {
   const listenIcon = 'headphones';
   const speakIcon = 'comment';
 
+  const audioFile = testMaterials.audioFiles[trackNo];
+  const fileExt = '.wav';
+  const url = `${server()}/api/audio/playAudio/${audioFile}${fileExt}`;
+
   // Increments the track number & checks for test completion
   const incTrack = () => {
     if (trackNo < testLength) {
@@ -70,10 +74,6 @@ const SpeakingTest = () => {
   const insertAfter = (el, referenceNode) => {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
   };
-
-  const audioFile = testMaterials.audioFiles[trackNo];
-  const fileExt = '.wav';
-  const url = `${server()}/api/audio/playAudio/${audioFile}${fileExt}`;
 
   const showTasks = trackNo => (<div>{testTasks[trackNo]}</div>);
 
