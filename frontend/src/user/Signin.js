@@ -44,7 +44,7 @@ const Signin = () => {
           <div className="">
             <label className="text-muted">Name</label>
             <input
-              onChange={handleChange('emanamel')}
+              onChange={handleChange('name')}
               type="text"
               className="form-control col-sm-10"
               value={name}

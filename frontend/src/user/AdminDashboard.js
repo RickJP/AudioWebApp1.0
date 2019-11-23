@@ -17,11 +17,7 @@ const AdminDashboard = () => {
             <FontAwesomeIcon icon="user" size="2x" style={{color: 'green'}} />
             {name}
           </li>
-          <li className="list-group-item">
-          <FontAwesomeIcon icon="envelope" size="2x" style={{color: 'green'}}
-            />
-            {email}
-          </li>
+          
           <li className="list-group-item">
           <FontAwesomeIcon icon="lock" size="2x" style={{color: 'red'}}
             />

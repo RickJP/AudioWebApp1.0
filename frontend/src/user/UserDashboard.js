@@ -32,14 +32,6 @@ const Dashboard = () => {
             <FontAwesomeIcon icon="user" size="2x" style={{color: 'green'}} />
             <p className="text-primary">{name}  (Student)</p>
           </li>
-          <li className="list-group-item">
-            <FontAwesomeIcon
-              icon="envelope"
-              size="2x"
-              style={{color: 'green'}}
-            />
-            <p className="text-primary">{email}</p>
-          </li>
         </ul>
       </div>
     );

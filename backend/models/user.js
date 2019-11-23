@@ -13,12 +13,14 @@ const userSchema = new mongoose.Schema(
         studentNo: {
             type: Number,
             trim: true,
+            required: true,
             min: [1, 'Too few'],
             max: [50, 'Too many']
         },
         classNo: {
             type: Number,
             trim: true,
+            required: true,
             min: [1, 'Too few'],
             max: [16, 'Too many']
         },
@@ -40,10 +42,11 @@ const userSchema = new mongoose.Schema(
             type: Array,
             default: []
         },
-
     },
     { timestamps: true }
 );
+
+userSchema.index({name:1, classNo:1, studentNo:1}, { unique: true });
 
 // virtual field
 userSchema

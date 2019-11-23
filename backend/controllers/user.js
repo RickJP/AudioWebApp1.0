@@ -2,7 +2,7 @@ const User = require("../models/user");
 
 exports.getAllUsers = (req, res) => {
     const query = { role: {$ne: 1 }};
-    const includedFields = 'name email studentNo classNo createdAt updateAt recordings';
+    const includedFields = 'name studentNo classNo createdAt updateAt recordings';
 
     User.find(query, includedFields).exec((err, users) => {
         // let theUsers = {};
