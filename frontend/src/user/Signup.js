@@ -38,7 +38,7 @@ const Signup = () => {
           success: true,
           test: true,
         });
-        
+        localStorage.setItem('uName', name);
       }
     });
   };
@@ -168,11 +168,11 @@ const Signup = () => {
     </div>
   );
 
-  const showSuccess = () => (
-    <div className="alert alert-info" style={{display: success ? '' : 'none'}}>
-      New account is created. Please <Link to="/signin">Signin</Link>
-    </div>
-  );
+  // const showSuccess = () => (
+  //   <div className="alert alert-info" style={{display: success ? '' : 'none'}}>
+  //     New account is created. Please <Link to="/signin">Signin</Link>
+  //   </div>
+  // );
 
   const redirectTo = (route) => {
     if (success) {
@@ -186,7 +186,7 @@ const Signup = () => {
       description=""
       className="container-fluid  col-md-8 offset-md-2"
     >
-      {showSuccess()}
+      {/* {showSuccess()} */}
       {showError()}
       {signUpForm()}
       {redirectTo('/signin')}

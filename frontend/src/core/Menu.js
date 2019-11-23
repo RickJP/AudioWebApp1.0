@@ -10,6 +10,7 @@ const isActive = (history, path) => {
   }
 };
 
+
 const Menu = ({history}) => (
   <div>
     <ul className="nav nav-tabs bg-dark">
@@ -66,6 +67,16 @@ const Menu = ({history}) => (
               to="/admin/listOfStudents"
             >
               List of Students
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/admin/getRecordings')}
+              to="/admin/getRecordings"
+            >
+              Get Recordings
             </Link>
           </li>
         </Fragment>

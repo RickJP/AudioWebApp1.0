@@ -24,6 +24,7 @@ const Dashboard = () => {
 //   };
 
   const userInfo = () => {
+  
     return (
       <div className="card mb-5">
         <h3 className="card-header">User Information</h3>

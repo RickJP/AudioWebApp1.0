@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 const AdminDashboard = () => {
   const {
-    user: {name, email, role},
+    user: {name, role},
   } = isAuthenticated();
 
   const adminInfo = () => {

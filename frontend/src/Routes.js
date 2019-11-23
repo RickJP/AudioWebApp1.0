@@ -8,7 +8,7 @@ import Dashboard from "./user/UserDashboard";
 import AdminRoute from "./auth/AdminRoute";
 import AdminDashboard from "./user/AdminDashboard";
 import ListOfStudents from "./admin/ListOfStudents";
-import DownloadRecordings from "./admin/DownloadRecordings";
+import GetRecordings from "./admin/getRecordings";
 
 
 import Profile from "./user/Profile";
@@ -43,9 +43,9 @@ const Routes = () => {
                     component={ListOfStudents}
                 />
                 <AdminRoute
-                    path="/admin/downloadRecordings"
+                    path="/admin/getRecordings"
                     exact
-                    component={DownloadRecordings}
+                    component={GetRecordings}
                 />
 
                 <PrivateRoute

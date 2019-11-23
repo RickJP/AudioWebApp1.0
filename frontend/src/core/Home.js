@@ -3,6 +3,8 @@ import Layout from "./Layout";
 
 
 const Home = () => {
+    // eslint-disable-next-line no-undef
+    localStorage.removeItem('uName');
     return (
         <Layout
             title="Home"

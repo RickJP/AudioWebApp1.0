@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import Layout from '../core/Layout';
 import {signin, authenticate, isAuthenticated} from '../auth';
@@ -11,9 +11,21 @@ const Signin = () => {
     error: '',
     loading: false,
     redirectToReferrer: false,
+    displayedName: false,
   });
 
-  const {name, password, loading, error, redirectToReferrer} = values;
+  useEffect(() => {
+    checkForStoredName();
+  }, []);
+
+  const {
+    name,
+    password,
+    loading,
+    displayedName,
+    error,
+    redirectToReferrer,
+  } = values;
   const {user} = isAuthenticated();
 
   const handleChange = name => event => {
@@ -33,11 +45,12 @@ const Signin = () => {
             redirectToReferrer: true,
           });
         });
+        localStorage.removeItem('uName');
       }
     });
   };
 
-  const signUpForm = () => (
+  const signInForm = () => (
     <div className="card">
       <div className="wrapper">
         <form>
@@ -94,6 +107,16 @@ const Signin = () => {
     }
   };
 
+  const checkForStoredName = () => {
+    const getName = localStorage.getItem('uName');
+    if (localStorage.getItem('uName') && !displayedName) {
+      console.log(getName);
+      setValues({...values, name: getName, displayedName: true});
+    }
+  };
+
+  //localStorage.setItem('uName', name);
+
   return (
     <Layout
       title="Let's Get Started"
@@ -102,7 +125,7 @@ const Signin = () => {
     >
       {showLoading()}
       {showError()}
-      {signUpForm()}
+      {signInForm()}
       {redirectUser()}
     </Layout>
   );
