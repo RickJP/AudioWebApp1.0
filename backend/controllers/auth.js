@@ -20,20 +20,40 @@ exports.signup = (req, res) => {
     });
 };
 
+checkForMissingInput = (name, password) => {
+    let msg = '';
+    if (!name && !password) {
+        msg = "Enter your name and password";
+    } else if (!name) {
+        msg = "Enter your name";
+    } else if (!password) {
+        msg = "Enter your password";
+    }
+    return msg;
+};
+
 exports.signin = (req, res) => {
     // find the user based on name
     const { name, password } = req.body;
+
+    const msg = checkForMissingInput(name, password);
+    if (msg !== '') {
+        return res.status(400).json({
+            error: msg
+        });
+    }
+
     User.findOne({ name }, (err, user) => {
         if (err || !user) {
             return res.status(400).json({
-                error: "User with that name does not exist. Please signup"
+                error: "Your name and password doesn't match"
             });
         }
         // if user is found make sure the name and password match
         // create authenticate method in user model
         if (!user.authenticate(password)) {
             return res.status(401).json({
-                error: "Name and password don't match"
+                error: "Your name and password doesn't match"
             });
         }
         // generate a signed token with user id and secret

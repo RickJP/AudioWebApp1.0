@@ -7,12 +7,12 @@ exports.userSignupValidator = (req, res, next) => {
     //         min: 4,
     //         max: 32
     //     });
-    req.check("password", "You must enter a password").notEmpty();
+    req.check("password", "Think of a password!").notEmpty();
     req.check("password")
         .isLength({ min: 6 })
-        .withMessage("Password must have 6 characters or more")
+        .withMessage("6 characters or more, please")
         .matches(/\d/)
-        .withMessage("Password must include a number");
+        .withMessage("Type at least 1 number");
     req.check("classNo", "Type your class number, please")
        .notEmpty()
        .matches(/^([1-9]|1[0-5])$/)
@@ -21,7 +21,6 @@ exports.userSignupValidator = (req, res, next) => {
        .matches(/^([1-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9])$/)
        .withMessage("This student number is not correct");
 
-    
     const errors = req.validationErrors();
     if (errors) {
         const firstError = errors.map(error => error.msg)[0];
