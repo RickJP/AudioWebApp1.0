@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import Layout from '../core/Layout';
-import axios from 'axios';
+import {testMaterials} from '../studentTests/testMaterials';
+
 
 class Testing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: ['Set1','Set2','Set3','Set4','Set5','Set6','Set7','Set8'],
+      files: testMaterials[1][0].audioFiles,
       count: 0
     };
+    
     this.getPhotos = () => {
       fetch('https://picsum.photos/id/6/100')
         .then(response => response.blob())
@@ -78,9 +80,12 @@ class Testing extends Component {
 
 
     this.getFile = (file, idx) => {
-      fetch(`http://localhost:8000/api/audio/playAudio/${file}.wav`)
+      fetch(`http://localhost:8000/api/audio/playAudio/1/${file}.wav`)
         .then(res => res.blob())
         .then(blob => {     
+
+
+
           const downloadLink = downloadBlob(blob);
 
           // Set the title and classnames of the link
@@ -143,6 +148,15 @@ class FileLinks extends Testing{
           <a className="download-link7"></a>
           <br/>
           <a className="download-link8"></a>
+          <br/>
+          <a className="download-link9"></a>
+          <br/>
+          <br/>
+          <a className="download-link10"></a>
+          <br/>
+          <br/>
+          <a className="download-link11"></a>
+          <br/>
         {list}
         </ul>
         

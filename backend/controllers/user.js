@@ -2,7 +2,7 @@ const User = require("../models/user");
 
 exports.getAllUsers = (req, res) => {
     const query = { role: {$ne: 1 }};
-    const includedFields = 'name studentNo classNo createdAt updateAt recordings';
+    const includedFields = 'name studentNo classNo createdAt updateAt ulFolder recordings';
 
     User.find(query, includedFields).exec((err, users) => {
         // let theUsers = {};
@@ -13,8 +13,6 @@ exports.getAllUsers = (req, res) => {
         res.send(users);
     });
 };
-
-
 
 exports.userById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {

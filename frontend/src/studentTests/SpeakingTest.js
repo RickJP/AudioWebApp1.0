@@ -143,7 +143,7 @@ const SpeakingTest = (props) => {
       <FontAwesomeIcon
         icon={FAIcon}
         size={FAIconSize}
-        style={{color: 'green', display: 'none'}}
+        style={{color: 'green'}}
 
       />
       <p className="user-msg"></p>

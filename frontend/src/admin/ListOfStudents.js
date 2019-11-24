@@ -13,7 +13,6 @@ export default class StudentList extends Component {
       students: [],
     };
     this.makeDateReadable = (date) => moment(date).format('lll'); 
-  
   }
 
   componentDidMount() {
@@ -22,8 +21,6 @@ export default class StudentList extends Component {
       this.setState({students});
     });
   }
-
-  
 
   render() {
     return (
@@ -70,7 +67,8 @@ class Table extends StudentList {
                   <td>{student.studentNo}</td>
                   <td>{student.classNo}</td>
                   <td>{this.makeDateReadable(student.createdAt)}</td>
-                  <td>{student.recordings.length === 0 ? "---------------" : student.recordings.length + ' test'}</td>
+                  <td>{student.recordings.length === 0 ? "---------------" : student.recordings.length === 1 ? student.recordings.length + ' test' : student.recordings.length + ' tests'}</td>
+                  {console.log(student)}
                   <td>{!student.ulFolder ? '----------': student.ulFolder}</td>
                 </tr>
               </Fragment>
