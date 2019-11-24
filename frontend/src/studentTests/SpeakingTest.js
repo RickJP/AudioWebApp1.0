@@ -1,20 +1,24 @@
 /* eslint-disable no-undef */
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
-import Layout from '../core/Layout';
-import './styles/styles.css';
+
 import Recorder from './Recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
+
+import Layout from '../core/Layout';
+import './styles/styles.css';
 import {testMaterials} from './testMaterials';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-const SpeakingTest = () => {
+const SpeakingTest = (props) => {
   // Get userId from localStorage
   const retreivedItem = localStorage.getItem('jwt');
   const user_Id = JSON.parse(retreivedItem).user._id;
 
-  const [testNo, setTestNo] = useState(1);
+  let taskNo = !props.location.state ? 1 : props.location.state.taskNo;
+
   const [trackNo, setTrackNo] = useState(0);
   const [userId] = useState(user_Id);
   
@@ -25,9 +29,10 @@ const SpeakingTest = () => {
   const [FAIcon, setFAIcon] = useState('check');
   const [FAIconSize] = useState('4x');
 
-  const testLength = testMaterials.audioFiles.length;
-  const testAudio = testMaterials.audioFiles;
-  const testTasks = testMaterials.tasks;
+  
+  const testAudio = testMaterials[taskNo][0].audioFiles;
+  const testLength = testMaterials[taskNo][0].audioFiles.length;
+  const testTasks = testMaterials[taskNo][0].tasks;
 
   const [completedTest, setCompletedTest] = useState(false);
   const [clickedToFinish, setClickedToFinish] = useState(false);
@@ -37,10 +42,9 @@ const SpeakingTest = () => {
 
   const testCompletionMsg = 'You have now completed this test. Thank you for participating.';
 
-  const audioFile = testMaterials.audioFiles[trackNo];
+  const audioFile = testMaterials[taskNo][0].audioFiles[trackNo];
   const fileExt = '.wav';
-  const url = `${server()}/api/audio/playAudio/1/${audioFile}${fileExt}`;
-  console.log(url);
+  const url = `${server()}/api/audio/playAudio/${taskNo}/${audioFile}${fileExt}`;
 
   // Increments the track number & checks for test completion
   const incTrack = () => {
@@ -128,8 +132,8 @@ const SpeakingTest = () => {
       description=""
       className="container-fluid noselect"
     > 
-      <div className="container w-20 h-30">
-        <div className="">
+      <div className="container w-20">
+       
       {showTasks(trackNo)}
       {completionMsg}
       <Recorder trackNo={trackNo} userId={userId} audioFiles={testAudio} />
@@ -139,7 +143,8 @@ const SpeakingTest = () => {
       <FontAwesomeIcon
         icon={FAIcon}
         size={FAIconSize}
-        style={{color: 'green'}}
+        style={{color: 'green', display: 'none'}}
+
       />
       <p className="user-msg"></p>
       <button
@@ -152,9 +157,13 @@ const SpeakingTest = () => {
       </button>
       {redirectTo('/')}
       </div>
-      </div>
+     
     </Layout>
   );
 };
+
+// SpeakingTest.propTypes = {
+//   location: PropTypes.object
+// }
 
 export default SpeakingTest;

@@ -1,0 +1,18 @@
+.task-btn {
+  color: white;
+  background: rgb(108, 154, 240);
+  height: 3rem;
+  border: 0;
+}
+
+
+Link {
+  color: white;
+}
+.v-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
