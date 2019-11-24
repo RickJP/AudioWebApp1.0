@@ -4,7 +4,7 @@ const multer = require('multer');
 const upload = multer();
 
 //const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
-const { playAudio, saveAudio, getFileLists, saveRecordingsList  } = require('../controllers/audio');
+const { playAudio, saveAudio, getAudioFiles, saveRecordingsList, getAudioList  } = require('../controllers/audio');
 
 const {
   userById,
@@ -12,9 +12,10 @@ const {
   update
 } = require("../controllers/user");
 
+router.get('/getaudiolist', getAudioList);
 router.post('/upload/:userId/:dir/:file', upload.single('soundBlob'), saveRecordingsList, saveAudio );
-router.get('/playAudio/:file', playAudio);
-router.get('/getFileLists', getFileLists);
+router.get('/playAudio/:testNo/:file', playAudio);
+router.get('/getaudiofiles/:dir/:file', getAudioFiles);
 
 
 router.param("userId", userById);

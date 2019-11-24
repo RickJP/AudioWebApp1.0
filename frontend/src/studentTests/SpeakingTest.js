@@ -14,6 +14,7 @@ const SpeakingTest = () => {
   const retreivedItem = localStorage.getItem('jwt');
   const user_Id = JSON.parse(retreivedItem).user._id;
 
+  const [testNo, setTestNo] = useState(1);
   const [trackNo, setTrackNo] = useState(0);
   const [userId] = useState(user_Id);
   
@@ -34,9 +35,12 @@ const SpeakingTest = () => {
   const listenIcon = 'headphones';
   const speakIcon = 'comment';
 
+  const testCompletionMsg = 'You have now completed this test. Thank you for participating.';
+
   const audioFile = testMaterials.audioFiles[trackNo];
   const fileExt = '.wav';
-  const url = `${server()}/api/audio/playAudio/${audioFile}${fileExt}`;
+  const url = `${server()}/api/audio/playAudio/1/${audioFile}${fileExt}`;
+  console.log(url);
 
   // Increments the track number & checks for test completion
   const incTrack = () => {
@@ -46,7 +50,7 @@ const SpeakingTest = () => {
     if (trackNo === testLength - 1) {
       setShowComponent(false);
       setCompletionMsg(
-        'You have now completed this test. Thank you for participating.'
+        testCompletionMsg
       );
     }
   };
@@ -123,7 +127,9 @@ const SpeakingTest = () => {
       title="Speaking Test 2"
       description=""
       className="container-fluid noselect"
-    >
+    > 
+      <div className="container w-20 h-30">
+        <div className="">
       {showTasks(trackNo)}
       {completionMsg}
       <Recorder trackNo={trackNo} userId={userId} audioFiles={testAudio} />
@@ -145,6 +151,8 @@ const SpeakingTest = () => {
         {trackNo === 0 ? 'スタート' : '次へ'}
       </button>
       {redirectTo('/')}
+      </div>
+      </div>
     </Layout>
   );
 };

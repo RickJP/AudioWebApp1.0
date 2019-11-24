@@ -14,7 +14,6 @@ class DownloadFile extends React.Component {
     
   }
 
-  
 
   render() {
     return (

@@ -5,7 +5,6 @@ const { errorHandler } = require("../helpers/dbErrorHandler");
 
 exports.signup = (req, res) => {
     const user = new User(req.body);
-    console.log(req.body);
     user.save((err, user) => {
         if (err) {
             return res.status(400).json({
@@ -62,6 +61,7 @@ exports.signin = (req, res) => {
         res.cookie("t", token, { expire: new Date() + 9999 });
         // return response with user and token to frontend client
         const { _id, name, role } = user;
+        console.log('############ ROLE IS : '+ role);
         return res.json({ token, user: { _id, name, role } });
     });
 };

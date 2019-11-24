@@ -48,7 +48,7 @@ const AdminDashboard = () => {
       className="container-fluid"
     >
       <div className="row">
-        <div className="col-6">{adminInfo()}</div>
+        <div className="col-8">{adminInfo()}</div>
         {/* <div className="col-9">{displayListOfStudents()}</div> */}
       </div>
     </Layout>

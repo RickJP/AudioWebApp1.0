@@ -1,11 +1,10 @@
 import React from "react";
 import Menu from "./Menu";
 import PropTypes from 'prop-types';
+
 import "../styles.css";
 import 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css';
 
-
-   
 const Layout = ({className, children}) => (
     <div>
         <Menu />

@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 import MicRecorder from 'mic-recorder-to-mp3';
-import {createUserSlug, createDateTimeStamp} from './prepareAudio';
-import server from '../helper/currentServer.js';
-import axios from 'axios';
+import {sendAudio} from './sendAudio';
 
 const Mp3Recorder = new MicRecorder({bitRate: 128});
 
@@ -13,12 +14,7 @@ class Recorder extends Component {
       isRecording: false,
       blobURL: '',
       isBlocked: false,
-      stream: null,
-      recording: false,
-      recorder: null,
     };
-
-    this.userId = props.userId;
 
     this.start = () => {
       if (this.state.isBlocked) {
@@ -27,45 +23,41 @@ class Recorder extends Component {
         Mp3Recorder.start()
           .then(() => {
             this.setState({isRecording: true});
+            console.log('STARTED RECORDING....');
           })
           .catch(e => console.error(e));
       }
     };
     
-
-    this.stop = () => {
+    this.stopAndSendAudio = () => {
       Mp3Recorder.stop()
         .getMp3()
-        .then(([buffer, audio]) => {
+        // buffer, audio    buffer unused
+        .then(([,audio]) => {
           //const blobURL = URL.createObjectURL(audio);
           this.setState({isRecording: false});
-          //console.log(blobURL);
-
-          const userSlug = createUserSlug();
-          const dtStamp = createDateTimeStamp();
+          console.log('...STOPPED! Recording ');
+          
+          const user_Id = this.userId;
 
           let data = new FormData();
           data.append('soundBlob', audio);
 
-          let config = {
-            header: {
-              'Content-Type': 'multipart/form-data',
-            },
-          };
-          const user_Id = this.userId;
+          // Sends the recorded audio data
+          sendAudio(user_Id, data);
 
-          const url = `${server()}/api/audio/upload/${user_Id}/${userSlug}/${dtStamp}`;
+          
+        })
+        .catch(e => console.log(e));
+    };
 
-          console.log(audio);
-          console.log(url);
-          axios
-            .post(url, data, config)
-            .then(response => {
-              console.log('response', response);
-            })
-            .catch(error => {
-              console.log('error', error);
-            });
+    this.stop= () => {
+      Mp3Recorder.stop()
+        .getMp3()
+        // buffer, audio    buffer unused
+        .then(() => {
+          this.setState({isRecording: false});
+          console.log('Stopped audio without saving');
         })
         .catch(e => console.log(e));
     };
@@ -85,24 +77,41 @@ class Recorder extends Component {
     );
   }
 
-  async componentWillReceiveProps({trackNo, audioFiles}) {
+  componentWillUnmount() {
+    // let {isRecording} = this.state;
+    // console.log('willUnmount');
+    // console.log(this.props);
+    // console.log('recording > '+isRecording);
+    // if (isRecording) {
+    //   console.log('Still recording');
+    //   this.stop();
+    //   console.log('recording > '+isRecording);
+    // } 
+  }
+
+  UNSAFE_componentWillReceiveProps({trackNo, audioFiles}) {
     let {recording} = this.state;
 
     if (!recording && trackNo === 1) {
-      this.setState({recording: true});
-      console.log('STARTED RECORDING....');
       this.start();
     }
     if (recording && trackNo === audioFiles.length) {
-      console.log('...STOPPED! Recording ');
-      this.setState({recording: false});
-      this.stop();
+      this.stopAndSendAudio();
     }
   }
 
   render() {
     return (<div className="App"></div>);
   }
+}
+
+Recorder.propTypes = {
+  isRecording: PropTypes.bool,
+  blobURL: PropTypes.string,
+  isBlocked: PropTypes.bool,
+  recording: PropTypes.bool,
+  trackNo: PropTypes.number,
+  audioFiles: PropTypes.array,
 }
 
 export default Recorder;

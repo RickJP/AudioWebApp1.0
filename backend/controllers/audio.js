@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const User = require('../models/user');
+const glob = require('glob');
 //const ffmpeg = require('ffmpeg');
 
 exports.saveAudio = (req, res) => {
@@ -50,8 +51,11 @@ exports.saveAudio = (req, res) => {
 
 exports.playAudio = (req, res) => {
   try {
+    const testNo = req.params.testNo;
+    const file = req.params.file;
+
     const tFile =
-      path.join(__dirname, '../data/') + 'playAudio/' + req.params.file;
+      path.join(__dirname, '../data/', 'playAudio/', testNo, file);
     if (fs.existsSync(tFile)) {
       console.log(`PATH ${tFile} EXISTS`);
       res.download(tFile);
@@ -61,19 +65,35 @@ exports.playAudio = (req, res) => {
   }
 };
 
-const walk = (curDirPath, cb) => {
-  fs.readdir(curDirPath, (err, files) => {
+
+const getDirectories = function (src, callback) {
+  glob(src + '/**/*', callback);
+};
+
+exports.getAudioList = (req, res) => {
+  const pathToSearch = 'data/uploads';
+  getDirectories(pathToSearch, function (err, data) {
     if (err) {
-      throw new Error(err);
+      res.status(500).send(err);
+    } else {
+      return res.status(200).send(data);
     }
-    files.forEach(file => {
-      console.log(file);
-    });
   });
 };
 
-exports.getFileLists = (req, res) => {
-  res.send(walk());
+
+exports.getAudioFiles = (req, res) => {
+  try {
+    const tFile =
+      path.join(__dirname, '../data/') + 'uploads/' + req.params.dir+ '/' + req.params.file;
+    console.log('#########' + tFile + '###########');
+    if (fs.existsSync(tFile)) {
+      console.log(`PATH ${tFile} EXISTS`);
+      res.download(tFile);
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 exports.saveRecordingsList = (req, res, next) => {

@@ -26,7 +26,7 @@ const Signin = () => {
     error,
     redirectToReferrer,
   } = values;
-  const {user} = isAuthenticated();
+  const {user, role} = isAuthenticated();
 
   const handleChange = name => event => {
     setValues({...values, error: false, [name]: event.target.value});
