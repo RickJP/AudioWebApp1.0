@@ -21,7 +21,7 @@ const SpeakingTest = (props) => {
 
   const [trackNo, setTrackNo] = useState(0);
   const [userId] = useState(user_Id);
-  
+  console.log('UserId from SpeakingTest   '+userId);
   const [hidePlayer, setHidePlayer] = useState(false);
   const [showComponent, setShowComponent] = useState(false);
   const [completionMsg, setCompletionMsg] = useState('');

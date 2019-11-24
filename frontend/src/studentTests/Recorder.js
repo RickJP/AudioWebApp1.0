@@ -16,6 +16,8 @@ class Recorder extends Component {
       isBlocked: false,
     };
 
+    
+
     this.start = () => {
       if (this.state.isBlocked) {
         console.log('Permission Denied');
@@ -38,7 +40,8 @@ class Recorder extends Component {
           this.setState({isRecording: false});
           console.log('...STOPPED! Recording ');
           
-          const user_Id = this.userId;
+          const user_Id = props.userId;
+          console.log('UserId from StopAndSave  '+props.userId);
 
           let data = new FormData();
           data.append('soundBlob', audio);
@@ -89,13 +92,13 @@ class Recorder extends Component {
     // } 
   }
 
-  UNSAFE_componentWillReceiveProps({trackNo, audioFiles}) {
-    let {recording} = this.state;
+  UNSAFE_componentWillReceiveProps({trackNo, audioFiles, userId}) {
+    let {isRecording} = this.state;
 
-    if (!recording && trackNo === 1) {
+    if (!isRecording && trackNo === 1) {
       this.start();
     }
-    if (recording && trackNo === audioFiles.length) {
+    if (isRecording && trackNo === audioFiles.length) {
       this.stopAndSendAudio();
     }
   }

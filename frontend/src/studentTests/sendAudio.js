@@ -12,6 +12,7 @@ export const sendAudio = (user_Id, data) => {
     },
   };
 
+  console.log('USER_ID  ' + user_Id);
   const url = `${server()}/api/audio/upload/${user_Id}/${userSlug}/${dtStamp}`;
 
   axios
