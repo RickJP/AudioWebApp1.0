@@ -17,12 +17,14 @@ class GetRecordings extends React.Component {
 
       axios.get(getAudioListUrl).then(res => {
         this.setState({ gotRecordings: true });
+        console.log('GetFileList:  '+ res.data);
 
         let idx = 0;
         res.data.forEach (s => {
           if (s.split('data/uploads/')[1].includes('mp3')) {
             fName.push(s.split('data/uploads/')[1].split('/'));
           }
+          console.log('fName  '+ fName);
         });
         res.data
           .filter(r => r.includes('mp3'))
@@ -54,11 +56,13 @@ class GetRecordings extends React.Component {
       return a;
     };
 
-    this.getFile = (fileUrl, linkName='Default_name', idx) => {
+    this.getFile = (fileUrl, linkName, idx) => {
+      console.log('GetFile Before Fetch  '+ fileUrl + linkName + idx);
       fetch(fileUrl)
         .then(res => res.blob())
         .then(blob => {
           const downloadLink = this.downloadBlob(blob);
+          console.log('GetFileBlob:  '+ blob);
 
           // Set the title and classnames of the link
           downloadLink.title = fileUrl;
