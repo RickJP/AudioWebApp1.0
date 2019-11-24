@@ -15,6 +15,10 @@ class GetRecordings extends React.Component {
       const getAudioFilesUrl = `${API}/audio/getaudiofiles/`;
       const fName = [];
 
+      console.log(getAudioListUrl);
+      console.log(getAudioFilesUrl);
+
+
       axios.get(getAudioListUrl).then(res => {
         this.setState({ gotRecordings: true });
         console.log('GetFileList:  '+ res.data);
