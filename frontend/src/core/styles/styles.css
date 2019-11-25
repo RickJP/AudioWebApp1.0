@@ -1,9 +1,23 @@
-.task-btn {
+a.task-btn {
   color: white;
   background: rgb(108, 154, 240);
   height: 3rem;
   border: 0;
+  text-align: center;
+  line-height: 3rem;
+  text-decoration: none;
+  
 }
+
+a.task-btn:hover {
+  background: rgb(53, 93, 167);
+}
+
+.container .wrapper {
+  max-width: 20rem;
+}
+
+
 
 
 Link {
@@ -15,4 +29,9 @@ Link {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+ .jumbotron {
+  border-radius: 6px ;
+  max-height: 90px;
 }

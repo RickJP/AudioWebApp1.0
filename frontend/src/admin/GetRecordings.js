@@ -7,20 +7,20 @@ class GetRecordings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gotRecordings: false
+      gotRecordings: false,
     };
-    
+
     this.getAudioList = () => {
       const getAudioListUrl = `${API}/audio/getaudiolist`;
       const getAudioFilesUrl = `${API}/audio/getaudiofiles/`;
       const fName = [];
 
       axios.get(getAudioListUrl).then(res => {
-        this.setState({ gotRecordings: true });
+        this.setState({gotRecordings: true});
         //console.log('GetFileList:  '+ res.data);
 
         let idx = 0;
-        res.data.forEach (s => {
+        res.data.forEach(s => {
           if (s.split('data/uploads/')[1].includes('mp3')) {
             fName.push(s.split('data/uploads/')[1].split('/'));
           }
@@ -28,19 +28,19 @@ class GetRecordings extends React.Component {
         res.data
           .filter(r => r.includes('mp3'))
           .sort((a, b) => b - a)
-          .map(r => 
-             (this.getFile(
-               // Full url for the audio download link
-               getAudioFilesUrl + r.split('data/uploads/')[1],
-               // Join the student name & file name for the link text
-               fName[idx][0] ,
+          .map(r =>
+            this.getFile(
+              // Full url for the audio download link
+              getAudioFilesUrl + r.split('data/uploads/')[1],
+              // Join the student name & file name for the link text
+              fName[idx][0],
               //  + '___' + fName[idx][1],
-               // Increment the index for the tag hook
-               idx++))     
-           );
-      });    
+              // Increment the index for the tag hook
+              idx++
+            )
+          );
+      });
     };
-
 
     this.downloadBlob = (blob, filename) => {
       // Create an object URL for the blob object
@@ -62,7 +62,6 @@ class GetRecordings extends React.Component {
         .then(res => res.blob())
         .then(blob => {
           const downloadLink = this.downloadBlob(blob);
-          // console.log('GetFileBlob:  '+ blob);
 
           // Set the title and classnames of the link
           downloadLink.title = fileUrl;
@@ -71,9 +70,18 @@ class GetRecordings extends React.Component {
           // Set the text content of the download link
           downloadLink.textContent = linkName;
 
-          const fLinks = document.querySelector(`.d-link${idx}`);
+          // let hookEl = document.createElement('div');
+          // hookEl.classList.add(`hook${idx}`);
+          // document.body.appendChild(hookEl);
+
+          let hook = document.querySelector(`.sList${idx}`);
           // Attach the link to the DOM
-          fLinks.appendChild(downloadLink);
+          hook.appendChild(downloadLink);
+
+          // const newEl = document.createElement('li');
+          // newEl.classList.add(`.sList${idx + 1}`);
+          // let prevHook = document.querySelector(`.sList${idx}`);
+          // newEl.appendChild(prevHook);
         });
     };
   }
@@ -81,8 +89,21 @@ class GetRecordings extends React.Component {
   render() {
     return (
       <Layout className="container-fluid">
-        <button onClick={!this.state.gotRecordings ? this.getAudioList : null}>Get List</button>
-        <FileLinks></FileLinks>
+        <div className="row">
+          <div className="col-5">
+            <button className="btn get-list-btn"
+              onClick={!this.state.gotRecordings ? this.getAudioList : null}
+            >
+              Get List
+            </button>
+            <div className="card mb-0 mt-3">
+              <h3 className="card-header">Recordings</h3>
+              <ul className="list-group">
+                <FileLinks></FileLinks>
+              </ul>
+            </div>
+          </div>
+        </div>
       </Layout>
     );
   }
@@ -92,47 +113,27 @@ class FileLinks extends GetRecordings {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     return (
-      <div>  
+      <div>
         <ul>
-          <br/>
-          <h2>RECORDINGS</h2>
-          <a className="d-link0"></a>
-          <br />
-          <a className="d-link1"></a>
-          <br />
-          <a className="d-link2"></a>
-          <br />
-          <a className="d-link3"></a>
-          <br />
-          <a className="d-link4"></a>
-          <br />
-          <a className="d-link5"></a>
-          <br />
-          <a className="d-link6"></a>
-          <br />
-          <a className="d-link7"></a>
-          <br />
-          <a className="d-link8"></a>
-          <br />
-          <a className="d-link9"></a>
-          <br />
-          <a className="d-link10"></a>
-          <br />
-          <a className="d-link11"></a>
-          <br />
-          <a className="d-link12"></a>
-          <br />
-          <a className="d-link13"></a>
-          <br />
-          <a className="d-link14"></a>
-          <br />
-          <a className="d-link15"></a>
-          <br />
-          <a className="d-link16"></a>
-          <br />
+            <ul className="list-group ml-4">  
+              <li className="sList0"></li>
+              <li className="sList1"></li>
+              <li className="sList2"></li>
+              <li className="sList3"></li>
+              <li className="sList4"></li>
+              <li className="sList5"></li>
+              <li className="sList6"></li>
+              <li className="sList7"></li>
+              <li className="sList8"></li>
+              <li className="sList9"></li>
+              <li className="sList10"></li>
+              <li className="sList11"></li>
+              <li className="sList12"></li>
+              <li className="sList13"></li>
+            </ul>
         </ul>
       </div>
     );
@@ -140,7 +141,6 @@ class FileLinks extends GetRecordings {
 }
 
 export default GetRecordings;
-
 
 // this.getFile = (fileUrl, idx) => {
 //   axios.get(fileUrl, {responseType: 'arraybuffer'})

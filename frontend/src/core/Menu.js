@@ -14,14 +14,19 @@ const isActive = (history, path) => {
 const Menu = ({history}) => (
   <div>
     <ul className="nav nav-tabs bg-dark">
-      <li className="nav-item">
+      
+
+
+
+    {isAuthenticated() && (
+    <li className="nav-item">
         <Link className="nav-link" style={isActive(history, '/')} to="/">
           Home
         </Link>
       </li>
+    )}
 
       {/* FOR TEST TAKERS - TEST & DASHBOARD ROUTE */}
-
       {isAuthenticated() && isAuthenticated().user.role === 0 && (
         <Fragment>
           <li className="nav-item">
@@ -113,6 +118,7 @@ const Menu = ({history}) => (
       {isAuthenticated() && (
         <Fragment>
          
+        
 
           <li className="nav-item">
             <span

@@ -2,3 +2,17 @@
   padding-right: 0px;
   padding-left: 0px;
 }
+
+
+.get-list-btn {
+  color: white;
+  background: rgb(108, 154, 240);
+  height: 3rem;
+  border: 0;
+}
+
+.get-list-btn:hover {
+  color: white;
+  background: rgb(49, 103, 205);
+}
+

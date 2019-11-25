@@ -40,7 +40,7 @@ class Recorder extends Component {
         .getMp3()
         // buffer, audio    buffer unused
         .then(([buffer, audio]) => {
-          console.log('BUFFER => ' + buffer + 'AUDIO => ' + audio);
+          // console.log('BUFFER => ' + buffer + 'AUDIO => ' + audio);
           console.log('...STOPPED! Recording ');
           
           const user_Id = props.userId;

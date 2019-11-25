@@ -13,13 +13,13 @@ const Home = () => {
       className="container-fluid"
     >
       <div className="container">
-        <div className="wrapper w-20">
-            <div className="card p-0">
-              <Link to={{ pathname: '/user/test', state: { taskNo: 1} }} className="btn btn-primary btn-lg">Task One</Link>
+        <div className="wrapper">
+            <div className="card p-0 ">
+              <Link to={{ pathname: '/user/test', state: { taskNo: 1} }} className="task-btn">TASK ONE</Link>
             </div>
-            <div></div>
-            <div className="card p-0">
-              <Link to={{ pathname: '/user/test', state: { taskNo: 2} }} className="btn btn-primary btn-lg">Task Two</Link>
+            
+            <div className="card p-0 pt-5">
+              <Link to={{ pathname: '/user/test', state: { taskNo: 2} }} className="task-btn">TASK TWO</Link>
             </div>
         </div>
       </div>
