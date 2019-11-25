@@ -5,7 +5,11 @@ import PropTypes from 'prop-types';
 import MicRecorder from 'mic-recorder-to-mp3';
 import {sendAudio} from './sendAudio';
 
-const Mp3Recorder = new MicRecorder({bitRate: 128});
+const Mp3Recorder = new MicRecorder({
+  bitRate: 160,
+  encoder: 'mp3', // default is mp3, can be wav as well
+  sampleRate: 44100, // default is 44100, it can also be set to 16000 and 8000.
+});
 
 class Recorder extends Component {
   constructor(props) {
@@ -24,7 +28,7 @@ class Recorder extends Component {
       } else {
         Mp3Recorder.start()
           .then(() => {
-            this.setState({isRecording: true});
+
             console.log('STARTED RECORDING....');
           })
           .catch(e => console.error(e));
@@ -35,21 +39,17 @@ class Recorder extends Component {
       Mp3Recorder.stop()
         .getMp3()
         // buffer, audio    buffer unused
-        .then(([,audio]) => {
-          //const blobURL = URL.createObjectURL(audio);
-          this.setState({isRecording: false});
+        .then(([buffer, audio]) => {
+          console.log('BUFFER => ' + buffer + 'AUDIO => ' + audio);
           console.log('...STOPPED! Recording ');
           
           const user_Id = props.userId;
           console.log('UserId from StopAndSave  '+props.userId);
-
+      
           let data = new FormData();
           data.append('soundBlob', audio);
-
-          // Sends the recorded audio data
           sendAudio(user_Id, data);
-
-          
+    
         })
         .catch(e => console.log(e));
     };
@@ -96,9 +96,11 @@ class Recorder extends Component {
     let {isRecording} = this.state;
 
     if (!isRecording && trackNo === 1) {
+      this.setState({isRecording: true});
       this.start();
     }
     if (isRecording && trackNo === audioFiles.length) {
+      this.setState({isRecording: false});
       this.stopAndSendAudio();
     }
   }

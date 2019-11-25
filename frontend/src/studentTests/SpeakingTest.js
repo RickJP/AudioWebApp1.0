@@ -21,7 +21,7 @@ const SpeakingTest = (props) => {
 
   const [trackNo, setTrackNo] = useState(0);
   const [userId] = useState(user_Id);
-  console.log('UserId from SpeakingTest   '+userId);
+  // console.log('UserId from SpeakingTest   '+userId);
   const [hidePlayer, setHidePlayer] = useState(false);
   const [showComponent, setShowComponent] = useState(false);
   const [completionMsg, setCompletionMsg] = useState('');
@@ -45,7 +45,7 @@ const SpeakingTest = (props) => {
   const audioFile = testMaterials[taskNo][0].audioFiles[trackNo];
   const fileExt = '.wav';
   const url = `${server()}/api/audio/playAudio/${taskNo}/${audioFile}${fileExt}`;
-  console.log('URL: '+ url);
+  // console.log('URL: '+ url);
   // Increments the track number & checks for test completion
   const incTrack = () => {
     if (trackNo < testLength) {

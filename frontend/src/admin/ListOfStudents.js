@@ -68,7 +68,7 @@ class Table extends StudentList {
                   <td>{student.classNo}</td>
                   <td>{this.makeDateReadable(student.createdAt)}</td>
                   <td>{student.recordings.length === 0 ? "---------------" : student.recordings.length === 1 ? student.recordings.length + ' test' : student.recordings.length + ' tests'}</td>
-                  {console.log(student)}
+                  {/* {console.log(student)} */}
                   <td>{!student.ulFolder ? '----------': student.ulFolder}</td>
                 </tr>
               </Fragment>
