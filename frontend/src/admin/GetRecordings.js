@@ -33,7 +33,8 @@ class GetRecordings extends React.Component {
                // Full url for the audio download link
                getAudioFilesUrl + r.split('data/uploads/')[1],
                // Join the student name & file name for the link text
-               fName[idx][0] + '___' + fName[idx][1],
+               fName[idx][0] ,
+              //  + '___' + fName[idx][1],
                // Increment the index for the tag hook
                idx++))     
            );
@@ -65,7 +66,7 @@ class GetRecordings extends React.Component {
 
           // Set the title and classnames of the link
           downloadLink.title = fileUrl;
-          downloadLink.classList.add(`btn-link${idx}`, `d-link${idx}`);
+          downloadLink.classList.add(`d-link${idx}`);
 
           // Set the text content of the download link
           downloadLink.textContent = linkName;
@@ -121,6 +122,16 @@ class FileLinks extends GetRecordings {
           <a className="d-link10"></a>
           <br />
           <a className="d-link11"></a>
+          <br />
+          <a className="d-link12"></a>
+          <br />
+          <a className="d-link13"></a>
+          <br />
+          <a className="d-link14"></a>
+          <br />
+          <a className="d-link15"></a>
+          <br />
+          <a className="d-link16"></a>
           <br />
         </ul>
       </div>
