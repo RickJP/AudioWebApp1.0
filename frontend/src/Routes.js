@@ -3,10 +3,17 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 
+import Timer from "./TestingFeatures/Timer";
+import FileList from "./TestingFeatures/FileList";
+import UploadFiles from "./TestingFeatures/UploadFiles";
+
 import SpeakingTest from "./studentTests/SpeakingTest";
-import PrivateRoute from "./auth/PrivateRoute";
 import Dashboard from "./user/UserDashboard";
+
 import AdminRoute from "./auth/AdminRoute";
+import PrivateRoute from "./auth/PrivateRoute";
+import TestingRoute from "./auth/TestingRoute";
+
 import AdminDashboard from "./user/AdminDashboard";
 import ListOfStudents from "./admin/ListOfStudents";
 import GetRecordings from "./admin/GetRecordings";
@@ -25,6 +32,12 @@ const Routes = () => {
                 
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />
+                
+                <TestingRoute path="/timer" exact component={Timer} />
+                <TestingRoute path="/filelist" exact component={FileList} />
+                <TestingRoute path="/ulfiles" exact component={UploadFiles} />
+                
+                
                 <PrivateRoute
                     path="/user/dashboard"
                     exact

@@ -106,7 +106,7 @@ class Recorder extends Component {
   }
 
   render() {
-    return (<div className="App"></div>);
+    return (<div></div>);
   }
 }
 

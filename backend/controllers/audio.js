@@ -3,6 +3,7 @@ const path = require('path');
 const User = require('../models/user');
 const glob = require('glob');
 //const ffmpeg = require('ffmpeg');
+const IncomingForm = require('formidable').IncomingForm;
 
 exports.saveAudio = (req, res) => {
   const dir = req.params.dir;
@@ -15,39 +16,11 @@ exports.saveAudio = (req, res) => {
     fullPathandFile,
     Buffer.from(new Uint8Array(req.file.buffer))
   );
-
   //saveMP3Audio(tPath, file);
   res.sendStatus(200);
 };
 
-// path.parse(pathToCheck).base/name/ext
-//   saveMP3Audio = (targetPath, file) => {
 
-//   const wavFilePath = targetPath + file + '.wav';
-//   const mp3FilePath = targetPath + file + '.mp3';
-
-//   let process = new ffmpeg(wavFilePath);
-//   process.then(audio => {
-//     audio.fnExtractSoundToMP3(mp3FilePath, (error, file) => {
-//       if (!error) {
-//         console.log('Audio file ' + file);
-//         removeWavFile(wavFilePath);
-//       } else {
-//         console.log(error);
-//       }
-//     }, err => {
-//       console.log('Error:  ' + err);
-//     });
-//   });
-// };
-
-//   removeWavFile = (path) => {
-//   fs.unlink(path, (err) => {
-//     if (err) return console.log(err);
-//     console.log('File successfully deleted');
-//   });
-
-// };
 
 exports.playAudio = (req, res) => {
   try {
@@ -113,3 +86,47 @@ exports.saveRecordingsList = (req, res, next) => {
 
   next();
 };
+
+
+exports.uploadFile = (req, res) => {
+  let form = new IncomingForm();
+
+  form.on('file', (field, file) => {
+    // Save file to db
+    // Access it using file path
+  });
+  form.on('end', () => {
+    res.json();
+  });
+  form.parse(req);
+};
+
+
+// path.parse(pathToCheck).base/name/ext
+//   saveMP3Audio = (targetPath, file) => {
+
+//   const wavFilePath = targetPath + file + '.wav';
+//   const mp3FilePath = targetPath + file + '.mp3';
+
+//   let process = new ffmpeg(wavFilePath);
+//   process.then(audio => {
+//     audio.fnExtractSoundToMP3(mp3FilePath, (error, file) => {
+//       if (!error) {
+//         console.log('Audio file ' + file);
+//         removeWavFile(wavFilePath);
+//       } else {
+//         console.log(error);
+//       }
+//     }, err => {
+//       console.log('Error:  ' + err);
+//     });
+//   });
+// };
+
+//   removeWavFile = (path) => {
+//   fs.unlink(path, (err) => {
+//     if (err) return console.log(err);
+//     console.log('File successfully deleted');
+//   });
+
+// };

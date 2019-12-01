@@ -10,35 +10,20 @@ const isActive = (history, path) => {
   }
 };
 
-
 const Menu = ({history}) => (
   <div>
     <ul className="nav nav-tabs bg-dark">
-      
-
-
-
-    {isAuthenticated() && (
-    <li className="nav-item">
-        <Link className="nav-link" style={isActive(history, '/')} to="/">
-          Home
-        </Link>
-      </li>
-    )}
+      {isAuthenticated() && (
+        <li className="nav-item">
+          <Link className="nav-link" style={isActive(history, '/')} to="/">
+            Home
+          </Link>
+        </li>
+      )}
 
       {/* FOR TEST TAKERS - TEST & DASHBOARD ROUTE */}
       {isAuthenticated() && isAuthenticated().user.role === 0 && (
         <Fragment>
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              style={isActive(history, '/user/test')}
-              to="/user/test"
-            >
-              Test
-            </Link>
-          </li>
-
           <li className="nav-item">
             <Link
               className="nav-link"
@@ -87,6 +72,50 @@ const Menu = ({history}) => (
         </Fragment>
       )}
 
+      {isAuthenticated() && isAuthenticated().user.role === 2 && (
+        <Fragment>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/user/test')}
+              to="/user/test"
+            >
+              Test
+            </Link>        
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/timer')}
+              to="/timer"
+            >
+              Timer
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/filelist')}
+              to="/filelist"
+            >
+              FList
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/ulfiles')}
+              to="/ulfiles"
+            >
+              ULFiles
+            </Link>
+          </li>
+        </Fragment>
+      )}
+
       {/* SIGNIN & SIGNUP */}
 
       {!isAuthenticated() && (
@@ -117,8 +146,7 @@ const Menu = ({history}) => (
 
       {isAuthenticated() && (
         <Fragment>
-         
-        
+          
 
           <li className="nav-item">
             <span
