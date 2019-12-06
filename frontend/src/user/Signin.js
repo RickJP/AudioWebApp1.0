@@ -4,7 +4,7 @@ import Layout from '../core/Layout';
 import {signin, authenticate, isAuthenticated} from '../auth';
 import './styles/styles.css';
 
-const Signin = () => {
+const Signin = (props) => {
   const [values, setValues] = useState({
     name: '',
     password: '',
@@ -13,6 +13,7 @@ const Signin = () => {
     redirectToReferrer: false,
     displayedName: false,
   });
+  const adminSignin = props.admin;
 
   useEffect(() => {
     checkForStoredName();
@@ -128,6 +129,7 @@ const Signin = () => {
     >
       {showLoading()}
       {showError()}
+      {/* {adminSignin ? signInAdminForm() : signInForm()} */}
       {signInForm()}
       {redirectUser()}
     </Layout>

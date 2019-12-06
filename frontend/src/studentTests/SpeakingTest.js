@@ -175,8 +175,8 @@ const SpeakingTest = (props) => {
   );
 };
 
-// SpeakingTest.propTypes = {
-//   location: PropTypes.object
-// }
+SpeakingTest.propTypes = {
+  location: PropTypes.object
+}
 
 export default SpeakingTest;

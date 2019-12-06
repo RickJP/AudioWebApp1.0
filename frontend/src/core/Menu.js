@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {signout, isAuthenticated} from '../auth';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
@@ -81,7 +82,7 @@ const Menu = ({history}) => (
               to="/user/test"
             >
               Test
-            </Link>        
+            </Link>
           </li>
 
           <li className="nav-item">
@@ -120,23 +121,35 @@ const Menu = ({history}) => (
 
       {!isAuthenticated() && (
         <Fragment>
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              style={isActive(history, '/signin')}
-              to="/signin"
-            >
-              Sign In
-            </Link>
-          </li>
 
-          <li className="nav-item">
+
+<li className="nav-item">
             <Link
               className="nav-link"
               style={isActive(history, '/signup')}
               to="/signup"
             >
-              Sign Up
+              Register
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/signin')}
+              to={{ pathname: "/signin", state: { admin: 0}}}
+            >
+              Login
+            </Link>
+          </li>
+         
+
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={isActive(history, '/signin')}
+              to={{ pathname: "/signin", state: { admin: 1}}}
+            >
+              <FontAwesomeIcon icon="lock" size="1x" style={{color: 'red', float: 'right'}}  />
             </Link>
           </li>
         </Fragment>
@@ -146,8 +159,6 @@ const Menu = ({history}) => (
 
       {isAuthenticated() && (
         <Fragment>
-          
-
           <li className="nav-item">
             <span
               className="nav-link"

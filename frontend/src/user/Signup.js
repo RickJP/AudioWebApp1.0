@@ -182,7 +182,7 @@ const Signup = () => {
 
   return (
     <Layout
-      title="Signup"
+      title="Register"
       description=""
       className="container-fluid p-5"
       showDetails={1}

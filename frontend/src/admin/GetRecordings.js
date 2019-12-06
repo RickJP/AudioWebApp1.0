@@ -8,6 +8,31 @@ class GetRecordings extends React.Component {
     super(props);
     this.state = {
       gotRecordings: false,
+      numOfHooksToMake: 0,
+      showGetAllFiles: false
+    };
+
+
+    this.getAllFiles = () => {
+      const recEl = document.querySelector('.recordings').children;
+      // const fileEl = document.querySelector('.sList0 a');
+      // console.log(fileEl.click());
+
+      
+      for (let i = 0; i < recEl.length; i++) {
+       recEl[i].children[0].click();
+      }
+    };
+
+
+    this.makeHooks = () => {
+      const recordingsEl = document.querySelector('.recordings');
+      for (let i = 0; i< this.state.numOfHooksToMake; i++) {
+        const newLi = document.createElement('li');
+        newLi.classList.add(`sList${i}`);
+        recordingsEl.appendChild(newLi);
+        console.log(recordingsEl);
+      }
     };
 
     this.getAudioList = () => {
@@ -18,6 +43,9 @@ class GetRecordings extends React.Component {
       axios.get(getAudioListUrl).then(res => {
         this.setState({gotRecordings: true});
         //console.log('GetFileList:  '+ res.data);
+
+        this.setState({numOfHooksToMake: Math.floor(res.data.length / 2)});
+        this.makeHooks();
 
         let idx = 0;
         res.data.forEach(s => {
@@ -69,6 +97,7 @@ class GetRecordings extends React.Component {
 
           // Set the text content of the download link
           downloadLink.textContent = linkName;
+          downloadLink.download = linkName;
 
           // let hookEl = document.createElement('div');
           // hookEl.classList.add(`hook${idx}`);
@@ -83,6 +112,7 @@ class GetRecordings extends React.Component {
           // let prevHook = document.querySelector(`.sList${idx}`);
           // newEl.appendChild(prevHook);
         });
+        this.setState({showGetAllFiles: true});
     };
   }
 
@@ -90,17 +120,22 @@ class GetRecordings extends React.Component {
     return (
       <Layout className="container-fluid">
         <div className="row">
-          <div className="col-5">
-            <button className="btn get-list-btn"
+          <div className="col">
+            <button
+              className="btn get-list-btn"
               onClick={!this.state.gotRecordings ? this.getAudioList : null}
             >
               Get List
             </button>
-            <div className="card mb-0 mt-3">
-              <h3 className="card-header">Recordings</h3>
+            <div className="card mb-0 mt-4">
+              <h3 className="card-header">Recordings</h3> 
               <ul className="list-group">
                 <FileLinks></FileLinks>
               </ul>
+              {this.state.showGetAllFiles ? <button
+              onClick={this.getAllFiles}>Get All Files</button> 
+            : null}
+              
             </div>
           </div>
         </div>
@@ -117,23 +152,8 @@ class FileLinks extends GetRecordings {
   render() {
     return (
       <div>
-        <ul>
-            <ul className="list-group ml-4">  
-              <li className="sList0"></li>
-              <li className="sList1"></li>
-              <li className="sList2"></li>
-              <li className="sList3"></li>
-              <li className="sList4"></li>
-              <li className="sList5"></li>
-              <li className="sList6"></li>
-              <li className="sList7"></li>
-              <li className="sList8"></li>
-              <li className="sList9"></li>
-              <li className="sList10"></li>
-              <li className="sList11"></li>
-              <li className="sList12"></li>
-              <li className="sList13"></li>
-            </ul>
+        <ul className="recordings">
+        
         </ul>
       </div>
     );
@@ -142,23 +162,3 @@ class FileLinks extends GetRecordings {
 
 export default GetRecordings;
 
-// this.getFile = (fileUrl, idx) => {
-//   axios.get(fileUrl, {responseType: 'arraybuffer'})
-//     .then(res => res.blob())
-//     .then(blob => {
-//       const downloadLink = this.downloadBlob(blob);
-
-//       // Set the title and classnames of the link
-//       downloadLink.title = fileUrl;
-//       downloadLink.classList.add(`btn-link${idx}`, `d-link${idx}`);
-
-//       // Set the text content of the download link
-//       downloadLink.textContent = fileUrl;
-
-//       const fLinks = document.querySelector(`.d-link${idx}`);
-
-//       console.log(fLinks);
-//       // Attach the link to the DOM
-//       fLinks.appendChild(downloadLink);
-//     });
-// };
