@@ -47,6 +47,13 @@ const SpeakingTest = (props) => {
   const url = `${server()}audio/playAudio/${taskNo}/${audioFile}${fileExt}`;
   // console.log('URL: '+ url);
   // Increments the track number & checks for test completion
+
+
+  const shrinkJumbotron = () => {
+    const jumboStyle = document.querySelector('.jumbotron');
+    console.log(jumboStyle);
+  };
+
   const incTrack = () => {
     if (trackNo < testLength) {
       setTrackNo(trackNo + 1);
@@ -102,7 +109,9 @@ const SpeakingTest = (props) => {
   let player;
   
   if (trackNo !== testLength) {
+    {console.log(url)}
     player = (
+     
       <AudioPlayer
         src={url}
         onPlay={() => {
@@ -131,9 +140,13 @@ const SpeakingTest = (props) => {
       title="Speaking Test 2"
       description=""
       className="container-fluid noselect"
+      showDetails={0}
+      jumboHeight={20}
     > 
       <div className="container w-20">
-       
+
+
+      {shrinkJumbotron()} 
       {showTasks(trackNo)}
       {completionMsg}
       <Recorder trackNo={trackNo} userId={userId} audioFiles={testAudio} />

@@ -5,16 +5,48 @@ import PropTypes from 'prop-types';
 import '../styles.css';
 import 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css';
 
-const Layout = ({className, children}) => (
+
+const Details = ({ showDetails }) => (
+
+  showDetails ?
+  <div className="details">
+        <div className="row">
+          <div className="column">
+            <div className="contact-info">
+              <p>Bartolo Bazan</p>
+              <p>Working Memory Measures</p>
+              <p>bazanlinkin2@gmail.com</p>
+            </div>
+          </div>
+
+          <div className="column">
+            <div className="citation-info">
+              <p>How to cite:</p>
+              <p>Bazan, B. (n.d.). Working memory</p>
+              <p>measures (Version 1). Retrieved</p>
+              <p>from https://english4all.live</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      : null
+)
+
+const Layout = ({className, children, showDetails, jumboHeight = 20}) => (
   <div>
-    <div className="jumbotron jumbotron-fluid m-0 pt-5 pb-0 rounded-0">
-      <div className="container">
-        <h2 className="display-6"></h2>
+    <div className="jumbotron jumbotron-fluid m-0 pt-1  rounded-0" 
+    style={{height: jumboHeight}}>
+      {/* <div className="container">
+        <h2 className="display-1"></h2>
+        Bartolo Bazan
         {/* <p class="lead">
           Good Luck!
         </p> */}
-      </div>
+      {/* <div className="container"> */}
+      <Details showDetails={showDetails}></Details>
     </div>
+    {/* </div> */}
+
     <Menu />
 
     {/* <div className="jumbotron">

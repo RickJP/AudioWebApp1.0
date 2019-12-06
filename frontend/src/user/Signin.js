@@ -123,6 +123,8 @@ const Signin = () => {
       title="Let's Get Started"
       description=""
       className="container-fluid  pt-4"
+      showDetails={1}
+      jumboHeight={170}
     >
       {showLoading()}
       {showError()}

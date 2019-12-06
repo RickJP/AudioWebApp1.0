@@ -55,13 +55,13 @@ exports.signin = (req, res) => {
                 error: "Your name and password doesn't match"
             });
         }
+        console.log(user._id);
         // generate a signed token with user id and secret
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
         // persist the token as 't' in cookie with expiry date
         res.cookie("t", token, { expire: new Date() + 9999 });
         // return response with user and token to frontend client
         const { _id, name, role } = user;
-        console.log('############ ROLE IS : '+ role);
         return res.json({ token, user: { _id, name, role } });
     });
 };

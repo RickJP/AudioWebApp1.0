@@ -127,3 +127,10 @@ form p {
   max-width:500px;
   margin:0 auto;/*make it centered*/
 }
+
+.form-check-label {
+  padding: 0;
+}
+.form-check {
+  justify-content: flex-start;
+}

@@ -185,6 +185,8 @@ const Signup = () => {
       title="Signup"
       description=""
       className="container-fluid p-5"
+      showDetails={1}
+      jumboHeight={170}
     >
       {/* {showSuccess()} */}
       {showError()}

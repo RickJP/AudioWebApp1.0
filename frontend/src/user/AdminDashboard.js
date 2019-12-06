@@ -17,12 +17,53 @@ const AdminDashboard = () => {
             <FontAwesomeIcon icon="user" size="2x" style={{color: 'green'}} />
             {name}
           </li>
-          
+
           <li className="list-group-item">
-          <FontAwesomeIcon icon="lock" size="2x" style={{color: 'red'}}
-            />
+            <FontAwesomeIcon icon="lock" size="2x" style={{color: 'red'}} />
             {role === 1 ? 'Admin' : 'Student'}
           </li>
+        </ul>
+      </div>
+    );
+  };
+
+  const controls = () => {
+    return (
+      <div className="card mb-3">
+        <h3 className="card-header">Controls</h3>
+        <ul className="list-group">
+          <li className="list-group-item">
+            <div className="form-check form-check-inline">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="inlineCheckbox1"
+                value="option1"
+              />
+              <label className="form-check-label" htmlFor="inlineCheckbox1">
+                Task One
+              </label>
+              
+            </div>
+            <div className="form-check form-check-inline">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="inlineCheckbox1"
+                value="option1"
+              />
+              <label className="form-check-label" htmlFor="inlineCheckbox1">
+                Task Two
+              </label>
+              
+            </div>
+
+
+            {/* <FontAwesomeIcon icon="user" size="2x" style={{color: 'green'}} />
+            {name} */}
+          </li>
+
+          
         </ul>
       </div>
     );
@@ -43,12 +84,10 @@ const AdminDashboard = () => {
   // }
 
   return (
-    <Layout
-      title="Dashboard"
-      className="container-fluid"
-    >
+    <Layout title="Dashboard" className="container-fluid" jumboHeight={20}>
       <div className="row">
         <div className="col-8">{adminInfo()}</div>
+        <div className="col-8">{controls()}</div>
         {/* <div className="col-9">{displayListOfStudents()}</div> */}
       </div>
     </Layout>

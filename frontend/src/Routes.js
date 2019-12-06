@@ -21,14 +21,16 @@ import GetRecordings from "./admin/GetRecordings";
 
 import Profile from "./user/Profile";
 import Home from './core/Home';
+// import StartScreen from './core/StartScreen';
 
 
 const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
+                {/* <Route path="/" exact component={StartScreen} /> */}
                 <PrivateRoute path="/" exact component={Home} />
-                {/* <Route path="/" exact component={Home} /> */}
+                
                 
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />

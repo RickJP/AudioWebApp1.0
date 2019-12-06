@@ -33,5 +33,43 @@ Link {
 
  .jumbotron {
   border-radius: 6px ;
-  max-height: 90px;
+  /* max-height: 230px; */
+  
+}
+
+.details {
+  margin: 15px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.contact-info {
+  font-size: 0.6rem;
+  padding: 2px 2px 2px 2px;
+  margin: 10px;
+  background-color: black;
+  width: 150px;
+}
+
+.citation-info {
+  font-size: 0.6rem;
+  padding: 2px 2px 2px 2px;
+  margin: 0px;
+  background-color: black;
+  width: 150px;
+  margin-left: auto
 }

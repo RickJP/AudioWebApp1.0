@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from './Layout';
-import {Link, withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import './styles/styles.css';
 
 const Home = () => {
+  const [showDetails] = useState(1);
   // eslint-disable-next-line no-undef
   localStorage.removeItem('uName');
+
   return (
     <Layout
       title="Home"
       description="From Temple University"
       className="container-fluid"
+      showDetails={showDetails}
+      jumboHeight={170}
     >
       <div className="container">
         <div className="wrapper">
