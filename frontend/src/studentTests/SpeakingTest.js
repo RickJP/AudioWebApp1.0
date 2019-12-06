@@ -44,7 +44,7 @@ const SpeakingTest = (props) => {
 
   const audioFile = testMaterials[taskNo][0].audioFiles[trackNo];
   const fileExt = '.wav';
-  const url = `${server()}/api/audio/playAudio/${taskNo}/${audioFile}${fileExt}`;
+  const url = `${server()}audio/playAudio/${taskNo}/${audioFile}${fileExt}`;
   // console.log('URL: '+ url);
   // Increments the track number & checks for test completion
   const incTrack = () => {

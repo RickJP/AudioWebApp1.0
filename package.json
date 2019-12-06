@@ -1,0 +1,24 @@
+{
+  "name": "SpeakingTestApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^5.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "concurrently \"cd backend && nodemon app.js\" \"cd frontend && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RickJP/AudioWebApp2.2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RickJP/AudioWebApp2.2/issues"
+  },
+  "homepage": "https://github.com/RickJP/AudioWebApp2.2#readme"
+}

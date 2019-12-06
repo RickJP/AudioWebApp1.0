@@ -103,7 +103,7 @@ const Signup = () => {
 
     <div className="container  w-60">
       <div className="wrapper">
-        <div className="form">
+        <div className="signup-form">
           <form action="">
             <p className="full-width">
               <label className="text-muted" htmlFor="">

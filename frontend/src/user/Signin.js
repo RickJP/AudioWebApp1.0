@@ -51,15 +51,15 @@ const Signin = () => {
   };
 
   const signInForm = () => (
-    <div className="container  w-60">
+    <div className="container  w-80">
       <div className="wrapper">
-        <form>
+        <form className="signin-form"> 
           <div className="form-group">
             <label className="text-muted">Name</label>
             <input
               onChange={handleChange('name')}
               type="text"
-              className="form-control col-sm-10"
+              className="form-control col-sm-12"
               value={name}
             />
           </div>
@@ -69,7 +69,7 @@ const Signin = () => {
             <input
               onChange={handleChange('password')}
               type="password"
-              className="form-control  col-sm-10"
+              className="form-control  col-sm-12"
               value={password}
             />
           </div>
