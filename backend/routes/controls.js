@@ -14,7 +14,7 @@ const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
 
 
 router.post("/controls/:adminId", requireSignin,  isAuth ,isAdmin,  createControls);
-router.patch("/controls/:adminId", requireSignin,  isAuth ,isAdmin,  updateControls);
+router.put("/controls/:adminId", requireSignin,  isAuth ,isAdmin,  updateControls);
 router.get("/controls/:adminId", requireSignin,  isAuth ,isAdmin, getControls);
 router.get("/controls/all/:adminId", requireSignin,  isAuth ,isAdmin, getAllControls);
 

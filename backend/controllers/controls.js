@@ -24,27 +24,28 @@ exports.createControls = (req, res) => {
 };
 
 exports.updateControls = (req, res) => {
-   return res.json({ status: success });
-  // const adminId = req.body.params;
-  // console.log(adminId);
-  // const controls = new Controls(data);
-  // controls.save((err, controls) => {
-  //   if (err) {
-  //     return res.status(400).json({
-  //       error: errorHandler(err),
-  //     });
-  //   }
-  //   res.json({
-  //     controls,
-  //   });
-  // });
+  const adminId = req.params.adminId;
+  console.log(adminId);
+  const data = req.body;
+  console.log(data);
+
+  Controls.findOneAndUpdate({adminId},data, {new: true}, (err, controls) => {
+    if (err) {
+      return res.status(500).json({
+        error: errorHandler(err),
+      });
+    }
+    res.json({
+      controls,
+    });
+  });
 };
 
 exports.getControls = (req, res) => {
   const adminId = req.params.adminId;
   Controls.find({adminId}, (err, controls) => {
     if (err) {
-      return res.status(400).json({
+      return res.status(500).json({
         error: errorHandler(err),
       });
     }

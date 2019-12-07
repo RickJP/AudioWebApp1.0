@@ -60,7 +60,7 @@ export default class AdminDashboard extends Component {
                   id="task1"
                   value="option1"
                   checked={!!this.state.tasksActive[0]}
-                  onChange={this.updateControls}
+                  onChange={this.controlHandler}
                 />
                 <label className="form-check-label" htmlFor="inlineCheckbox1">
                   Task One
@@ -73,7 +73,7 @@ export default class AdminDashboard extends Component {
                   id="task2"
                   value="option1"
                   checked={!!this.state.tasksActive[1]}
-                  onChange={this.updateControls}
+                  onChange={this.controlHandler}
                 />
                 <label className="form-check-label" htmlFor="inlineCheckbox1">
                   Task Two
@@ -92,7 +92,7 @@ export default class AdminDashboard extends Component {
                   id="allowSignup"
                   value="option1"
                   checked={!this.state.registerDisabled}
-                  onChange={this.updateControls}
+                  onChange={this.controlHandler}
                 />
                 <label className="form-check-label" htmlFor="inlineCheckbox1">
                   Allow Signup
@@ -106,7 +106,7 @@ export default class AdminDashboard extends Component {
                   id="allowSignin"
                   value="option1"
                   checked={!this.state.loginDisabled}
-                  onChange={this.updateControls}
+                  onChange={this.controlHandler}
                 />
                 <label className="form-check-label" htmlFor="inlineCheckbox1">
                   Allow Signin
@@ -118,7 +118,7 @@ export default class AdminDashboard extends Component {
       );
     };
 
-    this.updateControls = e => {
+    this.controlHandler = e => {
       const tcopy = this.state.tasksActive.slice();
 
       switch (e.target.id) {
@@ -147,6 +147,31 @@ export default class AdminDashboard extends Component {
       }
     };
 
+    this.updateControls = () => {
+
+      const config = {headers: {Authorization: 'bearer ' + token}};
+      const url = `${API}/controls/${_id}`;
+
+      const data = {
+        loginDisabled: this.state.loginDisabled,
+        registerDisabled: this.state.registerDisabled,
+        tasksActive: this.state.tasksActive
+      }
+
+      axios
+        .put(url, data, config)
+        .then(res => {
+          
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      
+    }
+
+    
+
     this.getControls = () => {
       const config = {headers: {Authorization: 'bearer ' + token}};
       const url = `${API}/controls/${_id}`;
@@ -155,16 +180,17 @@ export default class AdminDashboard extends Component {
       axios
         .get(url, config)
         .then(res => {
-          console.log(res.data.controls[0].loginDisabled);
+          // console.log(res.data.controls[0].loginDisabled);
           const controls = res.data.controls[0];
           this.setState({
             loginDisabled: controls.loginDisabled,
             registerDisabled: controls.registerDisabled,
+            tasksActive: controls.tasksActive,
             gotControls: true,
           });
-          this.setState(() => ({
-            tasksActive: [controls.tasksActive],
-          }));
+          // this.setState(() => ({
+            
+          // }));
         })
         .catch(err => {
           console.log(err);
