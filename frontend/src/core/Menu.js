@@ -121,9 +121,7 @@ const Menu = ({history}) => (
 
       {!isAuthenticated() && (
         <Fragment>
-
-
-<li className="nav-item">
+          <li className="nav-item">
             <Link
               className="nav-link"
               style={isActive(history, '/signup')}
@@ -136,22 +134,28 @@ const Menu = ({history}) => (
             <Link
               className="nav-link"
               style={isActive(history, '/signin')}
-              to={{ pathname: "/signin", state: { admin: 0}}}
+              to={{pathname: '/signin', state: {admin: 0}}}
             >
               Login
             </Link>
           </li>
-         
 
-          <li className="nav-item">
+
+   {/* ADMIN SIGNUP */}
+
+          {/* <li className="nav-item">
             <Link
               className="nav-link"
-              style={isActive(history, '/signin')}
-              to={{ pathname: "/signin", state: { admin: 1}}}
+              style={isActive(history, '/adminSignup')}
+              to={{pathname: '/adminSignup', state: {admin: 1}}}
             >
-              <FontAwesomeIcon icon="lock" size="1x" style={{color: 'red', float: 'right'}}  />
+              <FontAwesomeIcon
+                icon="lock"
+                size="1x"
+                style={{color: 'red', float: 'right'}}
+              />
             </Link>
-          </li>
+          </li> */}
         </Fragment>
       )}
 

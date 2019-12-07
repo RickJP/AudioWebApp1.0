@@ -125,7 +125,7 @@ const Signin = (props) => {
       description=""
       className="container-fluid  pt-4"
       showDetails={1}
-      jumboHeight={170}
+      jumboHeight={150}
     >
       {showLoading()}
       {showError()}

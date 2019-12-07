@@ -17,6 +17,21 @@ export const signup = user => {
 };
 
 
+export const adminSignup = user => {
+  console.log('ADMIN SIGNUP POST REQUEST');
+  return axios
+    .post(`${API}/adminSignup`, JSON.stringify(user), {
+      headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
+    })
+    .then(res => {
+      return res.json();
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+
 export const signin = user => {
   return fetch(`${API}/signin`, {
     method: 'POST',
@@ -26,8 +41,8 @@ export const signin = user => {
     },
     body: JSON.stringify(user),
   })
-    .then(response => {
-      return response.json();
+    .then(res => {
+      return res.json();
     })
     .catch(err => {
       return err;
@@ -97,6 +112,7 @@ export const isAuthenticated = () => {
     return false;
   }
   if (localStorage.getItem('jwt')) {
+    //console.log(JSON.parse(localStorage.getItem('jwt')));
     return JSON.parse(localStorage.getItem('jwt'));
   } else {
     return false;

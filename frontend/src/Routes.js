@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Signup from "./user/Signup";
+// import AdminSignup from "./user/AdminSignup";
 import Signin from "./user/Signin";
 
 import Timer from "./TestingFeatures/Timer";
@@ -34,6 +35,8 @@ const Routes = () => {
                 
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />
+                {/* <Route path="/adminSignup" exact component={AdminSignup} /> */}
+
                 
                 <TestingRoute path="/timer" exact component={Timer} />
                 <TestingRoute path="/filelist" exact component={FileList} />

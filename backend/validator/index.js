@@ -26,6 +26,26 @@ exports.userSignupValidator = (req, res, next) => {
         const firstError = errors.map(error => error.msg)[0];
         return res.status(400).json({ error: firstError });
     }
-    
+    console.log('USER VALIDATED');
+    next();
+};
+
+
+exports.adminSignupValidator = (req, res, next) => {
+    console.log('WILL VALIDATE ADMIN');
+    req.check("name", "Type your name, please").notEmpty();
+    req.check("password", "Think of a password!").notEmpty();
+    req.check("password")
+        .isLength({ min: 6 })
+        .withMessage("6 characters or more, please")
+        .matches(/\d/)
+        .withMessage("Type at least 1 number");
+
+    const errors = req.validationErrors();
+    if (errors) {
+        const firstError = errors.map(error => error.msg)[0];
+        return res.status(400).json({ error: firstError });
+    }
+    console.log('ADMIN VALIDATED');
     next();
 };

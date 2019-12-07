@@ -5,37 +5,38 @@ import PropTypes from 'prop-types';
 import '../styles.css';
 import 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css';
 
-
-const Details = ({ showDetails }) => (
-
-  showDetails ?
-  <div className="details">
-        <div className="row">
-          <div className="column">
-            <div className="contact-info">
-              <p>Bartolo Bazan</p>
-              <p>Working Memory Measures</p>
-              <p>bazanlinkin2@gmail.com</p>
-            </div>
+const Details = ({showDetails}) =>
+  showDetails ? (
+    <div className="details">
+      <div className="row">
+        <div className="column">
+          <div className="contact-info">
+            <p>Bartolo Bazan</p>
+            <p>Working Memory Measures</p>
+            <p>bazanlinkin2@gmail.com</p>
           </div>
+        </div>
 
-          <div className="column">
-            <div className="citation-info">
-              <p>How to cite:</p>
-              <p>Bazan, B. (n.d.). Working memory</p>
-              <p>measures (Version 1). Retrieved</p>
-              <p>from https://english4all.live</p>
+        <div className="column">
+          <div className="citation-info">
+            <p>How to cite:</p>
+            <div className="citation">
+              <p>Bazan, B. (n.d.). </p>
+              <p> Working Memory Measures (Version 1)</p>
+              <p>Retrieved from https://english4all.live</p>
             </div>
           </div>
         </div>
       </div>
-      : null
-)
+    </div>
+  ) : null;
 
 const Layout = ({className, children, showDetails, jumboHeight = 20}) => (
   <div>
-    <div className="jumbotron jumbotron-fluid m-0 pt-1  rounded-0" 
-    style={{height: jumboHeight}}>
+    <div
+      className="jumbotron jumbotron-fluid m-0 pt-1  rounded-0"
+      style={{height: jumboHeight}}
+    >
       {/* <div className="container">
         <h2 className="display-1"></h2>
         Bartolo Bazan

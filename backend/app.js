@@ -10,6 +10,8 @@ require("dotenv").config();
 // import routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const controlsRoutes = require("./routes/controls");
+
 
 const audioRoutes = require("./routes/audio");
 
@@ -37,6 +39,8 @@ app.use(helmet());
 // routes middleware
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", controlsRoutes);
+
 app.use("/api/audio", audioRoutes);
 
 const port = process.env.PORT || 8000;

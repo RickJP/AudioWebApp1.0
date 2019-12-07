@@ -129,8 +129,38 @@ form p {
 }
 
 .form-check-label {
-  padding: 0;
+  padding: 0px;
+  margin: 0 !important;
 }
+.form-check-input {
+  margin: 0px 10px !important;
+}
+
 .form-check {
   justify-content: flex-start;
+  
 }
+
+
+.dashboard {
+  max-width: 600px;
+}
+
+
+@media (min-width: 400px) {
+  .form-check-label {
+    padding: 5px;
+    margin: 0 !important;
+  }
+  .form-check-input {
+    margin: 0px 10px !important;
+  }
+  .dashboard {
+    margin: 0px 40px;
+  }
+
+  .user-info {
+    margin: 0px 0px 0px 35px;
+  }
+}
+

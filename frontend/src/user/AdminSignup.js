@@ -1,21 +1,19 @@
 import React, {useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import Layout from '../core/Layout';
-import {signup} from '../auth';
+import {adminSignup} from '../auth';
 //import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import './styles/styles.css';
 
 const Signup = () => {
   const [values, setValues] = useState({
     name: '',
-    studentNo: '',
-    classNo: '',
     password: '',
     error: '',
     success: false,
   });
 
-  const {name,  studentNo, classNo, password, success, error} = values;
+  const {name, password, success, error} = values;
 
   const handleChange = name => event => {
     setValues({...values, error: false, [name]: event.target.value});
@@ -24,15 +22,13 @@ const Signup = () => {
   const clickSubmit = event => {
     event.preventDefault();
     setValues({...values, error: false});
-    signup({name, studentNo, classNo, password}).then(data => {
+    adminSignup({name, password}).then(data => {
       if (data.error) {
         setValues({...values, error: data.error, success: false});
       } else {
         setValues({
           ...values,
           name: '',
-          studentNo: '',
-          classNo: '',
           password: '',
           error: '',
           success: true,
@@ -44,63 +40,8 @@ const Signup = () => {
   };
 
   const signUpForm = () => (
-    // <form class="form-horizontal">
-    //   <div className="form-group">
-    //   <FontAwesomeIcon icon="user" size="2x" fixedWidth />
-
-    //     <label className="text-muted">&nbsp;&nbsp;&nbsp;Name</label>
-    //     <input
-    //       onChange={handleChange('name')}
-    //       type="text"
-    //       className="form-control col-sm-5"
-    //       value={name}
-    //     />
-    //   </div>
-
-    //   <div className="form-group">
-    //   <FontAwesomeIcon icon="at" size="2x" fixedWidth />
-    //     <label className="text-muted">&nbsp;&nbsp;&nbsp;Email</label>
-    //     <input
-    //       onChange={handleChange('email')}
-    //       type="email"
-    //       className="form-control col-sm-5"
-    //       value={email}
-    //     />
-    //   </div>
-
-    //   <div className="form-group">
-    //   <FontAwesomeIcon icon="key" size="2x" fixedWidth />
-    //     <label className="text-muted">&nbsp;&nbsp;&nbsp;Password</label>
-    //     <input
-    //       onChange={handleChange('password')}
-    //       type="password"
-    //       className="form-control  col-sm-5"
-    //       value={password}
-    //     />
-    //   </div>
-    //   <div className="form-group">
-    //     <label className="text-muted">Class Number</label>
-    //     <input
-    //       onChange={handleChange('classNo')}
-    //       type="number"
-    //       className="form-control col-sm-3"
-    //       value={classNo}
-    //     />
-    //   </div>
-    //   <div className="form-group">
-    //     <label className="text-muted">Student Number</label>
-    //     <input
-    //       onChange={handleChange('studentNo')}
-    //       type="number"
-    //       className="form-control col-sm-3"
-    //       value={studentNo}
-    //     />
-    //   </div>
-    //   <button onClick={clickSubmit} className="">
-    //     Sign Up
-    //   </button>
-    // </form>
-
+   
+  
     <div className="container  w-60">
       <div className="wrapper">
         <div className="signup-form">
@@ -128,29 +69,7 @@ const Signup = () => {
                 onChange={handleChange('password')}
               />
             </p>
-            <p>
-              <label className="text-muted" htmlFor="">
-                Class No.
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                value={classNo}
-                onChange={handleChange('classNo')}
-              />
-            </p>
-            <p>
-              <label className="text-muted" htmlFor="">
-                Student No.
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                value={studentNo}
-                onChange={handleChange('studentNo')}
-              />
-            </p>
-
+            
             <p className="full-width ">
               <button className="signup-btn" onClick={clickSubmit}>
                 Send

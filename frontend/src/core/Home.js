@@ -15,7 +15,7 @@ const Home = () => {
       description="From Temple University"
       className="container-fluid"
       showDetails={showDetails}
-      jumboHeight={170}
+      jumboHeight={150}
     >
       <div className="container">
         <div className="wrapper">
