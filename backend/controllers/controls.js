@@ -5,23 +5,36 @@ const expressJwt = require('express-jwt'); // for authorization check
 const {errorHandler} = require('../helpers/dbErrorHandler');
 
 
-
-exports.createControls = (req, res) => {
-  
-  const adminId = {adminId: req.params.adminId};
-  console.log(adminId);
+exports.createControls = (id) => {
+  const adminId = { adminId: id };
   const controls = new Controls(adminId);
   controls.save((err, controls) => {
     if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      });
+      return err;
     }
-    res.json({
-      controls,
-    });
+    console.log(controls);
+    return controls;
   });
+  console.log('finished');
 };
+
+
+// exports.createControls = (req, res) => {
+  
+//   const adminId = {adminId: req.params.adminId};
+//   console.log(adminId);
+//   const controls = new Controls(adminId);
+//   controls.save((err, controls) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: errorHandler(err),
+//       });
+//     }
+//     res.json({
+//       controls,
+//     });
+//   });
+// };
 
 exports.updateControls = (req, res) => {
   const adminId = req.params.adminId;
@@ -42,6 +55,9 @@ exports.updateControls = (req, res) => {
 };
 
 exports.getControls = (req, res) => {
+
+  console.log('getControls');
+
   const adminId = req.params.adminId;
   Controls.find({adminId}, (err, controls) => {
     if (err) {

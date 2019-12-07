@@ -166,11 +166,10 @@ export default class AdminDashboard extends Component {
         })
         .catch(err => {
           console.log(err);
-        });
-      
+        });  
     }
 
-    
+
 
     this.getControls = () => {
       const config = {headers: {Authorization: 'bearer ' + token}};
