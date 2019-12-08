@@ -11,6 +11,8 @@ const isActive = (history, path) => {
   }
 };
 
+if (localStorage.getItem('jwt') === '{}')  localStorage.removeItem('jwt');
+
 const Menu = ({history}) => (
   <div>
     <ul className="nav nav-tabs bg-dark">
