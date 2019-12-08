@@ -109,7 +109,7 @@ const SpeakingTest = (props) => {
   let player;
   
   if (trackNo !== testLength) {
-    {console.log(url)}
+    
     player = (
      
       <AudioPlayer

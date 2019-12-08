@@ -13,7 +13,7 @@ const Signin = (props) => {
     redirectToReferrer: false,
     displayedName: false,
   });
-  const adminSignin = props.admin;
+  // const adminSignin = props.admin;
 
   useEffect(() => {
     checkForStoredName();
@@ -27,7 +27,7 @@ const Signin = (props) => {
     error,
     redirectToReferrer,
   } = values;
-  const {user, role} = isAuthenticated();
+  const {user} = isAuthenticated();
 
   const handleChange = name => event => {
     setValues({...values, error: false, [name]: event.target.value});
@@ -74,7 +74,7 @@ const Signin = (props) => {
               value={password}
             />
           </div>
-          <button className="m-0" onClick={clickSubmit} className="signin-btn">
+          <button onClick={clickSubmit} className="m-0 signin-btn">
             Sign In
           </button>
         </form>

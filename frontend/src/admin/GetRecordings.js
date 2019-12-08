@@ -8,7 +8,7 @@ class GetRecordings extends React.Component {
     super(props);
     this.state = {
       gotRecordings: false,
-      numOfHooksToMake: 0,
+      numOfHooks: 0,
       showGetAllFiles: false
     };
 
@@ -27,7 +27,7 @@ class GetRecordings extends React.Component {
 
     this.makeHooks = () => {
       const recordingsEl = document.querySelector('.recordings');
-      for (let i = 0; i< this.state.numOfHooksToMake; i++) {
+      for (let i = 0; i< this.state.numOfHooks; i++) {
         const newLi = document.createElement('li');
         newLi.classList.add(`sList${i}`);
         recordingsEl.appendChild(newLi);
@@ -44,10 +44,10 @@ class GetRecordings extends React.Component {
         this.setState({gotRecordings: true});
         //console.log('GetFileList:  '+ res.data);
 
-        this.setState({numOfHooksToMake: Math.floor(res.data.length / 2) + 1});
+        this.setState({numOfHooks: Math.floor(res.data.length / 2) + 1});
         this.makeHooks();
 
-        console.log('NUMBER OF HOOKS '+ this.numOfHooksToMake);
+        console.log('NUMBER OF HOOKS '+ this.numOfHooks);
 
         let idx = 0;
         res.data.forEach(s => {
@@ -147,9 +147,7 @@ class GetRecordings extends React.Component {
 }
 
 class FileLinks extends GetRecordings {
-  constructor(props) {
-    super(props);
-  }
+  
 
   render() {
     return (
