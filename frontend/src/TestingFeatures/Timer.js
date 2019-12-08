@@ -34,16 +34,16 @@ class Timer extends Component {
     this.setState({time: 0})
   }
   render() {
-    let start = (this.state.time === 0) ?
+    let start = (this.state.time == 0) ?
       <button onClick={this.startTimer}>START</button> :
       null
     let stop = (this.state.isOn) ?
       <button onClick={this.stopTimer}>STOP</button> :
       null
-    let reset = (this.state.time !== 0 && !this.state.isOn) ?
+    let reset = (this.state.time != 0 && !this.state.isOn) ?
       <button onClick={this.resetTimer}>RESET</button> :
       null
-    let resume = (this.state.time !== 0 && !this.state.isOn) ?
+    let resume = (this.state.time != 0 && !this.state.isOn) ?
       <button onClick={this.startTimer}>RESUME</button> :
       null
     return(

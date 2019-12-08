@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Layout from '../core/Layout';
 import {signup} from '../auth';
 //import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';

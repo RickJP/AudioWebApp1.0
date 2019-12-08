@@ -1,3 +1,4 @@
+import React, {Component} from 'react';
 import server from '../helper/currentServer.js';
 import {createUserSlug, createDateTimeStamp} from './prepareAudio';
 import axios from 'axios';
@@ -24,3 +25,19 @@ export const sendAudio = (user_Id, data) => {
       return err;
     });
 };
+
+
+// fetch(url, {
+//   method: 'POST',
+//   body: data,
+//   header: {
+//     'Content-Type': 'multipart/form-data',
+//   }
+// })
+// .then(res => {
+//   console.log('####### POST_AUDIO_THROUGH_AXIOS #####');
+//   res.status(200).send(res);
+// })
+// .catch(err => {
+//   return err;
+// });

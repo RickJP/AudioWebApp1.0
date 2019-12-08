@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import axios from 'axios';
 import {API} from '../config';
 import Layout from '../core/Layout';
-// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import './styles/styles.css';
 import moment from 'moment';
 
