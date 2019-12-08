@@ -31,7 +31,7 @@ class GetRecordings extends React.Component {
         const newLi = document.createElement('li');
         newLi.classList.add(`sList${i}`);
         recordingsEl.appendChild(newLi);
-        console.log(recordingsEl);
+        // console.log(recordingsEl);
       }
     };
 
@@ -44,8 +44,10 @@ class GetRecordings extends React.Component {
         this.setState({gotRecordings: true});
         //console.log('GetFileList:  '+ res.data);
 
-        this.setState({numOfHooksToMake: Math.floor(res.data.length / 2)});
+        this.setState({numOfHooksToMake: Math.floor(res.data.length / 2) + 1});
         this.makeHooks();
+
+        console.log('NUMBER OF HOOKS '+ this.numOfHooksToMake);
 
         let idx = 0;
         res.data.forEach(s => {
@@ -92,7 +94,7 @@ class GetRecordings extends React.Component {
           const downloadLink = this.downloadBlob(blob);
 
           // Set the title and classnames of the link
-          downloadLink.title = fileUrl;
+          // downloadLink.title = fileUrl;
           downloadLink.classList.add(`d-link${idx}`);
 
           // Set the text content of the download link
