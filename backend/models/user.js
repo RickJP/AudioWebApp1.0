@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema(
             min: [1, 'Too few'],
             max: [16, 'Too many']
         },
+        isLoggedIn: {
+            type: Boolean,
+            default: false
+        },
 
         hashed_password: {
             type: String,

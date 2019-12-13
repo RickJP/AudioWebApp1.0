@@ -27,6 +27,8 @@ exports.userSignupValidator = (req, res, next) => {
 };
 
 
+
+
 // exports.adminSignupValidator = (req, res, next) => {
 //     console.log('WILL VALIDATE ADMIN');
 //     req.check("name", "Type your name, please").notEmpty();

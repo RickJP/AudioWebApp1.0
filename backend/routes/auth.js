@@ -3,7 +3,6 @@ const router = express.Router();
 
 const {
     signup,
-    adminSignup,
     signin,
     signout
 } = require("../controllers/auth");
@@ -13,6 +12,6 @@ console.log('REACHES ROUTES');
 router.post("/signup", userSignupValidator, signup);
 // router.post("/adminSignup", adminSignupValidator, adminSignup);
 router.post("/signin", signin);
-router.get("/signout", signout);
+router.get("/signout/:userId", signout);
 
 module.exports = router;

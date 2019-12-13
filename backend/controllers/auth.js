@@ -33,22 +33,22 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.adminSignup = (req, res) => {
-  console.log('ADMIN SIGNUP');
-  const admin = new Admin(req.body);
-  admin.save((err, admin) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      });
-    }
-    admin.salt = undefined;
-    admin.hashed_password = undefined;
-    res.json({
-      admin,
-    });
-  });
-};
+// exports.adminSignup = (req, res) => {
+//   console.log('ADMIN SIGNUP');
+//   const admin = new Admin(req.body);
+//   admin.save((err, admin) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: errorHandler(err),
+//       });
+//     }
+//     admin.salt = undefined;
+//     admin.hashed_password = undefined;
+//     res.json({
+//       admin,
+//     });
+//   });
+// };
 
 checkForMissingInput = (name, password) => {
   let msg = '';
@@ -62,6 +62,15 @@ checkForMissingInput = (name, password) => {
   return msg;
 };
 
+setUserLoginStatus = (_id, loginStatus) => {
+  console.log('ID IS '+ _id)
+    User.findOneAndUpdate({_id}, { isLoggedIn: loginStatus }, (err, user) => {
+      if (err) {
+       return console.error('Could not update loginStatus in mongoDB!!');
+      }
+    });
+}
+
 exports.signin = (req, res) => {
   // find the user based on name
   const {name, password} = req.body;
@@ -73,14 +82,12 @@ exports.signin = (req, res) => {
     });
   }
 
-
   User.findOne({name}, (err, user) => {
     if (err || !user) {
       return res.status(400).json({
         error: "Your name and password doesn't match",
       });
     }
-
     // if user is found make sure the name and password match
     // create authenticate method in user model
     if (!user.authenticate(password)) {
@@ -89,7 +96,15 @@ exports.signin = (req, res) => {
       });
     }
 
+    if (user.isLoggedIn) {
+      return res.status(400).json({
+        error: "You are already logged in"
+      });
+    } 
+    setUserLoginStatus(user._id, true);
 
+    
+    
     // generate a signed token with user id and secret
     const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
     // persist the token as 't' in cookie with expiry date
@@ -97,17 +112,14 @@ exports.signin = (req, res) => {
     // return response with user and token to frontend client
     const {_id, name, role} = user;
     return res.json({token, user: {_id, name, role}});
-
-
   });
-
 };
-
 
 
 exports.signout = (req, res) => {
   res.clearCookie('t');
   res.json({message: 'Signout success'});
+  setUserLoginStatus(req.params.userId, false);
 };
 
 exports.requireSignin = expressJwt({
@@ -133,3 +145,4 @@ exports.isAdmin = (req, res, next) => {
   }
   next();
 };
+
