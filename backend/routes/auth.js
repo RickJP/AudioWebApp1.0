@@ -11,7 +11,7 @@ const { userSignupValidator, adminSignupValidator } = require("../validator");
 
 console.log('REACHES ROUTES');
 router.post("/signup", userSignupValidator, signup);
-router.post("/adminSignup", adminSignupValidator, adminSignup);
+// router.post("/adminSignup", adminSignupValidator, adminSignup);
 router.post("/signin", signin);
 router.get("/signout", signout);
 

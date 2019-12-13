@@ -26,8 +26,10 @@ const Signup = () => {
     setValues({...values, error: false});
     signup({name, studentNo, classNo, password}).then(data => {
       if (data.error) {
+        console.log('ERROR');
         setValues({...values, error: data.error, success: false});
       } else {
+        console.log('SUCCESS');
         setValues({
           ...values,
           name: '',
