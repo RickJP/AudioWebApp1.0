@@ -161,7 +161,6 @@ export default class AdminDashboard extends Component {
       axios
         .put(url, data, config)
         .then(res => {
-          
           console.log(res);
         })
         .catch(err => {
@@ -174,12 +173,10 @@ export default class AdminDashboard extends Component {
     this.getControls = () => {
       const config = {headers: {Authorization: 'bearer ' + token}};
       const url = `${API}/controls/${_id}`;
-      // console.log(token, url);
-
+      
       axios
         .get(url, config)
         .then(res => {
-          // console.log(res.data.controls[0].loginDisabled);
           const controls = res.data.controls[0];
           this.setState({
             loginDisabled: controls.loginDisabled,
@@ -187,9 +184,6 @@ export default class AdminDashboard extends Component {
             tasksActive: controls.tasksActive,
             gotControls: true,
           });
-          // this.setState(() => ({
-            
-          // }));
         })
         .catch(err => {
           console.log(err);
@@ -205,24 +199,9 @@ export default class AdminDashboard extends Component {
         <div className="row dashboard">
           <div className="col-7 user-info">{this.adminInfo()}</div>
           <div className="col-9">{this.controls()}</div>
-          {/* <div className="col-9">{displayListOfStudents()}</div> */}
           {!this.state.gotControls ? this.getControls() : null}
         </div>
       </Layout>
     );
   }
 }
-
-// const displayListOfStudents = () => {
-//     return (
-//         <div className="card mb-5">
-//             <h3 className="card-header">Registered List of Students</h3>
-//             <ul className="list-group columns " data-columns="2">
-
-//                 <li className="list-group-item">
-
-//                 </li>
-//             </ul>
-//         </div>
-//     )
-// }

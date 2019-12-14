@@ -13,6 +13,7 @@
     "bootstrap-material-design": "^4.1.2",
     "braintree-web": "^3.55.0",
     "braintree-web-drop-in-react": "^1.1.0",
+    "eslint": "^6.7.2",
     "http": "0.0.0",
     "lamejs": "^1.2.0",
     "mdbreact": "^4.23.0",

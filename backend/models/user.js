@@ -46,6 +46,18 @@ const userSchema = new mongoose.Schema(
             type: Array,
             default: []
         },
+        tasksEnabled: {
+            type: Array,
+            default: [true, true]
+        },
+        tasksCompleted: {
+            type: Array,
+            default: [],
+        },
+        allowLogin: {
+            type: Boolean,
+            default: true
+        },
     },
     { timestamps: true }
 );

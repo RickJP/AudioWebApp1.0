@@ -22,13 +22,10 @@ exports.saveAudio = (req, res) => {
 };
 
 
-
 exports.playAudio = (req, res) => {
   try {
     const taskNo = req.params.taskNo;
     const file = req.params.file;
-
-    
     const tFile =
       path.join(__dirname, '../data/', 'playAudio/', taskNo, file);
     if (fs.existsSync(tFile)) {
@@ -40,89 +37,91 @@ exports.playAudio = (req, res) => {
   }
 };
 
+const convertBytes = (bytes) => {
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
+ 
+  if (bytes == 0) {
+    return "n/a"
+  }
+ 
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
+ 
+  if (i == 0) {
+    return bytes + " " + sizes[i]
+  }
+ 
+  return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizes[i]
+}
 
-const getDirectories = function (src, callback) {
-  glob(src + '/**/*', callback);
-};
 
-exports.getAudioList = (req, res) => {
-  const pathToSearch = 'data/recordings';
-  getDirectories(pathToSearch, function (err, data) {
-    if (err) {
-      res.status(500).send(err);
+const getAllFilesHelper = function(dirPath, arrayOfFiles) {
+
+  files = fs.readdirSync(dirPath)
+ 
+  arrayOfFiles = arrayOfFiles || []
+ 
+  files.forEach(function(file) {
+    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+      arrayOfFiles = getAllFilesHelper(dirPath + "/" + file, arrayOfFiles)
     } else {
-      return res.status(200).send(data);
+      file.split(".")[1] === 'mp3' ?  arrayOfFiles.push(dirPath + '/' + file) : null;
     }
-  });
-};
+  })
+  return arrayOfFiles;
+}
 
 exports.getFileNames = ((req, res) => {
-  const dir = 'data/recordings';
-  var walkSync = function(dir, filelist) {
-    var fs = fs || require('fs'),
-        files = fs.readdirSync(dir);
-    filelist = filelist || [];
-    files.forEach(function(file) {
-      if (fs.statSync(dir + file).isDirectory()) {
-        filelist = walkSync(dir + file + '/', filelist);
-      }
-      else {
-        filelist.push(file);
-      }
-    });
-    return res.send(filelist);
-  };
-  
+  res.send(getAllFilesHelper( path.join(__dirname, '../data/') + 'recordings'));
 });
 
-exports.getSizeOfAllFiles = ((req, res) => {
-  const directoryPath = 'data/recordings';
-  (directoryPath) => {
-    const arrayOfFiles = getAllFiles(directoryPath)
-   
-    let totalSize = 0
-   
-    arrayOfFiles.forEach(function(filePath) {
-      totalSize += fs.statSync(filePath).size
-    })
-   
-    res.send(totalSize);
-  }
-})
 
 
-// exports.getFilesFromDir = (dir, fileTypes) => {
-//   var filesToReturn = [];
-//   function walkDir(currentPath) {
-//     var files = fs.readdirSync(currentPath);
-//     for (var i in files) {
-//       var curFile = path.join(currentPath, files[i]);      
-//       if (fs.statSync(curFile).isFile() && fileTypes.indexOf(path.extname(curFile)) != -1) {
-//         filesToReturn.push(curFile.replace(dir, ''));
-//       } else if (fs.statSync(curFile).isDirectory()) {
-//        walkDir(curFile);
-//       }
-//     }
-//   };
-//   walkDir(dir);
-//   return filesToReturn; 
-// }
+const getSizesOfAllFilesHelper = (dirPath) => {
+  const arrayOfFiles = getAllFilesHelper(dirPath);
+  console.log(arrayOfFiles);
+  let totalSize = 0
+ 
+  arrayOfFiles.forEach(function(filePath) {
+    console.log(filePath);
+    totalSize += fs.statSync(filePath).size
+  })
+  return convertBytes(totalSize);
+}
 
+exports.getSizesOfAllFiles = (req, res) => {
+  res.send(getSizesOfAllFilesHelper(path.join(__dirname, '../data/') + 'recordings'));
+};
 
 
 exports.getAudioFiles = (req, res) => {
   try {
     const tFile =
       path.join(__dirname, '../data/') + 'recordings/' + req.params.dir+ '/' + req.params.file;
-    console.log('#########' + tFile + '###########');
     if (fs.existsSync(tFile)) {
-      console.log(`PATH ${tFile} EXISTS`);
       res.download(tFile);
     }
   } catch (err) {
     console.error(err);
   }
 };
+
+const getDirectoriesHelper = function (src, callback) {
+  glob(src + '/**/*', callback);
+};
+
+
+exports.getAudioList = (req, res) => {
+  const pathToSearch = 'data/recordings';
+  getDirectoriesHelper(pathToSearch, function (err, data) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      console.log(data);
+      return res.status(200).send(data);
+    }
+  });
+};
+
 
 exports.saveRecordingsList = (req, res, next) => {
   const user_Id = req.params.userId;
@@ -141,7 +140,6 @@ exports.saveRecordingsList = (req, res, next) => {
   next();
 };
 
-
 exports.uploadFile = (req, res) => {
   let form = new IncomingForm();
 
@@ -154,33 +152,3 @@ exports.uploadFile = (req, res) => {
   });
   form.parse(req);
 };
-
-
-// path.parse(pathToCheck).base/name/ext
-//   saveMP3Audio = (targetPath, file) => {
-
-//   const wavFilePath = targetPath + file + '.wav';
-//   const mp3FilePath = targetPath + file + '.mp3';
-
-//   let process = new ffmpeg(wavFilePath);
-//   process.then(audio => {
-//     audio.fnExtractSoundToMP3(mp3FilePath, (error, file) => {
-//       if (!error) {
-//         console.log('Audio file ' + file);
-//         removeWavFile(wavFilePath);
-//       } else {
-//         console.log(error);
-//       }
-//     }, err => {
-//       console.log('Error:  ' + err);
-//     });
-//   });
-// };
-
-//   removeWavFile = (path) => {
-//   fs.unlink(path, (err) => {
-//     if (err) return console.log(err);
-//     console.log('File successfully deleted');
-//   });
-
-// };

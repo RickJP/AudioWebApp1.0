@@ -12,15 +12,12 @@ class GetRecordings extends React.Component {
       showGetAllFiles: false
     };
 
-    
     this.getAllFiles = () => {
       const recEl = document.querySelector('.recordings').children;
-
       for (let i = 0; i < recEl.length; i++) {
        recEl[i].children[0] && recEl[i].children[0].click();
       }
     };
-
 
     this.makeHooks = () => {
       const recordingsEl = document.querySelector('.recordings');
@@ -33,9 +30,12 @@ class GetRecordings extends React.Component {
     };
 
     this.getAudioList = () => {
-      const getAudioListUrl = `${API}/audio/getaudiolist`;
-      const getAudioFilesUrl = `${API}/audio/getaudiofiles/`;
+      const getAudioListUrl = `${API}/audio/audiolist`;
+      const getAudioFilesUrl = `${API}/audio/audiofiles/`;
+      const recordingsDir = 'data/recordings/';
       const fName = [];
+
+
 
       axios.get(getAudioListUrl).then(res => {
         this.setState({gotRecordings: true});
@@ -45,8 +45,8 @@ class GetRecordings extends React.Component {
         this.makeHooks();
         let idx = 0;
         res.data.forEach(s => {
-          if (s.split('data/recordings/')[1].includes('mp3')) {
-            fName.push(s.split('data/recordings/')[1].split('/'));
+          if (s.split(recordingsDir)[1].includes('mp3')) {
+            fName.push(s.split(recordingsDir)[1].split('/'));
           }
         });
         res.data
@@ -55,7 +55,7 @@ class GetRecordings extends React.Component {
           .map(r =>
             this.getFile(
               // Full url for the audio download link
-              getAudioFilesUrl + r.split('data/recordings/')[1],
+              getAudioFilesUrl + r.split(recordingsDir)[1],
               // Join the student name & file name for the link text
               fName[idx][0],
               //  + '___' + fName[idx][1],

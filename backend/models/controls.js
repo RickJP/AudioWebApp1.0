@@ -21,7 +21,6 @@ const controlsSchema = new mongoose.Schema(
           type: Schema.Types.ObjectId,
           ref: "User",
           required: true
-          // default: "5dea61b336d09159a2d07a8f"
         }
     },
     { timestamps: true }

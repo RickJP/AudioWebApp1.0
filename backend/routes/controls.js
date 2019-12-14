@@ -19,6 +19,7 @@ router.get("/controls/:adminId", requireSignin,  isAuth ,isAdmin, getControls);
 router.get("/controls/all/:adminId", requireSignin,  isAuth ,isAdmin, getAllControls);
 
 
+
 router.param("adminId", userById);
 
 module.exports = router;

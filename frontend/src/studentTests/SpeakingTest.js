@@ -11,7 +11,6 @@ import { isAuthenticated } from "../auth";
 
 import Layout from '../core/Layout';
 import './styles/styles.css';
-import {testMaterials} from './testMaterials';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 
