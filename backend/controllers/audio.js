@@ -6,9 +6,10 @@ const glob = require('glob');
 const IncomingForm = require('formidable').IncomingForm;
 
 exports.saveAudio = (req, res) => {
-  const dir = req.params.dir;
+  const userDir = req.params.userDir;
   const file = req.params.file;
-  const tPath = path.join(__dirname, '../data/') + 'uploads/' + dir + '/';
+  const tPath = path.join(__dirname, `../data/recordings/`) + userDir + '/';
+  console.log(tPath);
   const fullPathandFile = tPath + file + '.mp3';
 
   fs.existsSync(tPath) || fs.mkdirSync(tPath);
@@ -24,12 +25,12 @@ exports.saveAudio = (req, res) => {
 
 exports.playAudio = (req, res) => {
   try {
-    const testNo = req.params.testNo;
+    const taskNo = req.params.taskNo;
     const file = req.params.file;
 
     
     const tFile =
-      path.join(__dirname, '../data/', 'playAudio/', testNo, file);
+      path.join(__dirname, '../data/', 'playAudio/', taskNo, file);
     if (fs.existsSync(tFile)) {
       console.log(`PATH ${tFile} EXISTS`);
       res.download(tFile);
@@ -45,7 +46,7 @@ const getDirectories = function (src, callback) {
 };
 
 exports.getAudioList = (req, res) => {
-  const pathToSearch = 'data/uploads';
+  const pathToSearch = 'data/recordings';
   getDirectories(pathToSearch, function (err, data) {
     if (err) {
       res.status(500).send(err);
@@ -55,11 +56,64 @@ exports.getAudioList = (req, res) => {
   });
 };
 
+exports.getFileNames = ((req, res) => {
+  const dir = 'data/recordings';
+  var walkSync = function(dir, filelist) {
+    var fs = fs || require('fs'),
+        files = fs.readdirSync(dir);
+    filelist = filelist || [];
+    files.forEach(function(file) {
+      if (fs.statSync(dir + file).isDirectory()) {
+        filelist = walkSync(dir + file + '/', filelist);
+      }
+      else {
+        filelist.push(file);
+      }
+    });
+    return res.send(filelist);
+  };
+  
+});
+
+exports.getSizeOfAllFiles = ((req, res) => {
+  const directoryPath = 'data/recordings';
+  (directoryPath) => {
+    const arrayOfFiles = getAllFiles(directoryPath)
+   
+    let totalSize = 0
+   
+    arrayOfFiles.forEach(function(filePath) {
+      totalSize += fs.statSync(filePath).size
+    })
+   
+    res.send(totalSize);
+  }
+})
+
+
+// exports.getFilesFromDir = (dir, fileTypes) => {
+//   var filesToReturn = [];
+//   function walkDir(currentPath) {
+//     var files = fs.readdirSync(currentPath);
+//     for (var i in files) {
+//       var curFile = path.join(currentPath, files[i]);      
+//       if (fs.statSync(curFile).isFile() && fileTypes.indexOf(path.extname(curFile)) != -1) {
+//         filesToReturn.push(curFile.replace(dir, ''));
+//       } else if (fs.statSync(curFile).isDirectory()) {
+//        walkDir(curFile);
+//       }
+//     }
+//   };
+//   walkDir(dir);
+//   return filesToReturn; 
+// }
+
+
 
 exports.getAudioFiles = (req, res) => {
   try {
     const tFile =
-      path.join(__dirname, '../data/') + 'uploads/' + req.params.dir+ '/' + req.params.file;
+      path.join(__dirname, '../data/') + 'recordings/' + req.params.dir+ '/' + req.params.file;
     console.log('#########' + tFile + '###########');
     if (fs.existsSync(tFile)) {
       console.log(`PATH ${tFile} EXISTS`);

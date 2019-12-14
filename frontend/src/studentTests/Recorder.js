@@ -20,6 +20,9 @@ class Recorder extends Component {
       isBlocked: false,
     };
 
+    // console.log('CLASS NO ' + props.classNo );
+    // console.log('Student NO ' + props.studentNo );
+    // console.log('User ID ' + props.userId );
     
 
     this.start = () => {
@@ -48,7 +51,8 @@ class Recorder extends Component {
       
           let data = new FormData();
           data.append('soundBlob', audio);
-          sendAudio(user_Id, data);
+          
+          sendAudio(user_Id,props.classNo, props.studentNo, data);
     
         })
         .catch(e => console.log(e));
@@ -81,6 +85,10 @@ class Recorder extends Component {
   }
 
   componentWillUnmount() {
+    // if (this.state.isRecording) {
+    //   this.stop();
+    // }
+    
     // let {isRecording} = this.state;
     // console.log('willUnmount');
     // console.log(this.props);
@@ -92,7 +100,20 @@ class Recorder extends Component {
     // } 
   }
 
-  UNSAFE_componentWillReceiveProps({trackNo, audioFiles, userId}) {
+  // UNSAFE_componentWillReceiveProps({trackNo, audioFiles}) {
+  //   let {isRecording} = this.state;
+
+  //   if (!isRecording && trackNo === 1) {
+  //     this.setState({isRecording: true});
+  //     this.start();
+  //   }
+  //   if (isRecording && trackNo === audioFiles.length) {
+  //     this.setState({isRecording: false});
+  //     this.stopAndSendAudio();
+  //   }
+  // }
+
+  componentDidUpdate({trackNo, audioFiles}) {
     let {isRecording} = this.state;
 
     if (!isRecording && trackNo === 1) {

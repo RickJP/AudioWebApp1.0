@@ -7,52 +7,43 @@ import Recorder from './Recorder';
 import AudioPlayer from 'react-h5-audio-player';
 import server from '../helper/currentServer.js';
 
+import { isAuthenticated } from "../auth";
+
 import Layout from '../core/Layout';
 import './styles/styles.css';
 import {testMaterials} from './testMaterials';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
+
 const SpeakingTest = (props) => {
-  // Get userId from localStorage
-  const retreivedItem = localStorage.getItem('jwt');
-  const user_Id = JSON.parse(retreivedItem).user._id;
+  const { user: {_id, classNo, studentNo} } = isAuthenticated();
 
   let taskNo = !props.location.state ? 1 : props.location.state.taskNo;
+  const testAudio = props.location.state.audioFiles[taskNo - 1];
+  const testLength = props.location.state.audioFiles[taskNo - 1].length;
+  const testTasks = props.location.state.tasks[taskNo - 1];
 
+  // Initialize track no and get the audio file
   const [trackNo, setTrackNo] = useState(0);
-  const [userId] = useState(user_Id);
-  // console.log('UserId from SpeakingTest   '+userId);
+  const curTestAudioFile = testAudio[trackNo];
+
   const [hidePlayer, setHidePlayer] = useState(false);
   const [showComponent, setShowComponent] = useState(false);
   const [completionMsg, setCompletionMsg] = useState('');
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
   const [FAIcon, setFAIcon] = useState('check');
   const [FAIconSize] = useState('4x');
-
   
-  const testAudio = testMaterials[taskNo][0].audioFiles;
-  const testLength = testMaterials[taskNo][0].audioFiles.length;
-  const testTasks = testMaterials[taskNo][0].tasks;
-
   const [completedTest, setCompletedTest] = useState(false);
   const [clickedToFinish, setClickedToFinish] = useState(false);
 
+  // Messages
   const listenIcon = 'headphones';
   const speakIcon = 'comment';
-
   const testCompletionMsg = 'You have now completed this test. Thank you for participating.';
 
-  const audioFile = testMaterials[taskNo][0].audioFiles[trackNo];
   const fileExt = '.wav';
-  const url = `${server()}audio/playAudio/${taskNo}/${audioFile}${fileExt}`;
-  // console.log('URL: '+ url);
-  // Increments the track number & checks for test completion
-
-
-  const shrinkJumbotron = () => {
-    const jumboStyle = document.querySelector('.jumbotron');
-    console.log(jumboStyle);
-  };
+  const url = `${server()}audio/playAudio/${taskNo}/${curTestAudioFile}${fileExt}`;
 
   const incTrack = () => {
     if (trackNo < testLength) {
@@ -109,7 +100,6 @@ const SpeakingTest = (props) => {
   let player;
   
   if (trackNo !== testLength) {
-    {console.log(url)}
     player = (
      
       <AudioPlayer
@@ -137,19 +127,17 @@ const SpeakingTest = (props) => {
 
   return (
     <Layout
-      title="Speaking Test 2"
+      title="Speaking Test"
       description=""
       className="container-fluid noselect"
       showDetails={0}
       jumboHeight={20}
     > 
       <div className="container w-20">
-
-
-      {shrinkJumbotron()} 
       {showTasks(trackNo)}
+      
       {completionMsg}
-      <Recorder trackNo={trackNo} userId={userId} audioFiles={testAudio} />
+      <Recorder trackNo={trackNo} classNo={classNo} studentNo={studentNo} userId={_id} audioFiles={testAudio} />
       
       {player}
       <br />

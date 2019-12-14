@@ -9,9 +9,9 @@ export const createUserSlug = () =>  {
     user: { name }
   } = isAuthenticated();
   return slugify(name, {
-    replacement: '-',    // replace spaces with replacement
+    replacement: '_',    // replace spaces with underscore
     remove: null,        // regex to remove characters
-    lower: true,         // result in lower case
+    // lower: true,         // result in lower case
   });
 };
 

@@ -12,15 +12,12 @@ class GetRecordings extends React.Component {
       showGetAllFiles: false
     };
 
-
+    
     this.getAllFiles = () => {
       const recEl = document.querySelector('.recordings').children;
-      // const fileEl = document.querySelector('.sList0 a');
-      // console.log(fileEl.click());
 
-      
       for (let i = 0; i < recEl.length; i++) {
-       recEl[i].children[0].click();
+       recEl[i].children[0] && recEl[i].children[0].click();
       }
     };
 
@@ -44,15 +41,12 @@ class GetRecordings extends React.Component {
         this.setState({gotRecordings: true});
         //console.log('GetFileList:  '+ res.data);
 
-        this.setState({numOfHooksToMake: Math.floor(res.data.length / 2) + 1});
+        this.setState({numOfHooksToMake: Math.floor(res.data.length)});
         this.makeHooks();
-
-        console.log('NUMBER OF HOOKS '+ this.numOfHooksToMake);
-
         let idx = 0;
         res.data.forEach(s => {
-          if (s.split('data/uploads/')[1].includes('mp3')) {
-            fName.push(s.split('data/uploads/')[1].split('/'));
+          if (s.split('data/recordings/')[1].includes('mp3')) {
+            fName.push(s.split('data/recordings/')[1].split('/'));
           }
         });
         res.data
@@ -61,7 +55,7 @@ class GetRecordings extends React.Component {
           .map(r =>
             this.getFile(
               // Full url for the audio download link
-              getAudioFilesUrl + r.split('data/uploads/')[1],
+              getAudioFilesUrl + r.split('data/recordings/')[1],
               // Join the student name & file name for the link text
               fName[idx][0],
               //  + '___' + fName[idx][1],
@@ -105,6 +99,7 @@ class GetRecordings extends React.Component {
           // hookEl.classList.add(`hook${idx}`);
           // document.body.appendChild(hookEl);
 
+          console.log('IDX: ' + idx);
           let hook = document.querySelector(`.sList${idx}`);
           // Attach the link to the DOM
           hook.appendChild(downloadLink);
@@ -118,10 +113,27 @@ class GetRecordings extends React.Component {
     };
   }
 
+  getAllFilesNow() {
+    console.log('GET ALL FILES NOW');
+    axios.get(`${API}/audio/audiofilenames`)
+    .then(res => {
+      console.log(res);
+    })
+
+  }
+
+  // getSizeofallfiles() {
+  //   axios.get(`${API}/audio/sizeofallfiles`)
+  //   .then(res => {
+  //     console.log(res);
+  //   })
+  // }
+
   render() {
     return (
       <Layout className="container-fluid">
         <div className="row">
+        
           <div className="col">
             <button
               className="btn get-list-btn"
@@ -129,6 +141,7 @@ class GetRecordings extends React.Component {
             >
               Get List
             </button>
+            {/* {getAllFilesNow()} */}
             <div className="card mb-0 mt-4">
               <h3 className="card-header">Recordings</h3> 
               <ul className="list-group">
@@ -139,6 +152,7 @@ class GetRecordings extends React.Component {
             : null}
               
             </div>
+            
           </div>
         </div>
       </Layout>
@@ -155,7 +169,6 @@ class FileLinks extends GetRecordings {
     return (
       <div>
         <ul className="recordings">
-        
         </ul>
       </div>
     );

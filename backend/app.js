@@ -11,6 +11,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const controlsRoutes = require("./routes/controls");
+const testMaterialsRoutes = require("./routes/testMaterials");
 
 
 const audioRoutes = require("./routes/audio");
@@ -40,6 +41,7 @@ app.use(helmet());
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", controlsRoutes);
+app.use("/api", testMaterialsRoutes);
 
 app.use("/api/audio", audioRoutes);
 

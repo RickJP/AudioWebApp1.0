@@ -98,20 +98,19 @@ exports.signin = (req, res) => {
 
     if (user.isLoggedIn) {
       return res.status(400).json({
-        error: "You are already logged in"
+        error: "You are already logged in",
+        alreadyLoggedIn: true
       });
     } 
     setUserLoginStatus(user._id, true);
 
-    
-    
     // generate a signed token with user id and secret
     const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
     // persist the token as 't' in cookie with expiry date
     res.cookie('t', token, {expire: new Date() + 9999});
     // return response with user and token to frontend client
-    const {_id, name, role} = user;
-    return res.json({token, user: {_id, name, role}});
+    const {_id, name, classNo, studentNo, role} = user;
+    return res.json({token, user: {_id, name, classNo, studentNo, role}});
   });
 };
 
@@ -128,8 +127,8 @@ exports.requireSignin = expressJwt({
 });
 
 exports.isAuth = (req, res, next) => {
-  let user = req.profile && req.auth && req.profile._id == req.auth._id;
-  if (!user) {
+
+  if (!req.profile._id) {
     return res.status(403).json({
       error: 'Access denied',
     });

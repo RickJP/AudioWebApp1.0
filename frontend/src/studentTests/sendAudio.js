@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import server from '../helper/currentServer.js';
-import {createUserSlug, createDateTimeStamp} from './prepareAudio';
+import {createUserSlug, createDateTimeStamp} from './generateFolderTitle';
 import axios from 'axios';
 
-export const sendAudio = (user_Id, data) => {
+export const sendAudio = (user_Id, classNo, studentNo, data) => {
   const userSlug = createUserSlug();
   const dtStamp = createDateTimeStamp();
   let config = {
@@ -14,7 +14,7 @@ export const sendAudio = (user_Id, data) => {
 
   console.log('############ SEND_AUDIO #############');
   // console.log('USER_ID  ' + user_Id);
-  const url = `${server()}audio/upload/${user_Id}/${userSlug}/${dtStamp}`;
+  const url = `${server()}audio/upload/${user_Id}/${classNo}-${studentNo}__${userSlug}/${dtStamp}`;
     axios
     .post(url, data, config)
     .then(res => {
