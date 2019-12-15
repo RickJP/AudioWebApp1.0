@@ -136,7 +136,7 @@ const SpeakingTest = (props) => {
       {showTasks(trackNo)}
       
       {completionMsg}
-      <Recorder trackNo={trackNo} classNo={classNo} studentNo={studentNo} userId={_id} audioFiles={testAudio} />
+      <Recorder taskNo={taskNo} trackNo={trackNo} classNo={classNo} studentNo={studentNo} userId={_id} audioFiles={testAudio} />
       
       {player}
       <br />

@@ -45,6 +45,7 @@ const Home = () => {
       className="container-fluid"
       showDetails={showDetails}
       jumboHeight={150}
+      stopAtTrackNo={3}
     >
       <div className="container">
         <div className="wrapper">
