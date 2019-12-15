@@ -29,7 +29,7 @@ export default class AdminDashboard extends Component {
 
     this.adminInfo = () => {
       return (
-        <div className="card mb-3">
+        <div className="card mb-3 user-info">
           <h3 className="card-header">User Information</h3>
           <ul className="list-group">
             <li className="list-group-item">
@@ -48,7 +48,7 @@ export default class AdminDashboard extends Component {
 
     this.controls = () => {
       return (
-        <div className="card mb-3">
+        <div className="card mb-3 user-controls">
           <h3 className="card-header">Controls</h3>
           <button onClick={this.updateControls}>Update</button>
           <ul className="list-group">
@@ -95,7 +95,7 @@ export default class AdminDashboard extends Component {
                   onChange={this.controlHandler}
                 />
                 <label className="form-check-label" htmlFor="inlineCheckbox1">
-                  Allow Signup
+                  Register
                 </label>
               </div>
 
@@ -109,7 +109,7 @@ export default class AdminDashboard extends Component {
                   onChange={this.controlHandler}
                 />
                 <label className="form-check-label" htmlFor="inlineCheckbox1">
-                  Allow Signin
+                  Login
                 </label>
               </div>
             </li>
@@ -197,8 +197,8 @@ export default class AdminDashboard extends Component {
     return (
       <Layout title="Dashboard" className="container-fluid" jumboHeight={20}>
         <div className="row dashboard">
-          <div className="col-8 user-info">{this.adminInfo()}</div>
-          <div className="col-9">{this.controls()}</div>
+          <div className="col">{this.adminInfo()}</div>
+          <div className="col">{this.controls()}</div>
           {!this.state.gotControls ? this.getControls() : null}
         </div>
       </Layout>

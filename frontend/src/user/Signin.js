@@ -52,7 +52,7 @@ const Signin = (props) => {
   };
 
   const signInForm = () => (
-    <div className="container  w-80">
+    <div className="container">
       <div className="wrapper">
         <form className="signin-form"> 
           <div className="form-group">
@@ -123,7 +123,7 @@ const Signin = (props) => {
     <Layout
       title="Let's Get Started"
       description=""
-      className="container-fluid  pt-4"
+      className="container-fluid  pt-2"
       showDetails={1}
       jumboHeight={150}
     >

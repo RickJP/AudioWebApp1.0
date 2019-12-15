@@ -103,10 +103,10 @@ const Signup = () => {
     //   </button>
     // </form>
 
-    <div className="container  w-60">
+    <div className="container">
       <div className="wrapper">
-        <div className="signup-form">
-          <form action="">
+
+          <form className="signup-form">
             <p className="full-width">
               <label className="text-muted" htmlFor="">
                 Name
@@ -159,7 +159,7 @@ const Signup = () => {
               </button>
             </p>
           </form>
-        </div>
+      
       </div>
     </div>
   );
@@ -186,7 +186,7 @@ const Signup = () => {
     <Layout
       title="Register"
       description=""
-      className="container-fluid p-5"
+      className="container-fluid p-2"
       showDetails={1}
       jumboHeight={150}
     >

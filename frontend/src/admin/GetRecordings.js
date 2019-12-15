@@ -131,7 +131,7 @@ class GetRecordings extends React.Component {
 
   render() {
     return (
-      <Layout className="container-fluid">
+      <Layout className="container-fluid recordings-area">
         <div className="row">
         
           <div className="col">
@@ -142,7 +142,7 @@ class GetRecordings extends React.Component {
               Get List
             </button>
             {/* {getAllFilesNow()} */}
-            <div className="card mb-0 mt-4">
+            <div className="card mb-0 mt-4 recordings-card">
               <h3 className="card-header">Recordings</h3> 
               <ul className="list-group">
                 <FileLinks></FileLinks>
