@@ -48,8 +48,8 @@ const Home = () => {
       stopAtTrackNo={3}
     >
       <div className="container-test">
-        <div className="wrapper">
-          <div className="card p-0 ">
+        <div className="tasks-wrapper wrapper">
+          <div className="tasks-card card p-0 ">
             <Link
               to={{
                 pathname: '/user/test',
@@ -66,7 +66,7 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="card p-0 pt-5">
+          <div className="tasks-card card p-0 pt-5">
             <Link
               to={{pathname: '/user/test', 
               state: {taskNo: 2, audioFiles, tasks},

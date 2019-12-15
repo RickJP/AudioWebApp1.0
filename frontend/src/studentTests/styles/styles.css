@@ -1,4 +1,3 @@
-
 a {
   color: #337ab7;
 }
@@ -19,23 +18,12 @@ li {
   margin-bottom: 1rem;
 }
 
-/* input,
-textarea,
-button {
-  width: 20%;
-  border: 1px solid #000;
-} */
+
 
 * {
   box-sizing: border-box;
 }
 
-
-/* button {
-  color: white;
-  font-size: 20px;
-  padding: 0rem;
-} */
 
 .next-task-btn {
   height: 3rem;
@@ -69,12 +57,16 @@ AudioPlayer {
   padding: 1.5rem;
 }
 
+.fa-check {
+  opacity: 0;                /* Opacity (Transparency) */
+    color: rgba(0, 0, 0, 0.75);   /* RGBA Color (Alternative Transparency) */
+    -webkit-filter: blur(2px);    /* Blur */
+    -moz-filter: blur(2px);
+    filter: blur(2px);
+}
 
-/* .container-test {
-  background: blue;
-  margin: 0 !important;
-  padding: 0 !important;
-} */
+
+
 
 .student-test-inner {
   padding-bottom: 5%;
@@ -84,13 +76,7 @@ AudioPlayer {
   padding: 5% 30%;
 }
 
-.fa-check {
-  opacity: 0;                /* Opacity (Transparency) */
-    color: rgba(0, 0, 0, 0.75);   /* RGBA Color (Alternative Transparency) */
-    -webkit-filter: blur(2px);    /* Blur */
-    -moz-filter: blur(2px);
-    filter: blur(2px);
-}
+
 
 @media (max-width: 420px) {
   .student-test-inner {

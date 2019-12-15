@@ -37,23 +37,14 @@ const Layout = ({className, children, showDetails, jumboHeight = 20}) => (
       className="jumbotron jumbotron-fluid m-0 pt-1  rounded-0"
       style={{height: jumboHeight}}
     >
-      {/* <div className="container">
-        <h2 className="display-1"></h2>
-        Bartolo Bazan
-        {/* <p class="lead">
-          Good Luck!
-        </p> */}
-      {/* <div className="container"> */}
+     
       <Details showDetails={showDetails}></Details>
     </div>
-    {/* </div> */}
+ 
 
     <Menu />
 
-    {/* <div className="jumbotron">
-            <h2>{title}</h2>
-            <p className="lead">{description}</p>
-        </div> */}
+   
 
     <div className={className}>{children}</div>
   </div>
