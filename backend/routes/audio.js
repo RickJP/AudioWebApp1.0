@@ -8,6 +8,7 @@ const { playAudio, saveAudio, getFileNames, getSizesOfAllFiles, getAudioFiles, s
 
 const {
   userById,
+  setTaskCompleted
 } = require("../controllers/user");
 
 const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
@@ -18,7 +19,13 @@ router.get('/audiofilenames', getFileNames);
 router.get('/sizesofallfiles', getSizesOfAllFiles);
 
 
-router.post('/upload/:userId/:userDir/:file', isAuth, upload.single('soundBlob'), saveRecordingsList, saveAudio );
+
+
+router.get('settaskcompleted', setTaskCompleted);
+
+
+
+router.post('/upload/:userId/:userDir/taskNo/:file', isAuth, upload.single('soundBlob'), saveRecordingsList, setTaskCompleted ,saveAudio );
 router.get('/playAudio/:taskNo/:file', playAudio);
 
 router.post('uploadFile', uploadFile);

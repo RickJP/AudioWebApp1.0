@@ -51,3 +51,25 @@ exports.update = (req, res) => {
 };
 
 
+exports.setTaskCompleted =  (req, res) => {
+    const userId = req.params.userId;
+    const taskNo = req.params.taskNo;
+
+    console.log(userId, taskNo);
+    res.json(userId, taskNo);
+    // User.findOneAndUpdate(
+    //     { _id: req.profile._id },
+    //     { $set: req.body },
+    //     { new: true },
+    //     (err, user) => {
+    //         if (err) {
+    //             return res.status(400).json({
+    //                 error: "You are not authorized to perform this action"
+    //             });
+    //         }
+    //         user.hashed_password = undefined;
+    //         user.salt = undefined;
+    //         res.json(user);
+    //     }
+    // );
+}

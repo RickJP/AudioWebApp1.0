@@ -81,7 +81,7 @@ const SpeakingTest = (props) => {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
   };
 
-  const showTasks = trackNo => (<div>{testTasks[trackNo]}</div>);
+  const showTasks = trackNo => (<div className="student-test-inner">{testTasks[trackNo]}</div>);
 
   const addButtonAfter = (hook, msg= '') => {
     const btnHook = document.querySelector(hook);
@@ -129,11 +129,11 @@ const SpeakingTest = (props) => {
     <Layout
       title="Speaking Test"
       description=""
-      className="container-fluid noselect"
+      className="container-fluid noselect student-test-outer"
       showDetails={0}
       jumboHeight={20}
     > 
-      <div className="container w-20">
+      <div className="test-container">
       {showTasks(trackNo)}
       
       {completionMsg}

@@ -14,7 +14,7 @@ export const sendAudio = (user_Id, taskNo, classNo, studentNo, data) => {
 
   console.log('#########################');
   console.log('taskNo = ', taskNo);
-  const url = `${server()}audio/upload/${user_Id}/${classNo}-${studentNo}__${userSlug}__Task_${taskNo}/${dtStamp}`;
+  const url = `${server()}audio/upload/${user_Id}/${classNo}-${studentNo}__${userSlug}__Task_${taskNo}/${taskNo}/${dtStamp}`;
     axios
     .post(url, data, config)
     .then(res => {

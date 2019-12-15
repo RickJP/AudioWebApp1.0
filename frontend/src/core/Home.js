@@ -47,7 +47,7 @@ const Home = () => {
       jumboHeight={150}
       stopAtTrackNo={3}
     >
-      <div className="container">
+      <div className="container-test">
         <div className="wrapper">
           <div className="card p-0 ">
             <Link

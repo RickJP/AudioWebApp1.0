@@ -69,10 +69,38 @@ AudioPlayer {
   padding: 1.5rem;
 }
 
+
+/* .container-test {
+  background: blue;
+  margin: 0 !important;
+  padding: 0 !important;
+} */
+
+.student-test-inner {
+  padding-bottom: 5%;
+  
+}
+.student-test-outer {
+  padding: 5% 30%;
+}
+
 .fa-check {
   opacity: 0;                /* Opacity (Transparency) */
     color: rgba(0, 0, 0, 0.75);   /* RGBA Color (Alternative Transparency) */
     -webkit-filter: blur(2px);    /* Blur */
     -moz-filter: blur(2px);
     filter: blur(2px);
+}
+
+@media (max-width: 420px) {
+  .student-test-inner {
+    padding-bottom: 10%;
+    
+  }
+  .student-test-outer {
+    padding: 5%;
+  }
+  .test-container {
+    padding: 0;
+  }
 }
