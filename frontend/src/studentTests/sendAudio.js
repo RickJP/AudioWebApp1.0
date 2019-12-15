@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+// import React, {Component} from 'react';
 import server from '../helper/currentServer.js';
 import {createUserSlug, createDateTimeStamp} from './generateFolderTitle';
 import axios from 'axios';
@@ -12,8 +12,8 @@ export const sendAudio = (user_Id, taskNo, classNo, studentNo, data) => {
     },
   };
 
-  console.log('############ SEND_AUDIO #############');
-  console.log('SendAudio ' + classNo, studentNo);
+  console.log('#########################');
+  console.log('taskNo = ', taskNo);
   const url = `${server()}audio/upload/${user_Id}/${classNo}-${studentNo}__${userSlug}__Task_${taskNo}/${dtStamp}`;
     axios
     .post(url, data, config)

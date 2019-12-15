@@ -87,7 +87,7 @@ class Recorder extends Component {
       this.setState({isRecording: true});
       this.start();
     }
-    if (isRecording && trackNo === audioFiles.length) {
+    if (isRecording && trackNo === this.props.testLength) {
       this.setState({isRecording: false});
       this.stopAndSendAudio();
     }

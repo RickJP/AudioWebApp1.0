@@ -19,7 +19,8 @@ const SpeakingTest = (props) => {
 
   let taskNo = !props.location.state ? 1 : props.location.state.taskNo;
   const testAudio = props.location.state.audioFiles[taskNo - 1];
-  const testLength = props.location.state.audioFiles[taskNo - 1].length;
+  const testLength = 3;
+  // props.location.state.audioFiles[taskNo - 1].length;
   const testTasks = props.location.state.tasks[taskNo - 1];
 
   // Initialize track no and get the audio file
@@ -136,7 +137,7 @@ const SpeakingTest = (props) => {
       {showTasks(trackNo)}
       
       {completionMsg}
-      <Recorder taskNo={taskNo} trackNo={trackNo} classNo={classNo} studentNo={studentNo} userId={_id} audioFiles={testAudio} />
+      <Recorder taskNo={taskNo} trackNo={trackNo} classNo={classNo} studentNo={studentNo} userId={_id} audioFiles={testAudio} testLength={testLength}/>
       
       {player}
       <br />

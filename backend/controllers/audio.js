@@ -7,6 +7,9 @@ const IncomingForm = require('formidable').IncomingForm;
 
 exports.saveAudio = (req, res) => {
   const userDir = req.params.userDir;
+  console.log('######################');
+  console.log('userDir is '+userDir);
+  console.log('######################');
   const file = req.params.file;
   const tPath = path.join(__dirname, `../data/recordings/`) + userDir + '/';
   console.log(tPath);
