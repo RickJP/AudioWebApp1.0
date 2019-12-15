@@ -131,7 +131,7 @@ exports.getAudioList = (req, res) => {
 
 exports.saveRecordingsList = (req, res, next) => {
   const user_Id = req.params.userId;
-  const ul_Folder = req.params.dir;
+  const ul_Folder = req.params.userDir;
   const file = req.params.file + '.mp3';
   console.log(`userId: ${user_Id}  ulFolder: ${ul_Folder} file: ${file}`);
 

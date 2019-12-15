@@ -168,14 +168,14 @@ const Menu = ({history}) => (
           <li className="nav-item">
             <span
               className="nav-link"
-              style={{cursor: 'pointer', color: '#ffffff'}}
+              style={{cursor: 'pointer', color: '#dc143c'}}
               onClick={() =>
                 signout(() => {
                   history.push('/');
                 })
               }
             >
-              [ Signout ]
+              [ Exit ]
             </span>
           </li>
         </Fragment>

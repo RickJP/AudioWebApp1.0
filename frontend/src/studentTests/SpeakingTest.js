@@ -140,7 +140,7 @@ const SpeakingTest = (props) => {
       <Recorder taskNo={taskNo} trackNo={trackNo} classNo={classNo} studentNo={studentNo} userId={_id} audioFiles={testAudio} testLength={testLength}/>
       
       {player}
-      <br />
+      
       <FontAwesomeIcon
         icon={FAIcon}
         size={FAIconSize}

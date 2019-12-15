@@ -1,25 +1,31 @@
 a.task-btn {
   color: white;
   background: rgb(108, 154, 240);
-  height: 3rem;
+  height: 4.5rem;
   border: 0;
   text-align: center;
-  line-height: 3rem;
+  line-height: 4.5rem;
   text-decoration: none;
+  font-size: 1.5rem;
 }
 
 a.task-btn:hover {
   background: rgb(53, 93, 167);
 }
 
+.task-btn, .tasks-card  {
+  width: 300px;
+}
+.tasks-wrapper  {
+  width: 0;
+  margin: 5% 5% 10% 30%;
+}
 
 
 .container .wrapper {
   max-width: 20rem;
   min-width: 250px;
 }
-
-
 
 
 Link {
@@ -100,6 +106,20 @@ Link {
     min-width: 200px;
   }
 
+  .task-btn, .tasks-card  {
+    width: 300px;
+  }
+  .tasks-wrapper  {
+    width: 0;
+    margin: 0 0 8% 0;
+    padding: 0;
+  }
+
+
+  .container-home {
+    margin: 0;
+    padding: 0;
+  }
   
 
   .details p {

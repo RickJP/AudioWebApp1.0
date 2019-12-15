@@ -42,7 +42,7 @@ const Home = () => {
     <Layout
       title="Home"
       description="From Temple University"
-      className="container-fluid"
+      className="container-fluid container-home"
       showDetails={showDetails}
       jumboHeight={150}
       stopAtTrackNo={3}
