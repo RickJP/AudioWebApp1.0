@@ -69,7 +69,7 @@ const Menu = ({history}) => (
               style={isActive(history, '/admin/getRecordings')}
               to="/admin/getRecordings"
             >
-              Recordings
+              Audio
             </Link>
           </li>
         </Fragment>
