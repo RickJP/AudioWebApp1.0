@@ -197,7 +197,7 @@ export default class AdminDashboard extends Component {
     return (
       <Layout title="Dashboard" className="container-fluid" jumboHeight={20}>
         <div className="row dashboard">
-          <div className="col-7 user-info">{this.adminInfo()}</div>
+          <div className="col-8 user-info">{this.adminInfo()}</div>
           <div className="col-9">{this.controls()}</div>
           {!this.state.gotControls ? this.getControls() : null}
         </div>

@@ -59,7 +59,7 @@ const Menu = ({history}) => (
               style={isActive(history, '/admin/listOfStudents')}
               to="/admin/listOfStudents"
             >
-              List of Students
+              List
             </Link>
           </li>
 
@@ -69,7 +69,7 @@ const Menu = ({history}) => (
               style={isActive(history, '/admin/getRecordings')}
               to="/admin/getRecordings"
             >
-              Get Recordings
+              Recordings
             </Link>
           </li>
         </Fragment>

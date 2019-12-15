@@ -4,9 +4,11 @@ a.task-btn {
   height: 3rem;
   border: 0;
   text-align: center;
-  line-height: 3rem;
+  line-height: 4.5rem;
   text-decoration: none;
-  
+  width: 300px;
+  height: 70px;
+  font-size: 1.5rem;
 }
 
 a.task-btn:hover {
@@ -19,12 +21,52 @@ a.task-btn:hover {
   max-width: 20rem;
 }
 
+.container {
+  width: 50%;
+  margin: 0;
+  align-items: center;
+}
 
+.wrapper {
+  width: 0;
+}
 
+@media (max-width: 420px) {
+  .details p {
+    font-size: 0.2em;
+  }
+
+  .jumbotron.jumbotron-fluid {
+    height: 170px !important;
+  }
+
+  .column .citation-info {
+    margin-left: 0px;
+    width: 140px;
+  }
+
+  /* .task-btn-container .wrapper {
+    width: 240px;
+  }
+
+  .task-btn-container.container {
+    margin: 40px;
+    padding-top: 50px;
+  } */
+
+  .container-fluid {
+    margin-right: 100px;
+  }
+  .container {
+    margin-top: 100px;
+  }
+
+}
 
 Link {
   color: white;
 }
+
 .v-center {
   margin: 0;
   position: absolute;
@@ -33,10 +75,10 @@ Link {
   transform: translateY(-50%);
 }
 
- .jumbotron {
-  border-radius: 6px ;
+.jumbotron {
+  border-radius: 6px;
   /* max-height: 230px; */
-  
+
 }
 
 .details {
@@ -67,7 +109,8 @@ Link {
   width: 150px;
 }
 
-.contact-info p, .citation-info p {
+.contact-info p,
+.citation-info p {
   margin: 6px;
 }
 
@@ -83,4 +126,3 @@ Link {
 .citation {
   margin: 10px;
 }
-

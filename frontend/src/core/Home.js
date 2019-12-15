@@ -66,7 +66,7 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="card p-0 pt-3">
+          <div className="card p-0 pt-5">
             <Link
               to={{pathname: '/user/test', 
               state: {taskNo: 2, audioFiles, tasks},

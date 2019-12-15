@@ -124,7 +124,7 @@ form p {
 }
 
 .container{
-  max-width:500px;
+  max-width:50px;
   margin:0 auto;/*make it centered*/
 }
 
@@ -160,7 +160,7 @@ form p {
   }
 
   .user-info {
-    margin: 0px 0px 0px 35px;
+    margin: 0px 0px 0px 15px;
   }
 }
 
